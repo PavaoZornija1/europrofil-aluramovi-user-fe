@@ -22,7 +22,7 @@ function Rams() {
             moguće je postaviti samo dve šarke po jednom aluminijumskom frontu!
           </p>
         </div>
-        <div className="mx-16 min-h-screen text-black pb-32">
+        <div className="mx-2 md:mx-16 min-h-screen text-black pb-32">
           <div className="flex-wrap gap-16 mx-auto flex justify-center">
             {data.map((item, i) => {
               return <RamItem id={i} name={item.name} />;
