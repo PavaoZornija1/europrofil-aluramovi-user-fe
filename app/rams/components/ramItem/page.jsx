@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 function RamItem(props) {
   return (
@@ -13,9 +14,13 @@ function RamItem(props) {
       >
         detaljnije
       </a>
-      <div className="bg-blue-100 h-[250px] w-[250px] flex justify-center items-center border mb-4">
-        slika
-      </div>
+      <Image
+        src={`/images/${props.name.replace("/", "q")} app.jpeg`}
+        alt="ram"
+        width={250}
+        height={250}
+        className="bg-blue-100 h-[250px] w-[250px] flex justify-center items-center border mb-4"
+      />
       <h2 className="font-semibold mb-4">{props.name}</h2>
       <div className="flex gap-12 border-t pt-2">
         <p>Tehnički crtež</p>
