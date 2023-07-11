@@ -25,6 +25,7 @@ function Rams() {
         <div className="mx-2 md:mx-16 min-h-screen text-black pb-32">
           <div className="flex-wrap gap-16 mx-auto flex justify-center">
             {data.map((item, i) => {
+              // eslint-disable-next-line react/jsx-key
               return <RamItem id={i} key={i} name={item.name} />;
             })}
           </div>
