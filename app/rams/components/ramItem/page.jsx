@@ -15,7 +15,7 @@ function RamItem(props) {
         detaljnije
       </a>
       <Image
-        src={`/images/${props.name.replace("/", "q")} app.jpeg`}
+        src={`/images/${props.name?.replace("/", "q")} app.jpeg`}
         alt="ram"
         width={250}
         height={250}
