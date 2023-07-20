@@ -25,15 +25,20 @@ export const AuthProvider = ({ children }) => {
     reducer,
     initialState
   );
-  const login = async (username, password) => {
-    const response = await axios.post(`${Config.baseURL}/api/auth/login`, {
-      username: username,
-      password: password,
-    });
-    if (response.data) {
-      dispatch({ type: "login", payload: username });
-    }
+  // const login = async (username, password) => {
+  //   const response = await axios.post(`${Config.baseURL}/api/auth/login`, {
+  //     username: username,
+  //     password: password,
+  //   });
+  //   if (response.data) {
+  //     dispatch({ type: "login", payload: username });
+  //   }
+  // };
+
+  const login = () => {
+    dispatch({ type: "login", payload: "user" });
   };
+
   const logout = () => {
     dispatch({ type: "logout" });
   };

@@ -47,10 +47,10 @@ export default function Navbar() {
         >
           <ul className="m-14 flex min-h-[550px] flex-col items-center justify-center p-4 uppercase">
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
-              <Link href={"/mechanisms"}>Nova porudžbina</Link>
+              <Link href={"/rams"}>Nova porudžbina</Link>
             </li>
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
-              <Link href={"/previous-orders"}>Stara porudžbina</Link>
+              <Link href={"/rams"}>Stara porudžbina</Link>
             </li>
             <button
               onClick={handleLogout}
@@ -67,13 +67,13 @@ export default function Navbar() {
         {/* LINKOVI */}
         <div className="w-[33%] self-center p-2 py-5 text-black">
           <Link
-            href="/mechanisms"
+            href="/rams"
             className="mr-8 rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
           >
             Nova porudžbina
           </Link>
           <Link
-            href="/previous-orders"
+            href="/rams"
             className="rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
           >
             Stara porudžbina
