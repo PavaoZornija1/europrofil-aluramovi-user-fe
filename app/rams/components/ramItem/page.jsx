@@ -17,7 +17,7 @@ function RamItem(props) {
       </a>
       <Link href={`/rams/${props.id}?step=1`}>
         <Image
-          src={`/images/${props.name.replace("/", "q")} app.jpeg`}
+          src={`/images/${props.name?.replace("/", "q")} app.jpeg`}
           alt="ram"
           width={250}
           height={250}
