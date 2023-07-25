@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import FrontsPreview from "./components/frontsPreview/page";
-import OrientationsAndDimensions from "./components/orientationsAndDimensions/page";
+import Orientations from "./components/orientations/page";
+import Dimensions from "./components/dimensions/page";
 
 function Step2() {
   const [frontsData, setFrontsData] = useState([
@@ -127,15 +128,14 @@ function Step2() {
           Orijentacija i dimenzije
         </h2>
         <div className="grid grid-cols-2 gap-16 p-8">
-          <OrientationsAndDimensions
-            frontsData={frontsData}
+          <Orientations
             activeFrontId={activeFrontId}
             orientationData={orientationData}
             activeOrientation={activeOrientation}
             setActiveOrientation={setActiveOrientation}
             updateOrientation={updateOrientation}
           />
-          <div className="border border-red-700"></div>
+          <Dimensions />
         </div>
       </div>
     </div>
