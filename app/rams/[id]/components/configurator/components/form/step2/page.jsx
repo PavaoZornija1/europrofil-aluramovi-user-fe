@@ -39,8 +39,6 @@ function Step2() {
       if (id === activeFront) {
         return { ...obj, orientation: newOrientation };
       }
-
-      // 👇️ otherwise return the object as is
       return obj;
     });
 
@@ -108,8 +106,6 @@ function Step2() {
     }
   };
 
-  console.log(frontsData);
-
   return (
     <div className="gap-8 w-full">
       <FrontsPreview
@@ -127,7 +123,7 @@ function Step2() {
         <h2 className="text-xl font-semibold uppercase tracking-wider text-black">
           Orijentacija i dimenzije
         </h2>
-        <div className="grid grid-cols-2 gap-16 p-8">
+        <div className="grid grid-cols-2 gap-32 p-8">
           <Orientations
             activeFrontId={activeFrontId}
             orientationData={orientationData}
@@ -135,7 +131,11 @@ function Step2() {
             setActiveOrientation={setActiveOrientation}
             updateOrientation={updateOrientation}
           />
-          <Dimensions />
+          <Dimensions
+            frontsData={frontsData}
+            setFrontsData={setFrontsData}
+            activeFrontId={activeFrontId}
+          />
         </div>
       </div>
     </div>

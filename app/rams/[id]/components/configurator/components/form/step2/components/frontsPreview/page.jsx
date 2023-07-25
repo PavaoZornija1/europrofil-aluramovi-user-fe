@@ -46,7 +46,9 @@ function FrontsPreview(props) {
             <Button
               key={`frontBtn-${id}`}
               className={
-                activeFrontId === id ? "bg-red-400 border border-red-500" : ""
+                activeFrontId === id
+                  ? "bg-green-400 border border-green-500"
+                  : ""
               }
               onClick={() => {
                 setActiveFrontId(id);
