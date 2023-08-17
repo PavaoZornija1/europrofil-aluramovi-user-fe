@@ -209,8 +209,14 @@ function Hinges(props) {
                 {frontsData[activeFrontId].hinges.centerDistanceOfHoles.map(
                   (hole, id) => {
                     return (
-                      <div key={id} className="flex justify-between">
-                        <label htmlFor={`hole-${id}`} className="text-lg">
+                      <div
+                        key={id}
+                        className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row"
+                      >
+                        <label
+                          htmlFor={`hole-${id}`}
+                          className="text-lg mb-2 2xl:mb-0"
+                        >
                           Centar {id + 1}. rupe od{" "}
                           {frontsData[activeFrontId].orientation === "Kip vrata"
                             ? "leve"

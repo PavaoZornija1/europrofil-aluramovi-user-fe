@@ -289,7 +289,7 @@ function Step2() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 mt-12 gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 mt-12 gap-16">
         <div className="flex flex-col gap-4">
           <Hinges
             frontsData={frontsData}
