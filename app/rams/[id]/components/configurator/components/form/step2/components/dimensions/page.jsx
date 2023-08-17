@@ -1,8 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
 function Dimensions(props) {
-  const { frontsData, setFrontsData, activeFrontId } = props;
+  const {
+    frontsData,
+    setFrontsData,
+    activeFrontId,
+    createCenterDistanceOfHolesArr,
+  } = props;
 
   const updateNumberOfPieces = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -38,6 +43,13 @@ function Dimensions(props) {
         return {
           ...obj,
           dimensions: { ...obj.dimensions, height: value },
+          hinges: {
+            ...obj.hinges,
+            centerDistanceOfHoles: createCenterDistanceOfHolesArr(
+              value,
+              frontsData[activeFront].hinges.numberOfHinges
+            ),
+          },
         };
       }
       return obj;
@@ -46,7 +58,6 @@ function Dimensions(props) {
     setFrontsData(updatedFrontsData);
   };
 
-  console.log(frontsData);
   return (
     <div className="flex flex-col gap-6 justify-center">
       <div className="flex justify-between border-b border-gray-300 pb-6">
