@@ -17,7 +17,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} `}>
+      <body className={`${roboto.className} overflow-x-hidden`}>
         <div className="flex flex-col bg-white min-h-screen">
           <AuthProvider>
             <ProtectedRoute>

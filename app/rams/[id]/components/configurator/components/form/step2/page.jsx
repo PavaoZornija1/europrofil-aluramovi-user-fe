@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import FrontsPreview from "./components/frontsPreview/page";
 import Orientations from "./components/orientations/page";
 import Dimensions from "./components/dimensions/page";
+import Hinges from "./components/hinges/page";
+import Handles from "./components/handles/page";
+import Sketch from "./components/sketch/page";
+import Locks from "./components/locks/page";
+import LiftingSystem from "./components/lifting -system/page";
 
 function Step2() {
   const [frontsData, setFrontsData] = useState([
@@ -12,6 +17,36 @@ function Step2() {
         width: "100",
         height: "100",
         numberOfPieces: "1",
+      },
+      hinges: {
+        hasHinge: false,
+        shouldMount: false,
+        activeOption: 0,
+        numberOfHinges: 2,
+        centerDistanceOfHoles: ["10", "90"],
+      },
+      handles: {
+        shouldDrillHoles: false,
+        shouldMountProfile: false,
+        activeOption: 0,
+        positionOption: 0,
+        wheelbaseOption: 0,
+        centerDistanceOfHole: ["3.8", "3.8"],
+        profileOption: 0,
+        profileLengthOption: 0,
+        profilePositionOption: 0,
+        profileLength: "25",
+        profileDistance: "0",
+      },
+      locks: {
+        activeOption: 0,
+        holeDiameter: "25",
+        centerDistanceOfHole: ["20", "2.4"],
+      },
+      liftingSystem: {
+        activeOption: 0,
+        activePositionOption: 0,
+        activeMechanismOption: 0,
       },
     },
   ]);
@@ -57,6 +92,36 @@ function Step2() {
             width: "100",
             height: "100",
             numberOfPieces: "1",
+          },
+          hinges: {
+            hasHinge: false,
+            shouldMount: false,
+            activeOption: 0,
+            numberOfHinges: 2,
+            centerDistanceOfHoles: ["10", "90"],
+          },
+          handles: {
+            shouldDrillHoles: false,
+            shouldMountProfile: false,
+            activeOption: 0,
+            positionOption: 0,
+            wheelbaseOption: 0,
+            centerDistanceOfHole: ["3.8", "3.8"],
+            profileOption: 0,
+            profileLengthOption: 0,
+            profilePositionOption: 0,
+            profileLength: "25",
+            profileDistance: "0",
+          },
+          locks: {
+            activeOption: 0,
+            holeDiameter: "25",
+            centerDistanceOfHole: ["20", "2.4"],
+          },
+          liftingSystem: {
+            activeOption: 0,
+            activePositionOption: 0,
+            activeMechanismOption: 0,
           },
         },
       ]);
@@ -106,6 +171,89 @@ function Step2() {
     }
   };
 
+  const roundToTwoDecimals = (num) => {
+    if (String(num).includes(".")) {
+      let stringNum = String(num).split(".");
+
+      let decimal = stringNum[1][2];
+
+      let finish;
+      if (decimal < 5) {
+        finish = stringNum[0] + "." + stringNum[1][0] + stringNum[1][1];
+      }
+      if (decimal > 5) {
+        let f_ = String(Number(stringNum[1][1]) + 1);
+        if (f_ == 10) {
+          let f__ = String(Number(stringNum[1][0]) + 1);
+          if (f__ == 10) {
+            let f___ = String(Number(stringNum[0]) + 1);
+            finish = f___ + "." + "00";
+          } else {
+            finish = stringNum[0] + "." + f__ + "0";
+          }
+        } else {
+          finish = stringNum[0] + "." + stringNum[1][0] + f_;
+        }
+      }
+      let check = false;
+      for (let i = 3; i < stringNum[1].length; i++) {
+        if (stringNum[1][i] > 0) {
+          check = true;
+        }
+      }
+      if (decimal == 5 && check) {
+        for (let i = 3; i < stringNum[1].length; i++) {
+          if (stringNum[1][i] > 0) {
+            let f_ = String(Number(stringNum[1][1]) + 1);
+            if (f_ == 10) {
+              let f__ = String(Number(stringNum[1][0]) + 1);
+              if (f__ == 10) {
+                let f___ = String(Number(stringNum[0]) + 1);
+                finish = f___ + "." + "00";
+              } else {
+                finish = stringNum[0] + "." + f__ + "0";
+              }
+            } else {
+              finish = stringNum[0] + "." + stringNum[1][0] + f_;
+            }
+            break;
+          }
+        }
+      }
+      if (decimal == 5 && stringNum[1].length == 3) {
+        if (Number(stringNum[1][1] % 2 == 0)) {
+          finish = stringNum[0] + "." + stringNum[1][0] + stringNum[1][1];
+        } else {
+          let f_ = String(Number(stringNum[1][1]) + 1);
+          if (f_ == 10) {
+            let f__ = String(Number(stringNum[1][0]) + 1);
+            if (f__ == 10) {
+              let f___ = String(Number(stringNum[0]) + 1);
+              finish = f___ + "." + "00";
+            } else {
+              finish = stringNum[0] + "." + f__ + "0";
+            }
+          } else {
+            finish = stringNum[0] + "." + stringNum[1][0] + f_;
+          }
+        }
+      }
+      return finish;
+    } else {
+      return `${num}`;
+    }
+  };
+
+  const createCenterDistanceOfHolesArr = (height, numOfItems) => {
+    const newDistancesArray = [];
+
+    for (let i = 0; i < Number(numOfItems); i++) {
+      let a = 10 + ((Number(height) - 20) / Number(numOfItems - 1)) * i;
+      newDistancesArray.push(roundToTwoDecimals(a));
+    }
+    return newDistancesArray;
+  };
+
   return (
     <div className="gap-8 w-full">
       <FrontsPreview
@@ -119,7 +267,8 @@ function Step2() {
         activeOrientation={activeOrientation}
         setActiveOrientation={setActiveOrientation}
       />
-      <div className="relative w-full self-start rounded-lg p-3 shadow-md shadow-gray-500 mt-8">
+
+      <div className="relative w-full self-start rounded-lg shadow-md shadow-gray-500 mt-8 p-6">
         <h2 className="text-xl font-semibold uppercase tracking-wider text-black">
           Orijentacija i dimenzije
         </h2>
@@ -135,8 +284,40 @@ function Step2() {
             frontsData={frontsData}
             setFrontsData={setFrontsData}
             activeFrontId={activeFrontId}
+            createCenterDistanceOfHolesArr={createCenterDistanceOfHolesArr}
           />
         </div>
+      </div>
+
+      <div className="grid grid-cols-2 mt-12 gap-16">
+        <div className="flex flex-col gap-4">
+          <Hinges
+            frontsData={frontsData}
+            setFrontsData={setFrontsData}
+            activeFrontId={activeFrontId}
+            createCenterDistanceOfHolesArr={createCenterDistanceOfHolesArr}
+          />
+          <Handles
+            frontsData={frontsData}
+            setFrontsData={setFrontsData}
+            activeFrontId={activeFrontId}
+          />
+          {frontsData[activeFrontId].orientation === "Leva vrata" ||
+          frontsData[activeFrontId].orientation === "Desna vrata" ? (
+            <Locks
+              frontsData={frontsData}
+              setFrontsData={setFrontsData}
+              activeFrontId={activeFrontId}
+            />
+          ) : (
+            <LiftingSystem
+              frontsData={frontsData}
+              setFrontsData={setFrontsData}
+              activeFrontId={activeFrontId}
+            />
+          )}
+        </div>
+        <Sketch frontsData={frontsData} activeFrontId={activeFrontId} />
       </div>
     </div>
   );
