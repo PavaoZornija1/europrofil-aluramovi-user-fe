@@ -60,10 +60,10 @@ function Dimensions(props) {
 
   return (
     <div className="flex flex-col gap-6 justify-center">
-      <div className="flex justify-between border-b border-gray-300 pb-6">
+      <div className="flex justify-between border-b border-gray-300 pb-6 flex-col sm:flex-row">
         <label
           htmlFor="numberOfPieces"
-          className="mr-8 inline text-xl text-black sm:block"
+          className="mr-8 inline text-xl text-black sm:block mb-2 sm:mb-0"
         >
           Broj komada:
         </label>
@@ -82,10 +82,10 @@ function Dimensions(props) {
           </span>
         </div>
       </div>
-      <div className="flex justify-between border-b border-gray-300 pb-4">
+      <div className="flex justify-between border-b border-gray-300 pb-4 flex-col sm:flex-row">
         <label
           htmlFor="width"
-          className="mr-8 inline text-xl text-black sm:block"
+          className="mr-8 inline text-xl text-black sm:block mb-2 sm:mb-0"
         >
           Širina:
         </label>
@@ -102,10 +102,10 @@ function Dimensions(props) {
           </span>
         </div>
       </div>
-      <div className="flex justify-between ">
+      <div className="flex justify-between flex-col sm:flex-row">
         <label
           htmlFor="height"
-          className="mr-8 inline text-xl text-black sm:block"
+          className="mr-8 inline text-xl text-black sm:block mb-2 sm:mb-0"
         >
           Visina:
         </label>

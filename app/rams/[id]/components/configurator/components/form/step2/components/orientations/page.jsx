@@ -14,7 +14,7 @@ function OrientationsAndDimensions(props) {
   } = props;
 
   return (
-    <div className="grid grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-16 xl:gap-2 lg:gap-32 sm:gap-2">
       {orientationData.map((item, id) => {
         return (
           <div
@@ -23,7 +23,7 @@ function OrientationsAndDimensions(props) {
               activeOrientation === id
                 ? "bg-blue-50 border border-blue-400 hover:border-blue-400"
                 : ""
-            } aspect-square flex flex-col gap-4 items-center hover:border hover:border-gray-400 cursor-pointer`}
+            } sm:aspect-square flex flex-col gap-4 items-center hover:border hover:border-gray-400 cursor-pointer`}
             onClick={() => {
               setActiveOrientation(id);
               updateOrientation(activeFrontId, item.name);

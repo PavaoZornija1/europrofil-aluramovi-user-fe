@@ -115,8 +115,8 @@ function Locks(props) {
         </div>
         {frontsData[activeFrontId].locks.activeOption === 1 && (
           <div className="ml-6 my-2">
-            <div className="flex justify-between mb-2 mt-2">
-              <label htmlFor={`precnikRupe`} className="text-lg">
+            <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+              <label htmlFor={`precnikRupe`} className="text-lg mb-2 2xl:mb-0">
                 Precnik rupe
               </label>
               <input
@@ -130,8 +130,8 @@ function Locks(props) {
               />
             </div>
 
-            <div className="flex justify-between mb-2 mt-2">
-              <label htmlFor={`crodsi`} className="text-lg">
+            <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+              <label htmlFor={`crodsi`} className="text-lg mb-2 2xl:mb-0">
                 Centar rupe od donje spoljne ivice
               </label>
               <input
@@ -145,8 +145,8 @@ function Locks(props) {
               />
             </div>
 
-            <div className="flex justify-between mb-2 mt-2">
-              <label htmlFor={`croddsi`} className="text-lg">
+            <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+              <label htmlFor={`croddsi`} className="text-lg mb-2 2xl:mb-0">
                 Centar rupe od desne spoljne ivice
               </label>
               <input

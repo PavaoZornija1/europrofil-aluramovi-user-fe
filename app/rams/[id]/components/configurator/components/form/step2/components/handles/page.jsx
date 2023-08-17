@@ -321,8 +321,8 @@ function Handles(props) {
               </select>
             </div>
 
-            <div className="flex justify-between mb-2 mt-2">
-              <label htmlFor={`firstHole`} className="text-lg">
+            <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+              <label htmlFor={`firstHole`} className="text-lg mb-2 2xl:mb-0">
                 Centar prve rupe od desne spoljne ivice
               </label>
               <input
@@ -338,8 +338,8 @@ function Handles(props) {
               />
             </div>
 
-            <div className="flex justify-between">
-              <label htmlFor={`secondHole`} className="text-lg">
+            <div className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row">
+              <label htmlFor={`secondHole`} className="text-lg mb-2 2xl:mb-0">
                 Centar prve rupe od gornje spoljne ivice
               </label>
               <input
@@ -540,76 +540,13 @@ function Handles(props) {
               ""
             )}
 
-            {/* 
-            {frontsData[activeFrontId].handles.profileLengthOption === 0 &&
-            frontsData[activeFrontId].handles.profileOption > 0 ? (
-              <div className="mb-4">
-                <label htmlFor="polozaj" className="text-lg mr-8">
-                  Polozaj
-                </label>
-                <select
-                  id="polozaj"
-                  className="border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={
-                    frontsData[activeFrontId].handles.profilePositionOption
-                  }
-                  onChange={(e) => {
-                    updateProfilePositionOption(activeFrontId, e.target.value);
-                  }}
-                >
-                  <option value="0">Duz desne ivice</option>
-                  <option value="1">Duz gornje ivice</option>
-                  <option value="2">Duz donje ivice</option>
-                </select>
-              </div>
-            ) : frontsData[activeFrontId].orientation === "Kip vrata" ? (
-              <div className="mb-4">
-                <label htmlFor="polozaj" className="text-lg mr-8">
-                  Polozaj
-                </label>
-                <select
-                  id="polozaj"
-                  className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={
-                    frontsData[activeFrontId].handles.profilePositionOption
-                  }
-                  onChange={(e) => {
-                    updateProfilePositionOption(activeFrontId, e.target.value);
-                  }}
-                >
-                  <option value="0">Duz donje ivice, u levoj zoni</option>
-                  <option value="1">Duz donje ivice, centrirano</option>
-                  <option value="2">Duz donje ivice, u desnoj zoni</option>
-                </select>
-              </div>
-            ) : (
-              <div className="mb-4">
-                <label htmlFor="polozaj" className="text-lg mr-8">
-                  Polozaj
-                </label>
-                <select
-                  id="polozaj"
-                  className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={
-                    frontsData[activeFrontId].handles.profilePositionOption
-                  }
-                  onChange={(e) => {
-                    updateProfilePositionOption(activeFrontId, e.target.value);
-                  }}
-                >
-                  <option value="0">Duz gornje ivice</option>
-                  <option value="1">Duz donje ivice</option>
-                  <option value="2">Duz desne ivice, u gornjoj zoni</option>
-                  <option value="3">Duz desne ivice, centrirano</option>
-                  <option value="4">Duz desne ivice, u donjoj zoni</option>
-                </select>
-              </div>
-            )} */}
-
             {frontsData[activeFrontId].handles.profileLengthOption === 1 && (
               <div>
-                <div className="flex justify-between mb-2 mt-2">
-                  <label htmlFor={`startEdge`} className="text-lg">
+                <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+                  <label
+                    htmlFor={`startEdge`}
+                    className="text-lg mb-2 2xl:mb-0"
+                  >
                     Pocetak u odnosu na levu spoljnu ivicu
                   </label>
                   <input
@@ -622,8 +559,11 @@ function Handles(props) {
                     className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
                   />
                 </div>
-                <div className="flex justify-between mb-2 mt-2">
-                  <label htmlFor={`lengthOfProfile`} className="text-lg">
+                <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+                  <label
+                    htmlFor={`lengthOfProfile`}
+                    className="text-lg mb-2 2xl:mb-0"
+                  >
                     Duzina profila rucice
                   </label>
                   <input

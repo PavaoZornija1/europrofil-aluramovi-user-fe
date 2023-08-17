@@ -272,7 +272,7 @@ function Step2() {
         <h2 className="text-xl font-semibold uppercase tracking-wider text-black">
           Orijentacija i dimenzije
         </h2>
-        <div className="grid grid-cols-2 gap-32 p-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-32 p-8">
           <Orientations
             activeFrontId={activeFrontId}
             orientationData={orientationData}
@@ -289,7 +289,7 @@ function Step2() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 mt-12 gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 mt-12 gap-16">
         <div className="flex flex-col gap-4">
           <Hinges
             frontsData={frontsData}
