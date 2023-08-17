@@ -42,11 +42,11 @@ function Sketch(props) {
   ];
 
   return (
-    <div className="relative w-full self-start rounded-lg shadow-md shadow-gray-500 p-6 overflow-hidden">
+    <div className="relative w-full self-start rounded-lg shadow-md shadow-gray-500 md:p-6 px-4 py-6 overflow-hidden">
       <h2 className="text-xl font-semibold uppercase tracking-wider text-black">
         Tehnicki crtez
       </h2>
-      <div className="py-4 px-8">
+      <div className="md:py-4 md:px-8 lg:py-0 lg:px-0 2xl:py-4 2xl:px-8">
         <div className="aspect-square w-full flex justify-center items-center">
           <div className="w-full grid grid-cols-[30px_1fr_30px] grid-rows-[30px_1fr] gap-1">
             <div
