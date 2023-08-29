@@ -11,7 +11,7 @@ function HingesRenderer(props) {
         top: "0",
         left:
           frontsData[activeFrontId].orientation === "Desna vrata"
-            ? `calc(100% - ${(100 / dimensions.h) * 3.5 + "%"})`
+            ? `calc(100% - ${(1000 / dimensions.h) * 3.5 + "%"})`
             : "0px",
         height: "100%",
         width:
@@ -30,15 +30,15 @@ function HingesRenderer(props) {
                 frontsData[activeFrontId].orientation === "Kip vrata"
                   ? "auto"
                   : `calc(${(100 / dimensions.h) * holeDistance + "%"} - ${
-                      ((100 / dimensions.h) * 3.5) / 2 + "%"
+                      ((1000 / dimensions.h) * 3.5) / 2 + "%"
                     })`,
               left:
                 frontsData[activeFrontId].orientation === "Kip vrata"
                   ? `calc(${(100 / dimensions.h) * holeDistance + "%"} - ${
-                      ((100 / dimensions.h) * 3.5) / 2 + "%"
+                      ((1000 / dimensions.h) * 3.5) / 2 + "%"
                     })`
                   : "auto",
-              height: (100 / dimensions.h) * 3.5 + "%",
+              height: (1000 / dimensions.h) * 3.5 + "%",
             }}
             className="border border-gray-800 aspect-square rounded-full bg-white"
           ></div>

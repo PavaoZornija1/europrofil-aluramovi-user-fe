@@ -221,7 +221,7 @@ function Hinges(props) {
                           {frontsData[activeFrontId].orientation === "Kip vrata"
                             ? "leve"
                             : "donje"}{" "}
-                          spoljne ivice
+                          spoljne ivice (mm)
                         </label>
                         <input
                           type="text"

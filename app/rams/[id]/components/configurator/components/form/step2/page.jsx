@@ -14,8 +14,8 @@ function Step2() {
     {
       orientation: "Leva vrata",
       dimensions: {
-        width: "100",
-        height: "100",
+        width: "1000",
+        height: "1000",
         numberOfPieces: "1",
       },
       hinges: {
@@ -23,7 +23,7 @@ function Step2() {
         shouldMount: false,
         activeOption: 0,
         numberOfHinges: 2,
-        centerDistanceOfHoles: ["10", "90"],
+        centerDistanceOfHoles: ["100", "900"],
       },
       handles: {
         shouldDrillHoles: false,
@@ -31,17 +31,17 @@ function Step2() {
         activeOption: 0,
         positionOption: 0,
         wheelbaseOption: 0,
-        centerDistanceOfHole: ["3.8", "3.8"],
+        centerDistanceOfHole: ["38", "38"],
         profileOption: 0,
         profileLengthOption: 0,
         profilePositionOption: 0,
-        profileLength: "25",
+        profileLength: "250",
         profileDistance: "0",
       },
       locks: {
         activeOption: 0,
-        holeDiameter: "25",
-        centerDistanceOfHole: ["20", "2.4"],
+        holeDiameter: "250",
+        centerDistanceOfHole: ["200", "24"],
       },
       liftingSystem: {
         activeOption: 0,
@@ -89,8 +89,8 @@ function Step2() {
         {
           orientation: "Leva vrata",
           dimensions: {
-            width: "100",
-            height: "100",
+            width: "1000",
+            height: "1000",
             numberOfPieces: "1",
           },
           hinges: {
@@ -98,7 +98,7 @@ function Step2() {
             shouldMount: false,
             activeOption: 0,
             numberOfHinges: 2,
-            centerDistanceOfHoles: ["10", "90"],
+            centerDistanceOfHoles: ["100", "900"],
           },
           handles: {
             shouldDrillHoles: false,
@@ -106,17 +106,17 @@ function Step2() {
             activeOption: 0,
             positionOption: 0,
             wheelbaseOption: 0,
-            centerDistanceOfHole: ["3.8", "3.8"],
+            centerDistanceOfHole: ["38", "38"],
             profileOption: 0,
             profileLengthOption: 0,
             profilePositionOption: 0,
-            profileLength: "25",
+            profileLength: "250",
             profileDistance: "0",
           },
           locks: {
             activeOption: 0,
-            holeDiameter: "25",
-            centerDistanceOfHole: ["20", "2.4"],
+            holeDiameter: "250",
+            centerDistanceOfHole: ["200", "24"],
           },
           liftingSystem: {
             activeOption: 0,
@@ -248,7 +248,7 @@ function Step2() {
     const newDistancesArray = [];
 
     for (let i = 0; i < Number(numOfItems); i++) {
-      let a = 10 + ((Number(height) - 20) / Number(numOfItems - 1)) * i;
+      let a = 100 + ((Number(height) - 200) / Number(numOfItems - 1)) * i;
       newDistancesArray.push(roundToTwoDecimals(a));
     }
     return newDistancesArray;

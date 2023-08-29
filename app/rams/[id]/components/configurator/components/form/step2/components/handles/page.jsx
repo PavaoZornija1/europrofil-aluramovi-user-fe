@@ -301,21 +301,21 @@ function Handles(props) {
                   updateWheelbaseOption(activeFrontId, e.target.value);
                 }}
               >
-                <option value="0">3.2 cm</option>
-                <option value="1">6.4 cm</option>
-                <option value="2">9.6 cm</option>
-                <option value="3">12.8 cm</option>
-                <option value="4">16.0 cm</option>
-                <option value="5">19.2 cm</option>
-                <option value="6">22.4 cm</option>
-                <option value="7">25.6 cm</option>
-                <option value="8">28.2 cm</option>
-                <option value="9">32.0 cm</option>
-                <option value="10">35.2 cm</option>
-                <option value="11">38.4 cm</option>
-                <option value="12">41.6 cm</option>
-                <option value="13">44.8 cm</option>
-                <option value="14">48.0 cm</option>
+                <option value="0">32 mm</option>
+                <option value="1">64 mm</option>
+                <option value="2">96 mm</option>
+                <option value="3">128 mm</option>
+                <option value="4">160 mm</option>
+                <option value="5">192 mm</option>
+                <option value="6">224 mm</option>
+                <option value="7">256 mm</option>
+                <option value="8">282 mm</option>
+                <option value="9">320 mm</option>
+                <option value="10">352 mm</option>
+                <option value="11">384 mm</option>
+                <option value="12">416 mm</option>
+                <option value="13">448 mm</option>
+                <option value="14">480 mm</option>
                 <option value="15">Samo jedna rupa (dugme rucica)</option>
                 <option value="16">Rucni unos osnog rastojanja</option>
               </select>
@@ -323,7 +323,7 @@ function Handles(props) {
 
             <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
               <label htmlFor={`firstHole`} className="text-lg mb-2 2xl:mb-0">
-                Centar prve rupe od desne spoljne ivice
+                Centar prve rupe od desne spoljne ivice (mm)
               </label>
               <input
                 type="text"
@@ -340,7 +340,7 @@ function Handles(props) {
 
             <div className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row">
               <label htmlFor={`secondHole`} className="text-lg mb-2 2xl:mb-0">
-                Centar prve rupe od gornje spoljne ivice
+                Centar prve rupe od gornje spoljne ivice (mm)
               </label>
               <input
                 type="text"

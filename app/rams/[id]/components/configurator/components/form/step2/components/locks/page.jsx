@@ -132,7 +132,7 @@ function Locks(props) {
 
             <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
               <label htmlFor={`crodsi`} className="text-lg mb-2 2xl:mb-0">
-                Centar rupe od donje spoljne ivice
+                Centar rupe od donje spoljne ivice (mm)
               </label>
               <input
                 type="text"
@@ -147,7 +147,7 @@ function Locks(props) {
 
             <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
               <label htmlFor={`croddsi`} className="text-lg mb-2 2xl:mb-0">
-                Centar rupe od desne spoljne ivice
+                Centar rupe od desne spoljne ivice (mm)
               </label>
               <input
                 type="text"
