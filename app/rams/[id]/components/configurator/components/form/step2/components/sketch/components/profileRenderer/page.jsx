@@ -43,7 +43,7 @@ function ProfileRenderer(props) {
               case 2:
                 setTop(
                   `calc(0% + ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(
                         frontsData[activeFrontId].handles.profileDistance
                       ) +
@@ -54,7 +54,7 @@ function ProfileRenderer(props) {
               case 3:
                 setTop(
                   `calc(50% - ${
-                    ((100 / dimensions.h) *
+                    ((1000 / dimensions.h) *
                       Number(frontsData[activeFrontId].handles.profileLength)) /
                       2 +
                     "%"
@@ -64,11 +64,11 @@ function ProfileRenderer(props) {
               case 4:
                 setTop(
                   `calc(100% - ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(frontsData[activeFrontId].handles.profileLength) +
                     "%"
                   } - ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(
                         frontsData[activeFrontId].handles.profileDistance
                       ) +
@@ -126,11 +126,11 @@ function ProfileRenderer(props) {
               case 1:
                 setLeft(
                   `calc(100% - ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(frontsData[activeFrontId].handles.profileLength) +
                     "%"
                   } - ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(
                         frontsData[activeFrontId].handles.profileDistance
                       ) +
@@ -149,7 +149,7 @@ function ProfileRenderer(props) {
               case 1:
                 setLeft(
                   `calc(0% + ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(
                         frontsData[activeFrontId].handles.profileDistance
                       ) +
@@ -166,7 +166,7 @@ function ProfileRenderer(props) {
               case 0:
                 setLeft(
                   `calc(0% + ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(
                         frontsData[activeFrontId].handles.profileDistance
                       ) +
@@ -177,7 +177,7 @@ function ProfileRenderer(props) {
               case 1:
                 setLeft(
                   `calc(50% - ${
-                    ((100 / dimensions.h) *
+                    ((1000 / dimensions.h) *
                       Number(frontsData[activeFrontId].handles.profileLength)) /
                       2 +
                     "%"
@@ -187,11 +187,11 @@ function ProfileRenderer(props) {
               case 2:
                 setLeft(
                   `calc(100% - ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(frontsData[activeFrontId].handles.profileLength) +
                     "%"
                   } - ${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(
                         frontsData[activeFrontId].handles.profileDistance
                       ) +
@@ -239,7 +239,7 @@ function ProfileRenderer(props) {
               default:
                 setHeight(
                   `calc(${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(frontsData[activeFrontId].handles.profileLength) +
                     "%"
                   })`
@@ -288,7 +288,7 @@ function ProfileRenderer(props) {
               case 1:
                 setWidth(
                   `calc(${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(frontsData[activeFrontId].handles.profileLength) +
                     "%"
                   })`
@@ -305,7 +305,7 @@ function ProfileRenderer(props) {
               default:
                 setWidth(
                   `calc(${
-                    (100 / dimensions.h) *
+                    (1000 / dimensions.h) *
                       Number(frontsData[activeFrontId].handles.profileLength) +
                     "%"
                   })`

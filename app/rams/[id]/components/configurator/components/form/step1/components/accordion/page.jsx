@@ -168,9 +168,9 @@ function Accordion(props) {
               </option>
               <option value="temperingGlass">Kaljenje stakla</option>
               <optgroup label="Fazetiranje">
-                <option value="faceting-0.5">Fazetiranje 0.5 cm</option>
-                <option value="faceting-1">Fazetiranje 1 cm</option>
-                <option value="faceting-1.5">Fazetiranje 1.5 cm</option>
+                <option value="faceting-0.5">Fazetiranje 5 mm</option>
+                <option value="faceting-1">Fazetiranje 10 mm</option>
+                <option value="faceting-1.5">Fazetiranje 15 mm</option>
               </optgroup>
               <optgroup label="Lepljenje folija">
                 <option value="protectiveFoil">

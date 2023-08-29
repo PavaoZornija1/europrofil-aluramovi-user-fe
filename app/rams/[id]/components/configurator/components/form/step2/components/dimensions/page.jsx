@@ -98,7 +98,7 @@ function Dimensions(props) {
             className="w-full border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
           />
           <span className="inline-flex items-center border border-l-0 border-gray-500 px-3 text-sm">
-            cm
+            mm
           </span>
         </div>
       </div>
@@ -118,7 +118,7 @@ function Dimensions(props) {
             className="w-full border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
           />
           <span className="inline-flex items-center border border-l-0 border-gray-500 px-3 text-sm">
-            cm
+            mm
           </span>
         </div>
       </div>

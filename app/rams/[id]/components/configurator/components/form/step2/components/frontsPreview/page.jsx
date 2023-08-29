@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Button from "@/app/UI/button/page";
+import Link from "next/link";
 
 function FrontsPreview(props) {
   const {
@@ -38,6 +39,9 @@ function FrontsPreview(props) {
         >
           Obrišite front
         </Button>
+        <Link href="/work-order-summary">
+          <Button>Pregled naloga</Button>
+        </Link>
       </div>
 
       <div className="flex justify-center gap-4 flex-wrap md:gap-8">
