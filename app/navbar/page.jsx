@@ -50,7 +50,7 @@ export default function Navbar() {
               <Link href={"/rams"}>Nova porudžbina</Link>
             </li>
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
-              <Link href={"/rams"}>Stara porudžbina</Link>
+              <Link href={"/previous-orders"}>Stara porudžbina</Link>
             </li>
             <button
               onClick={handleLogout}
@@ -73,7 +73,7 @@ export default function Navbar() {
             Nova porudžbina
           </Link>
           <Link
-            href="/rams"
+            href="/previous-orders"
             className="rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
           >
             Stara porudžbina
