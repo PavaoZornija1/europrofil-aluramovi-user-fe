@@ -14,6 +14,7 @@
     "eslint-config-next": "13.4.8",
     "js-cookie": "^3.0.5",
     "next": "13.4.8",
+    "pdfmake": "^0.2.7",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
