@@ -1,6 +1,9 @@
 "use client";
-// import { Config } from "@/config";
-// import axios from "axios";
+
+import { Config } from "@/config";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useReducer } from "react";
 
 const AuthContext = createContext();
@@ -25,26 +28,35 @@ export const AuthProvider = ({ children }) => {
     reducer,
     initialState
   );
-  // const login = async (username, password) => {
-  //   const response = await axios.post(`${Config.baseURL}/api/auth/login`, {
-  //     username: username,
-  //     password: password,
-  //   });
-  //   if (response.data) {
-  //     dispatch({ type: "login", payload: username });
-  //   }
-  // };
-
-  const login = () => {
-    dispatch({ type: "login", payload: "user" });
+  const router = useRouter();
+  const login = async (username, password) => {
+    const response = await axios.post(`${Config.baseURL}/api/auth/login`, {
+      username: username,
+      password: password,
+    });
+    if (response.data) {
+      Cookies.set("aluToken", response.data);
+      router.push("/");
+      dispatch({ type: "login", payload: username });
+    }
   };
 
   const logout = () => {
+    Cookies.remove("aluToken");
+    router.replace("/login");
     dispatch({ type: "logout" });
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        login,
+        logout,
+        token: Cookies.get("aluToken"),
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
