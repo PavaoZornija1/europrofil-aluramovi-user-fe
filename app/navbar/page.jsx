@@ -13,9 +13,8 @@ export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const { user, logout } = useAuth();
 
-  const handleLogout = () => {
-    logout();
-    router.push("/login");
+  const handleLogout = async () => {
+    await logout();
   };
 
   return (
