@@ -16,19 +16,19 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${roboto.className} overflow-x-hidden`}>
-        <div className="flex flex-col bg-white min-h-screen">
-          <AuthProvider>
+    <AuthProvider>
+      <html lang="en">
+        <body className={`${roboto.className} overflow-x-hidden`}>
+          <div className="flex flex-col bg-white min-h-screen">
             <ProtectedRoute>
               <div className="flex-grow">{children}</div>
             </ProtectedRoute>
-          </AuthProvider>
-          <div className="mt-14">
-            <Footer />
+            <div className="mt-14">
+              <Footer />
+            </div>
           </div>
-        </div>
-      </body>
-    </html>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
