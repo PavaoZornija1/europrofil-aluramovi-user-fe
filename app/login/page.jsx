@@ -1,6 +1,5 @@
 "use client";
 
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,9 +13,13 @@ export default function Login() {
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { login, token } = useAuth();
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (token) return router.push("/rams");
+  }, []);
 
   const togglePasswordVisibilty = () => {
     setShowPassword(!showPassword);
@@ -35,17 +38,14 @@ export default function Login() {
       setPasswordError("Invalid password");
       return;
     }
-
-    if (username && password) {
-      await login(username, password);
-    } else return;
-  };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/rams");
+    try {
+      if (username && password) {
+        await login(username, password);
+      }
+    } catch (error) {
+      throw new Error("Invalid credentials ", error);
     }
-  }, [isAuthenticated, router]);
+  };
 
   return (
     <div className=" m-auto my-10 h-full w-5/6 rounded-lg bg-gradient-to-tl from-[#11698E] to-slate-800 text-black shadow shadow-gray-500 sm:w-96">
