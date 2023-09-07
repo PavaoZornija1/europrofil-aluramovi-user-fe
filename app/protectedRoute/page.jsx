@@ -1,19 +1,18 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 import Login from "../login/page";
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { token } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
-  //   useEffect(() => {
-  //     if (!isAuthenticated) {
-  //       router.push("/login");
-  //     }
-  //   }, [isAuthenticated, router]);
-  return isAuthenticated ? children : <Login />;
+  useEffect(() => {
+    if (!token) return router.replace("/login");
+  }, [pathname, token]);
+  return <>{children}</>;
 };
 
 export default ProtectedRoute;
