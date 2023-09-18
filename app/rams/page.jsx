@@ -1,9 +1,23 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/page";
 import data from "./mockData";
 import RamItem from "./components/ramItem/page";
+import axios from "axios";
+import { Config } from "@/config";
+import { useParams } from "next/navigation";
 
 function Rams() {
+  const [rams, setRams] = useState([]);
+  useEffect(() => {
+    const response = async () => {
+      const res = await axios.get(`${Config.baseURL}/api/alu-profiles`);
+      setRams(res.data);
+      console.log(res.data);
+    };
+    response();
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -24,10 +38,11 @@ function Rams() {
         </div>
         <div className="mx-2 md:mx-16 min-h-screen text-black pb-32">
           <div className="flex-wrap gap-16 mx-auto flex justify-center">
-            {data.map((item, i) => {
-              // eslint-disable-next-line react/jsx-key
-              return <RamItem id={i} key={i} name={item.name} />;
-            })}
+            {rams.map((ram, i) => (
+              <React.Fragment key={i}>
+                <RamItem ram={ram} />
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </div>
