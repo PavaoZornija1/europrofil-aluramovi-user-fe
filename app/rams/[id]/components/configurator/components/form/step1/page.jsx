@@ -1,9 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { lastFinishData, fills } from "./mockData";
 import Accordion from "./components/accordion/page";
+import axios from "axios";
+import { Config } from "@/config";
 
-export default function Step1(props) {
+export default function Step1() {
+  const [fills, setFills] = useState([]);
+  useEffect(() => {
+    const getFills = async () => {
+      try {
+        const response = await axios.get(`${Config.baseURL}/api/alu-fills/`);
+        setFills(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    };
+    getFills();
+  }, []);
   return (
     <div className="w-full grid gap-8 grid-cols-1 lg:grid-cols-2">
       <div className="border border-sky-100 rounded-lg shadow-md shadow-gray-500 p-6">
