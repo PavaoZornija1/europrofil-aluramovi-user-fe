@@ -6,7 +6,7 @@ function RamItem(props) {
   const { ram } = props;
   return (
     <div
-      key={props.id}
+      key={ram.id}
       className="flex flex-col p-4 items-center rounded-md border shadow-lg transition-all duration-200 hover:shadow-2xl"
     >
       <a
