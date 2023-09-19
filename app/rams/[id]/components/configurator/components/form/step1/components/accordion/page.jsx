@@ -54,7 +54,7 @@ function Accordion(props) {
             ) : null}
           </div>
 
-          {item.inputRAL && index === activeIndex && (
+          {item.customColorAvailable && index === activeIndex && (
             <div className="ml-6 my-2">
               <label htmlFor={`ral${index}`} className="mr-2 block md:inline">
                 RAL kod za boju:
