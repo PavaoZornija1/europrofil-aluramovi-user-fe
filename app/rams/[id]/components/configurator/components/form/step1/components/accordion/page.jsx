@@ -22,111 +22,117 @@ function Accordion(props) {
 
   return (
     <div>
-      {items.map((item, index) => (
-        <div key={item.name} className="py-2">
-          <div className="flex items-center justify-between">
-            <div
-              className="flex items-center cursor-pointer"
-              onClick={() => {
-                handleClick(index);
-                handleNoFillChosen(true);
-              }}
-            >
-              <input
-                type="radio"
-                name={accordionFor}
-                id={`${accordionFor}${index}`}
-                className="mr-2 cursor-pointer"
-                onClick={() => {
-                  handleClick(index);
-                  handleNoFillChosen(true);
-                }}
-              />
-              <label
-                htmlFor={`${accordionFor}${index}`}
-                className="text-lg cursor-pointer"
-              >
-                {item.name}
-              </label>
-            </div>
-            {item.gallery ? (
-              <div className="hover:underline cursor-pointer">Gallery</div>
-            ) : null}
-          </div>
-
-          {item.customColorAvailable && index === activeIndex && (
-            <div className="ml-6 my-2">
-              <label htmlFor={`ral${index}`} className="mr-2 block md:inline">
-                RAL kod za boju:
-              </label>
-              <input
-                type="text"
-                name=""
-                id={`ral${index}`}
-                className=" border-2 focus:outline-none focus:border-black"
-              />
-            </div>
-          )}
-
-          {item?.options &&
-            index === activeIndex &&
-            item.options.map((option, optionId) => {
-              return (
-                <div key={optionId} className="py-1">
-                  <div className="flex items-center justify-between ml-6">
-                    <div
-                      className="flex items-center cursor-pointer"
-                      onClick={() => {
-                        handleSubfillClick(optionId);
-                      }}
-                    >
-                      <input
-                        type="radio"
-                        name={`${accordionFor}-subfills`}
-                        id={`${accordionFor}${optionId}-subfills`}
-                        className="mr-2 cursor-pointer"
-                        onClick={() => {
-                          handleSubfillClick(optionId);
-                        }}
-                      />
-                      <label
-                        htmlFor={`${accordionFor}${optionId}-subfills`}
-                        className="text-lg cursor-pointer"
-                      >
-                        {option.name}
-                      </label>
-                    </div>
-
-                    {option.gallery ? (
-                      <div className="hover:underline cursor-pointer">
-                        Gallery
-                      </div>
-                    ) : null}
-                  </div>
-
-                  {option.inputRAL &&
-                    index === activeIndex &&
-                    optionId === activeSubfillIndex && (
-                      <div className="ml-12 my-2">
-                        <label
-                          htmlFor={`ral${index}${optionId}`}
-                          className="mr-2 block md:inline"
-                        >
-                          RAL kod za boju:
-                        </label>
-                        <input
-                          type="text"
-                          name=""
-                          id={`ral${index}${optionId}`}
-                          className=" border-2 focus:outline-none focus:border-black"
-                        />
-                      </div>
-                    )}
+      {items.map(
+        (item, index) =>
+          !item.parentId && (
+            <div key={item.name} className="py-2">
+              <div className="flex items-center justify-between">
+                <div
+                  className="flex items-center cursor-pointer"
+                  onClick={() => {
+                    handleClick(index);
+                    handleNoFillChosen(true);
+                  }}
+                >
+                  <input
+                    type="radio"
+                    name={accordionFor}
+                    id={`${accordionFor}${index}`}
+                    className="mr-2 cursor-pointer"
+                    onClick={() => {
+                      handleClick(index);
+                      handleNoFillChosen(true);
+                    }}
+                  />
+                  <label
+                    htmlFor={`${accordionFor}${index}`}
+                    className="text-lg cursor-pointer"
+                  >
+                    {item.name}
+                  </label>
                 </div>
-              );
-            })}
-        </div>
-      ))}
+                {item.gallery ? (
+                  <div className="hover:underline cursor-pointer">Gallery</div>
+                ) : null}
+              </div>
+
+              {item.customColorAvailable && index === activeIndex && (
+                <div className="ml-6 my-2">
+                  <label
+                    htmlFor={`ral${index}`}
+                    className="mr-2 block md:inline"
+                  >
+                    RAL kod za boju:
+                  </label>
+                  <input
+                    type="text"
+                    name=""
+                    id={`ral${index}`}
+                    className=" border-2 focus:outline-none focus:border-black"
+                  />
+                </div>
+              )}
+
+              {item?.children &&
+                index === activeIndex &&
+                item.children.map((option, optionId) => {
+                  return (
+                    <div key={optionId} className="py-1">
+                      <div className="flex items-center justify-between ml-6">
+                        <div
+                          className="flex items-center cursor-pointer"
+                          onClick={() => {
+                            handleSubfillClick(optionId);
+                          }}
+                        >
+                          <input
+                            type="radio"
+                            name={`${accordionFor}-subfills`}
+                            id={`${accordionFor}${optionId}-subfills`}
+                            className="mr-2 cursor-pointer"
+                            onClick={() => {
+                              handleSubfillClick(optionId);
+                            }}
+                          />
+                          <label
+                            htmlFor={`${accordionFor}${optionId}-subfills`}
+                            className="text-lg cursor-pointer"
+                          >
+                            {option.name}
+                          </label>
+                        </div>
+
+                        {option.gallery ? (
+                          <div className="hover:underline cursor-pointer">
+                            Gallery
+                          </div>
+                        ) : null}
+                      </div>
+
+                      {option.inputRAL &&
+                        index === activeIndex &&
+                        optionId === activeSubfillIndex && (
+                          <div className="ml-12 my-2">
+                            <label
+                              htmlFor={`ral${index}${optionId}`}
+                              className="mr-2 block md:inline"
+                            >
+                              RAL kod za boju:
+                            </label>
+                            <input
+                              type="text"
+                              name=""
+                              id={`ral${index}${optionId}`}
+                              className=" border-2 focus:outline-none focus:border-black"
+                            />
+                          </div>
+                        )}
+                    </div>
+                  );
+                })}
+            </div>
+          )
+      )}
       {accordionFor === "fills" && (
         <div
           className="flex items-center cursor-pointer"
