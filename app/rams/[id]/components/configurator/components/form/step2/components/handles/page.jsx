@@ -1,8 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import { Config } from "@/config";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 function Handles(props) {
   const { frontsData, setFrontsData, activeFrontId } = props;
+  const [aluHandles, setAluHandles] = useState([]);
+  const [handle, setHandle] = useState("");
+
+  useEffect(() => {
+    const response = async () => {
+      const res = await axios.get(`${Config.baseURL}/api/alu-handle-profiles`);
+      setAluHandles(res.data);
+    };
+    response();
+  }, []);
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -110,9 +122,9 @@ function Handles(props) {
           },
         };
       }
+
       return obj;
     });
-
     setFrontsData(updatedFrontsData);
   };
 
@@ -364,23 +376,19 @@ function Handles(props) {
               </label>
               <select
                 id="profiless"
-                value={frontsData[activeFrontId].handles.profileOption}
-                onChange={(e) => {
-                  updateProfileOption(activeFrontId, Number(e.target.value));
-                }}
+                // value={frontsData[activeFrontId].handles.profileOption}
+                value={handle}
+                // onChange={(e) => {
+                //   updateProfileOption(activeFrontId, Number(e.target.value));
+                // }}
+                onChange={(e) => setHandle(e.target.value)}
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
               >
-                <option value="0">- Izaberite profil -</option>
-                <option value="1">RU 5025, TCH - Tamni choco</option>
-                <option value="2">RU 5025, ANT - Antracit</option>
-                <option value="3">RU 5025, CH - Chocco</option>
-                <option value="4">RU 5025, Plastifikacija spec. efekat</option>
-                <option value="5">RU 5025, SM - Srebro Mat</option>
-                <option value="6">RU Brusena Bronza Mat - BBM</option>
-                <option value="7">RU 5025</option>
-                <option value="8">RU 1013 CS</option>
-                <option value="9">RU 1013 CS, SM - Srebro Mat</option>
-                <option value="10">RU 1013 CS, PL - Plastifikacija Mat</option>
+                {aluHandles.map((handle) => (
+                  <option value={handle.name} key={handle.id}>
+                    {handle.name}
+                  </option>
+                ))}
               </select>
             </div>
 
