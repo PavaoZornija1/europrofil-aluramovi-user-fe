@@ -1,5 +1,7 @@
 "use client";
-import React from "react";
+import { Config } from "@/config";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 function Hinges(props) {
   const {
@@ -8,6 +10,18 @@ function Hinges(props) {
     activeFrontId,
     createCenterDistanceOfHolesArr,
   } = props;
+
+  const [aluHinges, setAluHinges] = useState([]);
+  const [hinge, setHinge] = useState("asd");
+
+  useEffect(() => {
+    const response = async () => {
+      const res = await axios.get(`${Config.baseURL}/api/alu-hinges`);
+      setAluHinges(res.data);
+      console.log(res.data);
+    };
+    response();
+  }, []);
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -161,17 +175,14 @@ function Hinges(props) {
                   // onChange={(e) => {
                   //   updateNumberOfHinges(activeFrontId, e.target.value);
                   // }}
+                  value={hinge}
+                  onChange={(e) => setHinge(e.target.value)}
                 >
-                  <option value="0">- Izaberite sarke -</option>
-                  <option value="art. 6921">art. 6921</option>
-                  <option value="art. 6920">art. 6920</option>
-                  <option value="art. 6397">art. 6397</option>
-                  <option value="art. 9480">art. 9480</option>
-                  <option value="art. 9479">art. 9479</option>
-                  <option value="art. 9640">art. 9640</option>
-                  <option value="toBeDelivered">
-                    Sarke ce biti dostavljene za montazu
-                  </option>
+                  {aluHinges.map((hinge) => (
+                    <option value={hinge.name} key={hinge.id}>
+                      {hinge.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             )}
