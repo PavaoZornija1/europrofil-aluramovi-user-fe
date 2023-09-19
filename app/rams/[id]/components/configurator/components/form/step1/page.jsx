@@ -7,17 +7,32 @@ import { Config } from "@/config";
 
 export default function Step1() {
   const [fills, setFills] = useState([]);
+  const [treatments, setTreatments] = useState([]);
   useEffect(() => {
     const getFills = async () => {
       try {
         const response = await axios.get(`${Config.baseURL}/api/alu-fills/`);
         setFills(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error: ", error);
       }
     };
     getFills();
+  }, []);
+  useEffect(() => {
+    const getTreatments = async () => {
+      try {
+        const response = await axios.get(
+          `${Config.baseURL}/api/alu-frame-treatments/`
+        );
+        setTreatments(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    };
+    getTreatments();
   }, []);
   return (
     <div className="w-full grid gap-8 grid-cols-1 lg:grid-cols-2">
@@ -26,7 +41,7 @@ export default function Step1() {
           Profil i ispuna
         </h2>
         <div className="mt-4 mx-2 flex flex-col gap-2">
-          <Accordion items={lastFinishData} accordionFor={"lastFinishData"} />
+          <Accordion items={treatments} accordionFor={"lastFinishData"} />
         </div>
       </div>
       <div className="border border-lime-100 rounded-lg p-6 shadow-md shadow-gray-500">
