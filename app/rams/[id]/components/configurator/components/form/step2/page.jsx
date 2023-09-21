@@ -9,7 +9,7 @@ import Sketch from "./components/sketch/page";
 import Locks from "./components/locks/page";
 import LiftingSystem from "./components/lifting -system/page";
 
-function Step2() {
+function Step2(props) {
   const [frontsData, setFrontsData] = useState([
     {
       orientation: "Leva vrata",
@@ -296,11 +296,13 @@ function Step2() {
             setFrontsData={setFrontsData}
             activeFrontId={activeFrontId}
             createCenterDistanceOfHolesArr={createCenterDistanceOfHolesArr}
+            ram={props.ram}
           />
           <Handles
             frontsData={frontsData}
             setFrontsData={setFrontsData}
             activeFrontId={activeFrontId}
+            ram={props.ram}
           />
           {frontsData[activeFrontId].orientation === "Leva vrata" ||
           frontsData[activeFrontId].orientation === "Desna vrata" ? (
