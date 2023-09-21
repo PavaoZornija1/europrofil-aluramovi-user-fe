@@ -4,8 +4,9 @@ import { lastFinishData, fills } from "./mockData";
 import Accordion from "./components/accordion/page";
 import axios from "axios";
 import { Config } from "@/config";
+import Treatments from "./components/treatments/page";
 
-export default function Step1() {
+export default function Step1(props) {
   const [fills, setFills] = useState([]);
   const [treatments, setTreatments] = useState([]);
   useEffect(() => {
@@ -13,7 +14,6 @@ export default function Step1() {
       try {
         const response = await axios.get(`${Config.baseURL}/api/alu-fills/`);
         setFills(response.data);
-        // console.log(response.data);
       } catch (error) {
         console.error("Error: ", error);
       }
@@ -27,7 +27,6 @@ export default function Step1() {
           `${Config.baseURL}/api/alu-frame-treatments/`
         );
         setTreatments(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error: ", error);
       }
@@ -41,7 +40,7 @@ export default function Step1() {
           Profil i ispuna
         </h2>
         <div className="mt-4 mx-2 flex flex-col gap-2">
-          <Accordion items={treatments} accordionFor={"lastFinishData"} />
+          <Treatments treatments={props.ram} accordionFor={"lastFinishData"} />
         </div>
       </div>
       <div className="border border-lime-100 rounded-lg p-6 shadow-md shadow-gray-500">
@@ -49,7 +48,7 @@ export default function Step1() {
           Izbor ispune
         </h2>
         <div className="mt-4 mx-2 flex flex-col gap-2">
-          <Accordion items={fills} accordionFor={"fills"} />
+          <Accordion items={props.ram} accordionFor={"fills"} />
         </div>
       </div>
     </div>
