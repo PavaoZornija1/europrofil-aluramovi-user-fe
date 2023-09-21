@@ -376,15 +376,11 @@ function Handles(props) {
               </label>
               <select
                 id="profiless"
-                // value={frontsData[activeFrontId].handles.profileOption}
                 value={handle}
-                // onChange={(e) => {
-                //   updateProfileOption(activeFrontId, Number(e.target.value));
-                // }}
                 onChange={(e) => setHandle(e.target.value)}
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
               >
-                {aluHandles.map((handle) => (
+                {props.ram?.cmsAluHandleProfiles?.map((handle) => (
                   <option value={handle.name} key={handle.id}>
                     {handle.name}
                   </option>
