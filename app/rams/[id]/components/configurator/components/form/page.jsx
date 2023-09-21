@@ -8,8 +8,8 @@ function Form(props) {
   return (
     <>
       <form className="flex w-full flex-col gap-y-6">
-        {props.selectedStep === 1 && <Step1 />}
-        {props.selectedStep === 2 && <Step2 />}
+        {props.selectedStep === 1 && <Step1 ram={props.ram} />}
+        {props.selectedStep === 2 && <Step2 ram={props.ram} />}
       </form>
     </>
   );
