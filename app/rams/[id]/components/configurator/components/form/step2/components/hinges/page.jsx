@@ -11,17 +11,7 @@ function Hinges(props) {
     createCenterDistanceOfHolesArr,
   } = props;
 
-  const [aluHinges, setAluHinges] = useState([]);
   const [hinge, setHinge] = useState("asd");
-
-  useEffect(() => {
-    const response = async () => {
-      const res = await axios.get(`${Config.baseURL}/api/alu-hinges`);
-      setAluHinges(res.data);
-      console.log(res.data);
-    };
-    response();
-  }, []);
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -178,7 +168,7 @@ function Hinges(props) {
                   value={hinge}
                   onChange={(e) => setHinge(e.target.value)}
                 >
-                  {aluHinges.map((hinge) => (
+                  {props.ram?.cmsAluHinges?.map((hinge) => (
                     <option value={hinge.name} key={hinge.id}>
                       {hinge.name}
                     </option>
