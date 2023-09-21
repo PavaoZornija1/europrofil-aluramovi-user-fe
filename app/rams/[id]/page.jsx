@@ -49,7 +49,7 @@ const RamType = () => {
         </div>
       </div>
       <div>
-        <Configurator selectedStep={selectedStep} ram={selectedRam.id} />
+        <Configurator selectedStep={selectedStep} ram={selectedRam} />
       </div>
     </div>
   );
