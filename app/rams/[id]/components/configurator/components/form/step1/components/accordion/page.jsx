@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Accordion(props) {
   const { items, accordionFor } = props;
@@ -22,7 +22,7 @@ function Accordion(props) {
 
   return (
     <div>
-      {items.map(
+      {items?.cmsAluFills?.map(
         (item, index) =>
           !item.parentId && (
             <div key={item.name} className="py-2">
@@ -51,7 +51,7 @@ function Accordion(props) {
                     {item.name}
                   </label>
                 </div>
-                {item.gallery ? (
+                {item?.gallery ? (
                   <div className="hover:underline cursor-pointer">Gallery</div>
                 ) : null}
               </div>
