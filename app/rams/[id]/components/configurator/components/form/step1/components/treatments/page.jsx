@@ -1,15 +1,20 @@
 "use client";
+import { setTreatment, setRalCode } from "@/app/features/ram/ramData";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Treatments(props) {
   const { treatments, accordionFor } = props;
-
   const [activeIndex, setActiveIndex] = useState(-1);
   const [activeSubfillIndex, setActiveSubfillIndex] = useState(-1);
   const [noFillChosen, setNoFillChosen] = useState(false);
+  const [ral, setRal] = useState("");
 
-  const handleClick = (index) => {
+  const dispatch = useDispatch();
+
+  const handleClick = (index, treatment) => {
     setActiveIndex(index === activeIndex ? index : index);
+    dispatch(setTreatment(treatment));
   };
 
   const handleSubfillClick = (index) => {
@@ -18,6 +23,11 @@ function Treatments(props) {
 
   const handleNoFillChosen = (bool) => {
     setNoFillChosen(bool);
+  };
+
+  const handleRalCode = (e) => {
+    setRal(e.target.value);
+    dispatch(setRalCode(ral));
   };
 
   return (
@@ -30,7 +40,7 @@ function Treatments(props) {
                 <div
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    handleClick(index);
+                    handleClick(index, item.name);
                     handleNoFillChosen(true);
                   }}
                 >
@@ -69,6 +79,8 @@ function Treatments(props) {
                     name=""
                     id={`ral${index}`}
                     className=" border-2 focus:outline-none focus:border-black"
+                    value={ral}
+                    onChange={handleRalCode}
                   />
                 </div>
               )}
