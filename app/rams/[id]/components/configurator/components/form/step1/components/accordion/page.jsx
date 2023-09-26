@@ -1,23 +1,41 @@
 "use client";
+import {
+  setAdditionalFillTreatment,
+  setFill,
+  setSubfill,
+} from "@/app/features/ram/ramData";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Accordion(props) {
   const { items, accordionFor } = props;
-
   const [activeIndex, setActiveIndex] = useState(-1);
   const [activeSubfillIndex, setActiveSubfillIndex] = useState(-1);
   const [noFillChosen, setNoFillChosen] = useState(false);
+  const [additionalTreatment, setAdditionalTreatment] = useState("");
 
-  const handleClick = (index) => {
+  const sub = useSelector((state) => state.data.subFill);
+  const add = useSelector((state) => state.data.additionalTreatment);
+  const dispatch = useDispatch();
+
+  const handleClick = (index, fill) => {
     setActiveIndex(index === activeIndex ? index : index);
+    dispatch(setFill(fill));
   };
 
-  const handleSubfillClick = (index) => {
+  const handleSubfillClick = (index, subFill) => {
     setActiveSubfillIndex(index === activeSubfillIndex ? index : index);
+    dispatch(setSubfill(subFill));
   };
 
   const handleNoFillChosen = (bool) => {
     setNoFillChosen(bool);
+  };
+
+  const handleAdditionalTreatment = (e) => {
+    setAdditionalTreatment(e.target.value);
+    dispatch(setAdditionalFillTreatment(additionalTreatment));
+    console.log(e.target.value);
   };
 
   return (
@@ -30,7 +48,7 @@ function Accordion(props) {
                 <div
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    handleClick(index);
+                    handleClick(index, item.name);
                     handleNoFillChosen(true);
                   }}
                 >
@@ -82,7 +100,7 @@ function Accordion(props) {
                         <div
                           className="flex items-center cursor-pointer"
                           onClick={() => {
-                            handleSubfillClick(optionId);
+                            handleSubfillClick(optionId, option.name);
                           }}
                         >
                           <input
@@ -166,6 +184,8 @@ function Accordion(props) {
               name="additionalWork"
               id=""
               className="sm:ml-8 border focus:outline-none border-r-sm"
+              value={additionalTreatment}
+              onChange={handleAdditionalTreatment}
             >
               <option value="noTretment">Bez dodatne obrade</option>
               <option value="kpTreatment">KP obrada</option>
