@@ -8,6 +8,8 @@ import Handles from "./components/handles/page";
 import Sketch from "./components/sketch/page";
 import Locks from "./components/locks/page";
 import LiftingSystem from "./components/lifting -system/page";
+import { useDispatch } from "react-redux";
+import { setOrientation } from "@/app/features/ram/ramData";
 
 function Step2(props) {
   const [frontsData, setFrontsData] = useState([
@@ -68,6 +70,7 @@ function Step2(props) {
       imageName: "right.png",
     },
   ];
+  const dispatch = useDispatch();
 
   const updateOrientation = (activeFront, newOrientation) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -78,6 +81,7 @@ function Step2(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    dispatch(setOrientation(updatedFrontsData[activeFront].orientation));
   };
 
   const addNewFront = () => {
