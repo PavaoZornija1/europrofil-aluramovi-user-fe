@@ -11,9 +11,10 @@ export const ramData = createSlice({
     hinge: "",
     hingeQty: 0,
     handleProfile: "",
-    qty: 0,
-    width: 0,
-    height: 0,
+    qty: 1,
+    width: 1000,
+    height: 1000,
+    orientation: "",
   },
   reducers: {
     setTreatment: (state, action) => {
@@ -49,6 +50,9 @@ export const ramData = createSlice({
     setHeight: (state, action) => {
       state.height = action.payload;
     },
+    setOrientation: (state, action) => {
+      state.orientation = action.payload;
+    },
   },
 });
 export const {
@@ -63,5 +67,6 @@ export const {
   setWidth,
   setHeight,
   setAdditionalFillTreatment,
+  setOrientation,
 } = ramData.actions;
 export default ramData.reducer;
