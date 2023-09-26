@@ -1,8 +1,12 @@
+"use client";
+
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import ProtectedRoute from "./protectedRoute/page";
 import Footer from "./footer/page";
 import { AuthProvider } from "./context/AuthContext";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -16,19 +20,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body className={`${roboto.className} overflow-x-hidden`}>
-          <div className="flex flex-col bg-white min-h-screen">
-            <ProtectedRoute>
-              <div className="flex-grow">{children}</div>
-            </ProtectedRoute>
-            <div className="mt-14">
-              <Footer />
+    <Provider store={store}>
+      <AuthProvider>
+        <html lang="en">
+          <body className={`${roboto.className} overflow-x-hidden`}>
+            <div className="flex flex-col bg-white min-h-screen">
+              <ProtectedRoute>
+                <div className="flex-grow">{children}</div>
+              </ProtectedRoute>
+              <div className="mt-14">
+                <Footer />
+              </div>
             </div>
-          </div>
-        </body>
-      </html>
-    </AuthProvider>
+          </body>
+        </html>
+      </AuthProvider>
+    </Provider>
   );
 }
