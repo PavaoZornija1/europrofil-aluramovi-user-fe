@@ -1,5 +1,7 @@
 "use client";
+import { setHeight, setQty, setWidth } from "@/app/features/ram/ramData";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 function Dimensions(props) {
   const {
@@ -8,6 +10,7 @@ function Dimensions(props) {
     activeFrontId,
     createCenterDistanceOfHolesArr,
   } = props;
+  const dispatch = useDispatch();
 
   const updateNumberOfPieces = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -21,6 +24,7 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    dispatch(setQty(updatedFrontsData[activeFront].dimensions.numberOfPieces));
   };
 
   const updateWidth = (activeFront, value) => {
@@ -35,6 +39,7 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    dispatch(setWidth(updatedFrontsData[activeFront].dimensions.width));
   };
 
   const updateHeight = (activeFront, value) => {
@@ -56,6 +61,7 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    dispatch(setHeight(updatedFrontsData[activeFront].dimensions.height));
   };
 
   return (
@@ -69,11 +75,11 @@ function Dimensions(props) {
         </label>
         <div className="flex justify-items-start">
           <input
-            type="text"
+            type="number"
             id="numberOfPieces"
             value={frontsData[activeFrontId].dimensions.numberOfPieces}
             onChange={(e) =>
-              updateNumberOfPieces(activeFrontId, e.target.value)
+              updateNumberOfPieces(activeFrontId, +e.target.value)
             }
             className="w-full border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none border-r-0"
           />
@@ -91,10 +97,10 @@ function Dimensions(props) {
         </label>
         <div className="flex justify-items-start">
           <input
-            type="text"
+            type="number"
             id="width"
             value={frontsData[activeFrontId].dimensions.width}
-            onChange={(e) => updateWidth(activeFrontId, e.target.value)}
+            onChange={(e) => updateWidth(activeFrontId, +e.target.value)}
             className="w-full border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
           />
           <span className="inline-flex items-center border border-l-0 border-gray-500 px-3 text-sm">
@@ -111,10 +117,10 @@ function Dimensions(props) {
         </label>
         <div className="flex justify-items-start">
           <input
-            type="text"
+            type="number"
             id="height"
             value={frontsData[activeFrontId].dimensions.height}
-            onChange={(e) => updateHeight(activeFrontId, e.target.value)}
+            onChange={(e) => updateHeight(activeFrontId, +e.target.value)}
             className="w-full border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
           />
           <span className="inline-flex items-center border border-l-0 border-gray-500 px-3 text-sm">
