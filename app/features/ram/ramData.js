@@ -16,8 +16,12 @@ export const ramData = createSlice({
       handleHolePrice: 55,
       handleHoleQty: 0,
     },
+    hingeHole: {
+      hingeHolePrice: 50,
+      hingeHoleQty: 0,
+    },
     qty: 1,
-    qtyTotal: 0,
+    qtyTotal: 1,
     width: 1000,
     height: 1000,
     orientation: "",
@@ -50,6 +54,9 @@ export const ramData = createSlice({
     setHandleHole: (state, action) => {
       state.handleHole = action.payload;
     },
+    setHingeHole: (state, action) => {
+      state.hingeHole = action.payload;
+    },
 
     setHandleProfile: (state, action) => {
       state.handleProfile = action.payload;
@@ -74,6 +81,7 @@ export const ramData = createSlice({
   },
 });
 export const {
+  setHingeHole,
   setHandleHole,
   setTreatment,
   setFill,
