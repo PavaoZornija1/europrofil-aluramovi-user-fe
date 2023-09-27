@@ -1,6 +1,10 @@
 "use client";
 
-import { setHandleProfile } from "@/app/features/ram/ramData";
+import {
+  setHandleHole,
+  setHandleHoleQty,
+  setHandleProfile,
+} from "@/app/features/ram/ramData";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -60,7 +64,21 @@ function Handles(props) {
       }
       return obj;
     });
-
+    if (updatedFrontsData[activeFront].handles.wheelbaseOption === 15) {
+      dispatch(
+        setHandleHole({
+          handleHolePrice: 55,
+          handleHoleQty: 1,
+        })
+      );
+    } else {
+      dispatch(
+        setHandleHole({
+          handleHolePrice: 55,
+          handleHoleQty: 2,
+        })
+      );
+    }
     setFrontsData(updatedFrontsData);
   };
 
@@ -186,10 +204,6 @@ function Handles(props) {
 
     dispatch(setHandleProfile(profileType));
   };
-
-  // useEffect(() => {
-  //   console.log(chosenHandle);
-  // }, [chosenHandle]);
 
   return (
     <div className="relative w-full self-start rounded-lg shadow-md shadow-gray-500 p-6">
