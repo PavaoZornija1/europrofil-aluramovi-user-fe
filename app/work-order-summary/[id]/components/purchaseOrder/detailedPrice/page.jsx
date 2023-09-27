@@ -12,6 +12,7 @@ export default function DetailedPrice() {
     (state) => state.data.additionalFillTreatment
   );
   const handleHole = useSelector((state) => state.data.handleHole);
+  const hingeHole = useSelector((state) => state.data.hingeHole);
 
   return (
     <div className="w-full ">
@@ -169,7 +170,7 @@ export default function DetailedPrice() {
               >
                 HNDH
               </td>
-              <td className="px-6 py-4 text-center text-lg">Rupa za šarke</td>
+              <td className="px-6 py-4 text-center text-lg">Rupa za ručicu</td>
               <td className="px-6 py-4 text-center text-lg">
                 {Number(handleHole.handleHolePrice).toFixed(2)}
               </td>
@@ -191,19 +192,35 @@ export default function DetailedPrice() {
               </td>
             </tr>
           )}
-          <tr className={"border-b"}>
-            <td
-              scope="row"
-              className="whitespace-nowrap px-6 py-4 text-lg font-medium"
-            ></td>
-            <td className="px-6 py-4 text-center text-lg">Usluga izrade</td>
-            <td className="px-6 py-4 text-center text-lg">1,580.00</td>
-            <td className="px-6 py-4 text-center text-lg">1</td>
-            <td className="px-6 py-4 text-center text-lg">kom</td>
-            <td className="px-6 py-4 text-center text-lg">1,580.00</td>
-            <td className="px-6 py-4 text-center text-lg">0%</td>
-            <td className="px-6 py-4 text-end text-lg">1,580.00</td>
-          </tr>
+          {hingeHole?.hingeHoleQty !== 0 && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                HHC
+              </td>
+              <td className="px-6 py-4 text-center text-lg">Rupa za šarke</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(hingeHole?.hingeHolePrice).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {hingeHole?.hingeHoleQty}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">kom</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(
+                  hingeHole?.hingeHolePrice * hingeHole?.hingeHoleQty
+                ).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {Number(
+                  hingeHole?.hingeHolePrice * hingeHole?.hingeHoleQty
+                ).toFixed(2)}
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div className="flex w-full p-4">
