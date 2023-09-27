@@ -19,6 +19,7 @@ export const ramData = createSlice({
     hingeHole: {
       hingeHolePrice: 50,
       hingeHoleQty: 0,
+      withMountPrice: 330,
     },
     qty: 1,
     qtyTotal: 1,
