@@ -1,20 +1,15 @@
 "use client";
-import { Config } from "@/config";
-import axios from "axios";
+
+import { setHandleProfile } from "@/app/features/ram/ramData";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Handles(props) {
   const { frontsData, setFrontsData, activeFrontId } = props;
-  const [aluHandles, setAluHandles] = useState([]);
-  const [handle, setHandle] = useState("");
+  const [handle, setHandle] = useState({});
+  const chosenHandle = useSelector((state) => state.data.handleProfile);
 
-  useEffect(() => {
-    const response = async () => {
-      const res = await axios.get(`${Config.baseURL}/api/alu-handle-profiles`);
-      setAluHandles(res.data);
-    };
-    response();
-  }, []);
+  const dispatch = useDispatch();
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -178,6 +173,23 @@ function Handles(props) {
 
     setFrontsData(updatedFrontsData);
   };
+
+  const handleChooseHandleProfile = (e) => {
+    let profileType = e.target.value;
+    for (let i = 0; i < props.ram?.cmsAluHandleProfiles.length; ++i) {
+      if (props.ram?.cmsAluHandleProfiles[i].id === e.target.value) {
+        profileType = props.ram?.cmsAluHandleProfiles[i];
+        console.log(props.ram?.cmsAluHandleProfiles[i]);
+      }
+    }
+    setHandle(profileType);
+
+    dispatch(setHandleProfile(profileType));
+  };
+
+  // useEffect(() => {
+  //   console.log(chosenHandle);
+  // }, [chosenHandle]);
 
   return (
     <div className="relative w-full self-start rounded-lg shadow-md shadow-gray-500 p-6">
@@ -376,12 +388,12 @@ function Handles(props) {
               </label>
               <select
                 id="profiless"
-                value={handle}
-                onChange={(e) => setHandle(e.target.value)}
+                value={chosenHandle.name}
+                onChange={(e) => handleChooseHandleProfile(e)}
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
               >
                 {props.ram?.cmsAluHandleProfiles?.map((handle) => (
-                  <option value={handle.name} key={handle.id}>
+                  <option value={handle.id} key={handle.id}>
                     {handle.name}
                   </option>
                 ))}
