@@ -13,6 +13,7 @@ export default function DetailedPrice() {
   );
   const handleHole = useSelector((state) => state.data.handleHole);
   const hingeHole = useSelector((state) => state.data.hingeHole);
+  const hinge = useSelector((state) => state.data.hinges);
 
   return (
     <div className="w-full ">
@@ -192,7 +193,39 @@ export default function DetailedPrice() {
               </td>
             </tr>
           )}
-          {hingeHole?.hingeHoleQty !== 0 && (
+          {hingeHole?.hingeHoleQty !== 0 && hinge?.name !== undefined && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                HHIC
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                Bušenje rupa sa montažom šarki
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(hingeHole.withMountPrice).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {" "}
+                {Number(hingeHole.hingeHoleQty)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">kom</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(
+                  hingeHole.withMountPrice * hingeHole.hingeHoleQty
+                ).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {Number(
+                  hingeHole.withMountPrice * hingeHole.hingeHoleQty
+                ).toFixed(2)}
+              </td>
+            </tr>
+          )}
+          {hingeHole?.hingeHoleQty !== 0 && hinge?.name === undefined && (
             <tr className={"border-b"}>
               <td
                 scope="row"
@@ -218,6 +251,31 @@ export default function DetailedPrice() {
                 {Number(
                   hingeHole?.hingeHolePrice * hingeHole?.hingeHoleQty
                 ).toFixed(2)}
+              </td>
+            </tr>
+          )}
+          {hinge?.name && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                {hinge.productCode}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">{hinge.name}</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(hinge.price).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {hingeHole?.hingeHoleQty}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">kom</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(hinge?.price * hingeHole?.hingeHoleQty).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {Number(hinge?.price * hingeHole?.hingeHoleQty).toFixed(2)}
               </td>
             </tr>
           )}
