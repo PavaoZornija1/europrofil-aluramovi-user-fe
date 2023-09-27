@@ -11,6 +11,7 @@ export default function DetailedPrice() {
   const additionalFillTreatment = useSelector(
     (state) => state.data.additionalFillTreatment
   );
+  const handleHole = useSelector((state) => state.data.handleHole);
 
   return (
     <div className="w-full ">
@@ -127,20 +128,20 @@ export default function DetailedPrice() {
               </td>
             </tr>
           )}
-          {additionalFillTreatment && (
+          {additionalFillTreatment.name && (
             <tr className={"border-b"}>
               <td
                 scope="row"
                 className="whitespace-nowrap px-6 py-4 text-lg font-medium"
               >
-                {additionalFillTreatment.code}
+                {additionalFillTreatment?.code}
               </td>
               <td className="px-6 py-4 text-center text-lg">
-                {additionalFillTreatment.name}
+                {additionalFillTreatment?.name}
               </td>
               <td className="px-6 py-4 text-center text-lg">
                 {" "}
-                {Number(additionalFillTreatment.price).toFixed(2)}
+                {Number(additionalFillTreatment?.price).toFixed(2)}
               </td>
               <td className="px-6 py-4 text-center text-lg">
                 {Number(qtyTotal * 4).toFixed(2)}
@@ -159,21 +160,37 @@ export default function DetailedPrice() {
               </td>
             </tr>
           )}
-          <tr className={"border-b"}>
-            <td
-              scope="row"
-              className="whitespace-nowrap px-6 py-4 text-lg font-medium"
-            >
-              HHC
-            </td>
-            <td className="px-6 py-4 text-center text-lg">Rupa za šarke</td>
-            <td className="px-6 py-4 text-center text-lg">50.00</td>
-            <td className="px-6 py-4 text-center text-lg">2</td>
-            <td className="px-6 py-4 text-center text-lg">kom</td>
-            <td className="px-6 py-4 text-center text-lg">100.00</td>
-            <td className="px-6 py-4 text-center text-lg">0%</td>
-            <td className="px-6 py-4 text-end text-lg">100.00</td>
-          </tr>
+
+          {handleHole?.handleHoleQty !== 0 && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                HNDH
+              </td>
+              <td className="px-6 py-4 text-center text-lg">Rupa za šarke</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(handleHole.handleHolePrice).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {" "}
+                {Number(handleHole.handleHoleQty)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">kom</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(
+                  handleHole.handleHolePrice * handleHole.handleHoleQty
+                ).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {Number(
+                  handleHole.handleHolePrice * handleHole.handleHoleQty
+                ).toFixed(2)}
+              </td>
+            </tr>
+          )}
           <tr className={"border-b"}>
             <td
               scope="row"
