@@ -1,7 +1,17 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function DetailedPrice() {
+  const aluProfile = useSelector((state) => state.data.frameType);
+  const treatment = useSelector((state) => state.data.treatment);
+  const fill = useSelector((state) => state.data.fill);
+  const subfill = useSelector((state) => state.data.subFill);
+  const qtyTotal = useSelector((state) => state.data.qtyTotal);
+  const additionalFillTreatment = useSelector(
+    (state) => state.data.additionalFillTreatment
+  );
+
   return (
     <div className="w-full ">
       <h3 className="pb-8 text-2xl font-semibold ">Detaljni obračun cene</h3>
@@ -40,79 +50,115 @@ export default function DetailedPrice() {
               scope="row"
               className="whitespace-nowrap px-6 py-4 text-lg font-medium"
             >
-              439
+              {aluProfile.productCode}
             </td>
             <td className="px-6 py-4 text-center text-lg">
-              ALU profil RAM 1003 N, Antracit siva
+              ALU profil {aluProfile.name}, {treatment.name}
             </td>
-            <td className="px-6 py-4 text-center text-lg">982.00</td>
+            <td className="px-6 py-4 text-center text-lg">
+              {Number(aluProfile.pricePerMeter).toFixed(2)}
+            </td>
+            {/* SKONTATI KAKO SE DOBIJE KOLICINA */}
             <td className="px-6 py-4 text-center text-lg">4.40</td>
             <td className="px-6 py-4 text-center text-lg">m</td>
-            <td className="px-6 py-4 text-center text-lg">2.50 </td>
-            <td className="px-6 py-4 text-center text-lg">4,320.80</td>
-            <td className="px-6 py-4 text-center text-lg">0%</td>
-            <td className="px-6 py-4 text-end text-lg">4,320.80</td>
-          </tr>
-          <tr className={"border-b"}>
-            <td
-              scope="row"
-              className="whitespace-nowrap px-6 py-4 text-lg font-medium"
-            >
-              KP
+            <td className="px-6 py-4 text-center text-lg">
+              {Number(aluProfile.pricePerMeter).toFixed(2)}
             </td>
-            <td className="px-6 py-4 text-center text-lg">KP obrada</td>
-            <td className="px-6 py-4 text-center text-lg">178.00</td>
-            <td className="px-6 py-4 text-center text-lg">4.00</td>
-            <td className="px-6 py-4 text-center text-lg">m</td>
-            <td className="px-6 py-4 text-center text-lg">712.00</td>
+            {/* DODATI POPUST */}
             <td className="px-6 py-4 text-center text-lg">0%</td>
-            <td className="px-6 py-4 text-end text-lg">712.00</td>
-          </tr>
-          <tr className={"border-b"}>
-            <td
-              scope="row"
-              className="whitespace-nowrap px-6 py-4 text-lg font-medium"
-            >
-              319
+            <td className="px-6 py-4 text-end text-lg">
+              {(Number(aluProfile.pricePerMeter).toFixed(2) * 4.4).toFixed(2)}
             </td>
-            <td className="px-6 py-4 text-center text-lg">Ogledalo obično</td>
-            <td className="px-6 py-4 text-center text-lg">3,002.00</td>
-            <td className="px-6 py-4 text-center text-lg">1.096</td>
-            <td className="px-6 py-4 text-center text-lg">m²</td>
-            <td className="px-6 py-4 text-center text-lg">3,289.00</td>
-            <td className="px-6 py-4 text-center text-lg">0%</td>
-            <td className="px-6 py-4 text-end text-lg">3,289.00</td>
           </tr>
-          <tr className={"border-b"}>
-            <td
-              scope="row"
-              className="whitespace-nowrap px-6 py-4 text-lg font-medium"
-            >
-              124
-            </td>
-            <td className="px-6 py-4 text-center text-lg">Metalni uglovi</td>
-            <td className="px-6 py-4 text-center text-lg">92.00</td>
-            <td className="px-6 py-4 text-center text-lg">4</td>
-            <td className="px-6 py-4 text-center text-lg">kom</td>
-            <td className="px-6 py-4 text-center text-lg">368.00</td>
-            <td className="px-6 py-4 text-center text-lg">0%</td>
-            <td className="px-6 py-4 text-end text-lg">368.00</td>
-          </tr>
-          <tr className={"border-b"}>
-            <td
-              scope="row"
-              className="whitespace-nowrap px-6 py-4 text-lg font-medium"
-            >
-              HNDH
-            </td>
-            <td className="px-6 py-4 text-center text-lg">Rupa za ručicu</td>
-            <td className="px-6 py-4 text-center text-lg">55.00</td>
-            <td className="px-6 py-4 text-center text-lg">2</td>
-            <td className="px-6 py-4 text-center text-lg">kom</td>
-            <td className="px-6 py-4 text-center text-lg">110.00</td>
-            <td className="px-6 py-4 text-center text-lg">0%</td>
-            <td className="px-6 py-4 text-end text-lg">110.00</td>
-          </tr>
+          {(subfill.name || fill.name) && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                {subfill.productCode || fill.productCode}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {subfill.name || fill.name}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(subfill?.pricePerSquareMeter).toFixed(2) ||
+                  Number(fill?.pricePerSquareMeter).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">4.0</td>
+              <td className="px-6 py-4 text-center text-lg">
+                m<sup>2</sup>
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(subfill.pricePerSquareMeter).toFixed(2) ||
+                  Number(fill.pricePerSquareMeter).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {Number(subfill.pricePerSquareMeter).toFixed(2) ||
+                  Number(fill.pricePerSquareMeter).toFixed(2)}
+              </td>
+            </tr>
+          )}
+
+          {aluProfile.name && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                {aluProfile.corverCoverProductCode}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">Metalni uglovi</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(aluProfile.corverCoverPrice).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(qtyTotal * 4)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">kom</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(aluProfile.corverCoverPrice * qtyTotal * 4).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {" "}
+                {Number(aluProfile.corverCoverPrice * qtyTotal * 4).toFixed(2)}
+              </td>
+            </tr>
+          )}
+          {additionalFillTreatment && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                {additionalFillTreatment.code}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {additionalFillTreatment.name}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {" "}
+                {Number(additionalFillTreatment.price).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(qtyTotal * 4).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">m</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(additionalFillTreatment.price * qtyTotal * 4).toFixed(
+                  2
+                )}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {Number(additionalFillTreatment.price * qtyTotal * 4).toFixed(
+                  2
+                )}
+              </td>
+            </tr>
+          )}
           <tr className={"border-b"}>
             <td
               scope="row"
