@@ -7,10 +7,14 @@ import Configurator from "./components/configurator/page";
 import axios from "axios";
 import { Config } from "@/config";
 import { useParams } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setFrameType } from "@/app/features/ram/ramData";
 
 const RamType = () => {
   const [selectedStep, setSelectedStep] = useState(1);
   const [selectedRam, setSelectedRam] = useState({});
+
+  const dispatch = useDispatch();
 
   const params = useParams();
   useEffect(() => {
@@ -20,6 +24,7 @@ const RamType = () => {
           `${Config.baseURL}/api/alu-profiles/${params.id}`
         );
         setSelectedRam(response.data);
+        dispatch(setFrameType(response.data));
       } catch (error) {
         console.error("Error: ", error);
       }
