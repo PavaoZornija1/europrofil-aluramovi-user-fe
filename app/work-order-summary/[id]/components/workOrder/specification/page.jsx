@@ -32,7 +32,7 @@ const Specifications = () => {
         </div>
         <div className="flex gap-2">
           <span className="font-semibold">Dodatna obrada:</span>
-          <span>{additionalTreatment}</span>
+          <span>{additionalTreatment?.name}</span>
         </div>
       </div>
     </div>
