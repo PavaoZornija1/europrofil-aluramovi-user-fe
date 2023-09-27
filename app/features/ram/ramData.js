@@ -21,7 +21,10 @@ export const ramData = createSlice({
       hingeHoleQty: 0,
       withMountPrice: 330,
     },
-    lockHole: 0,
+    lockHole: {
+      lockPrice: 165,
+      lockAmount: 0,
+    },
     qty: 1,
     qtyTotal: 1,
     width: 1000,
