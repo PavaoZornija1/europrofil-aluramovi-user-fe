@@ -4,7 +4,7 @@ import {
   setFill,
   setSubfill,
 } from "@/app/features/ram/ramData";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Accordion(props) {
@@ -14,18 +14,19 @@ function Accordion(props) {
   const [noFillChosen, setNoFillChosen] = useState(false);
   const [additionalTreatment, setAdditionalTreatment] = useState("");
 
-  const sub = useSelector((state) => state.data.subFill);
-  const add = useSelector((state) => state.data.additionalTreatment);
   const dispatch = useDispatch();
 
-  const handleClick = (index, fill) => {
+  const handleClick = (index) => {
     setActiveIndex(index === activeIndex ? index : index);
-    dispatch(setFill(fill));
   };
 
-  const handleSubfillClick = (index, subFill) => {
+  const handleFillClick = (item) => {
+    dispatch(setFill(item));
+  };
+
+  const handleSubfillClick = (index, item) => {
     setActiveSubfillIndex(index === activeSubfillIndex ? index : index);
-    dispatch(setSubfill(subFill));
+    dispatch(setSubfill(item));
   };
 
   const handleNoFillChosen = (bool) => {
@@ -34,8 +35,7 @@ function Accordion(props) {
 
   const handleAdditionalTreatment = (e) => {
     setAdditionalTreatment(e.target.value);
-    dispatch(setAdditionalFillTreatment(additionalTreatment));
-    console.log(e.target.value);
+    dispatch(setAdditionalFillTreatment(e.target.value));
   };
 
   return (
@@ -48,8 +48,9 @@ function Accordion(props) {
                 <div
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    handleClick(index, item.name);
+                    handleClick(index);
                     handleNoFillChosen(true);
+                    handleFillClick(item);
                   }}
                 >
                   <input
@@ -100,7 +101,7 @@ function Accordion(props) {
                         <div
                           className="flex items-center cursor-pointer"
                           onClick={() => {
-                            handleSubfillClick(optionId, option.name);
+                            handleSubfillClick(optionId, option);
                           }}
                         >
                           <input
@@ -187,26 +188,30 @@ function Accordion(props) {
               value={additionalTreatment}
               onChange={handleAdditionalTreatment}
             >
-              <option value="noTretment">Bez dodatne obrade</option>
-              <option value="kpTreatment">KP obrada</option>
-              <option value="wholeGlassTreatment">
+              <option value="Bez dodatne obrade">Bez dodatne obrade</option>
+              <option value="KP obrada">KP obrada</option>
+              <option value="Peskaža cele staklene površine">
                 Peskaža cele staklene površine
               </option>
-              <option value="temperingGlass">Kaljenje stakla</option>
+              <option value="Kaljenje stakla">Kaljenje stakla</option>
               <optgroup label="Fazetiranje">
-                <option value="faceting-0.5">Fazetiranje 5 mm</option>
-                <option value="faceting-1">Fazetiranje 10 mm</option>
-                <option value="faceting-1.5">Fazetiranje 15 mm</option>
+                <option value="Fazetiranje 5 mm">Fazetiranje 5 mm</option>
+                <option value="Fazetiranje 10 mm">Fazetiranje 10 mm</option>
+                <option value="Fazetiranje 15 mm">Fazetiranje 15 mm</option>
               </optgroup>
               <optgroup label="Lepljenje folija">
-                <option value="protectiveFoil">
+                <option value="Lepljenje zaštitne folije">
                   Lepljenje zaštitne folije
                 </option>
-                <option value="decorativeFoil">
+                <option value="Lepljenje dekorativne folije">
                   Lepljenje dekorativne folije
                 </option>
-                <option value="motiveFoil">Lepljenje folije po motivu</option>
-                <option value="sandyFoil">Lepljenje peskirne folije</option>
+                <option value="Lepljenje folije po motivu">
+                  Lepljenje folije po motivu
+                </option>
+                <option value="Lepljenje peskirne folije">
+                  Lepljenje peskirne folije
+                </option>
               </optgroup>
             </select>
           </div>
