@@ -1,8 +1,12 @@
 "use client";
+import { setLockHole } from "@/app/features/ram/ramData";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 function Locks(props) {
   const { frontsData, setFrontsData, activeFrontId } = props;
+
+  const dispatch = useDispatch();
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -19,6 +23,9 @@ function Locks(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    dispatch(
+      setLockHole({ lockPrice: 165, lockAmount: updatedFrontsData.length })
+    );
   };
 
   const updateHoleDiameter = (activeFront, value) => {
