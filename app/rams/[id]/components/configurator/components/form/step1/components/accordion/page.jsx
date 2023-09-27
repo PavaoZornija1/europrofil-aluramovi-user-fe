@@ -4,7 +4,9 @@ import {
   setFill,
   setSubfill,
 } from "@/app/features/ram/ramData";
-import React, { useState } from "react";
+import { Config } from "@/config";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Accordion(props) {
@@ -13,8 +15,46 @@ function Accordion(props) {
   const [activeSubfillIndex, setActiveSubfillIndex] = useState(-1);
   const [noFillChosen, setNoFillChosen] = useState(false);
   const [additionalTreatment, setAdditionalTreatment] = useState("");
+  const [bevelOptions, setBevelOptions] = useState([]);
+  const [sandBlastingOptions, setSandBlastingOptions] = useState([]);
+  const [add, setAdd] = useState({});
+
+  useEffect(() => {
+    const response = async () => {
+      const res = await axios.get(`${Config.baseURL}/api/bevel-options`);
+      setBevelOptions(res.data);
+      console.log(res.data);
+      const res_2 = await axios.get(
+        `${Config.baseURL}/api/sand-blasting-options`
+      );
+      setSandBlastingOptions(res_2.data);
+      console.log(res_2.data);
+    };
+    response();
+  }, []);
 
   const dispatch = useDispatch();
+
+  const addFill = useSelector((state) => state.data.additionalFillTreatment);
+
+  const handleChooseSandblasting = (e) => {
+    let addition = e.target.value;
+    for (let i = 0; i < sandBlastingOptions?.length; ++i) {
+      if (sandBlastingOptions[i]?.id === e.target.value) {
+        addition = sandBlastingOptions[i];
+        console.log(sandBlastingOptions[i]);
+      }
+    }
+    for (let i = 0; i < bevelOptions?.length; ++i) {
+      if (bevelOptions[i]?.id === e.target.value) {
+        addition = bevelOptions[i];
+        console.log(bevelOptions[i]);
+      }
+    }
+    setAdd(addition);
+
+    dispatch(setAdditionalFillTreatment(addition));
+  };
 
   const handleClick = (index) => {
     setActiveIndex(index === activeIndex ? index : index);
@@ -33,10 +73,9 @@ function Accordion(props) {
     setNoFillChosen(bool);
   };
 
-  const handleAdditionalTreatment = (e) => {
-    setAdditionalTreatment(e.target.value);
-    dispatch(setAdditionalFillTreatment(e.target.value));
-  };
+  useEffect(() => {
+    console.log(addFill);
+  }, [addFill]);
 
   return (
     <div>
@@ -185,33 +224,22 @@ function Accordion(props) {
               name="additionalWork"
               id=""
               className="sm:ml-8 border focus:outline-none border-r-sm"
-              value={additionalTreatment}
-              onChange={handleAdditionalTreatment}
+              value={add.name}
+              onChange={(e) => handleChooseSandblasting(e)}
             >
-              <option value="Bez dodatne obrade">Bez dodatne obrade</option>
-              <option value="KP obrada">KP obrada</option>
-              <option value="Peskaža cele staklene površine">
-                Peskaža cele staklene površine
-              </option>
-              <option value="Kaljenje stakla">Kaljenje stakla</option>
-              <optgroup label="Fazetiranje">
-                <option value="Fazetiranje 5 mm">Fazetiranje 5 mm</option>
-                <option value="Fazetiranje 10 mm">Fazetiranje 10 mm</option>
-                <option value="Fazetiranje 15 mm">Fazetiranje 15 mm</option>
+              <optgroup label="Peskarenje">
+                {sandBlastingOptions?.map((options) => (
+                  <option key={options.id} value={options.id}>
+                    {options.name}
+                  </option>
+                ))}
               </optgroup>
-              <optgroup label="Lepljenje folija">
-                <option value="Lepljenje zaštitne folije">
-                  Lepljenje zaštitne folije
-                </option>
-                <option value="Lepljenje dekorativne folije">
-                  Lepljenje dekorativne folije
-                </option>
-                <option value="Lepljenje folije po motivu">
-                  Lepljenje folije po motivu
-                </option>
-                <option value="Lepljenje peskirne folije">
-                  Lepljenje peskirne folije
-                </option>
+              <optgroup label="Fazetiranje i lepljenje folija">
+                {bevelOptions?.map((options) => (
+                  <option key={options.id} value={options.id}>
+                    {options.name}
+                  </option>
+                ))}
               </optgroup>
             </select>
           </div>
