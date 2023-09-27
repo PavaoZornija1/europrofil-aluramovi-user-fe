@@ -15,6 +15,7 @@ export default function DetailedPrice() {
   const hingeHole = useSelector((state) => state.data.hingeHole);
   const hinge = useSelector((state) => state.data.hinges);
   const lock = useSelector((state) => state.data.lockHole);
+  const liftSupport = useSelector((state) => state.data.liftingSystem);
 
   return (
     <div className="w-full ">
@@ -255,7 +256,7 @@ export default function DetailedPrice() {
               </td>
             </tr>
           )}
-          {hinge?.name && (
+          {hinge?.name !== undefined && (
             <tr className={"border-b"}>
               <td
                 scope="row"
@@ -281,7 +282,7 @@ export default function DetailedPrice() {
             </tr>
           )}
           {/*  */}
-          {lock?.lockAmount && (
+          {lock?.lockAmount !== 0 && (
             <tr className={"border-b"}>
               <td
                 scope="row"
@@ -296,6 +297,33 @@ export default function DetailedPrice() {
               <td className="px-6 py-4 text-center text-lg">
                 {lock?.lockAmount}
               </td>
+              <td className="px-6 py-4 text-center text-lg">kom</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
+              </td>
+            </tr>
+          )}
+
+          {/* NEZAVRSENO */}
+          {liftSupport?.name && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                {liftSupport?.productCode}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {liftSupport?.name}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(liftSupport.pricePerUnit).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg"></td>
               <td className="px-6 py-4 text-center text-lg">kom</td>
               <td className="px-6 py-4 text-center text-lg">
                 {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
