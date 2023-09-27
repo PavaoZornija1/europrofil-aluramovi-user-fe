@@ -1,5 +1,9 @@
 "use client";
-import { setHinges, setHingesQty } from "@/app/features/ram/ramData";
+import {
+  setHingeHole,
+  setHinges,
+  setHingesQty,
+} from "@/app/features/ram/ramData";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -73,6 +77,7 @@ function Hinges(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    dispatch(setHingeHole({ hingeHolePrice: 50, hingeHoleQty: Number(value) }));
     dispatch(setHingesQty(Number(value)));
   };
 
