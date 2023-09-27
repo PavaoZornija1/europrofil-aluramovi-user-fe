@@ -8,11 +8,12 @@ export const ramData = createSlice({
     ralCode: "",
     fill: {},
     subFill: {},
-    additionalFillTreatment: "",
+    additionalFillTreatment: {},
     hinges: {},
     hingesQty: 0,
     handleProfile: {},
     qty: 1,
+    qtyTotal: 0,
     width: 1000,
     height: 1000,
     orientation: "",
@@ -48,6 +49,11 @@ export const ramData = createSlice({
     setQty: (state, action) => {
       state.qty = action.payload;
     },
+
+    // FIKSATI OVO
+    setQtyTotal: (state, action) => {
+      state.qtyTotal += action.payload;
+    },
     setWidth: (state, action) => {
       state.width = action.payload;
     },
@@ -73,5 +79,6 @@ export const {
   setAdditionalFillTreatment,
   setOrientation,
   setFrameType,
+  setQtyTotal,
 } = ramData.actions;
 export default ramData.reducer;
