@@ -14,6 +14,7 @@ export default function DetailedPrice() {
   const handleHole = useSelector((state) => state.data.handleHole);
   const hingeHole = useSelector((state) => state.data.hingeHole);
   const hinge = useSelector((state) => state.data.hinges);
+  const lock = useSelector((state) => state.data.lockHole);
 
   return (
     <div className="w-full ">
@@ -276,6 +277,32 @@ export default function DetailedPrice() {
               <td className="px-6 py-4 text-center text-lg">0%</td>
               <td className="px-6 py-4 text-end text-lg">
                 {Number(hinge?.price * hingeHole?.hingeHoleQty).toFixed(2)}
+              </td>
+            </tr>
+          )}
+          {/*  */}
+          {lock?.lockAmount && (
+            <tr className={"border-b"}>
+              <td
+                scope="row"
+                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+              >
+                HLCK
+              </td>
+              <td className="px-6 py-4 text-center text-lg">Rupa za bravicu</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(lock.lockPrice).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">
+                {lock?.lockAmount}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">kom</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
+              </td>
+              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-end text-lg">
+                {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
               </td>
             </tr>
           )}
