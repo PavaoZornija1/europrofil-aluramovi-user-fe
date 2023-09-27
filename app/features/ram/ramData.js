@@ -11,7 +11,7 @@ export const ramData = createSlice({
     additionalFillTreatment: "",
     hinges: {},
     hingesQty: 0,
-    handleProfile: "",
+    handleProfile: {},
     qty: 1,
     width: 1000,
     height: 1000,
