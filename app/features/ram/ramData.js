@@ -9,8 +9,8 @@ export const ramData = createSlice({
     fill: {},
     subFill: {},
     additionalFillTreatment: "",
-    hinge: "",
-    hingeQty: 0,
+    hinges: {},
+    hingesQty: 0,
     handleProfile: "",
     qty: 1,
     width: 1000,
@@ -36,11 +36,11 @@ export const ramData = createSlice({
     setAdditionalFillTreatment: (state, action) => {
       state.additionalFillTreatment = action.payload;
     },
-    setHinge: (state, action) => {
-      state.hinge = action.payload;
+    setHinges: (state, action) => {
+      state.hinges = action.payload;
     },
-    setHingeQty: (state, action) => {
-      state.hingeQty = action.payload;
+    setHingesQty: (state, action) => {
+      state.hingesQty = action.payload;
     },
     setHandleProfile: (state, action) => {
       state.handleProfile = action.payload;
@@ -64,8 +64,8 @@ export const {
   setFill,
   setRalCode,
   setSubfill,
-  setHinge,
-  setHingeQty,
+  setHinges,
+  setHingesQty,
   setHandleProfile,
   setQty,
   setWidth,
