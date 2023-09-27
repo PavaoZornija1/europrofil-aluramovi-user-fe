@@ -77,7 +77,13 @@ function Hinges(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    dispatch(setHingeHole({ hingeHolePrice: 50, hingeHoleQty: Number(value) }));
+    dispatch(
+      setHingeHole({
+        hingeHolePrice: 50,
+        hingeHoleQty: Number(value),
+        withMountPrice: 330,
+      })
+    );
     dispatch(setHingesQty(Number(value)));
   };
 
