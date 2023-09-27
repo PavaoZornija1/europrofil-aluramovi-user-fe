@@ -40,7 +40,7 @@ function Treatments(props) {
                 <div
                   className="flex items-center cursor-pointer"
                   onClick={() => {
-                    handleClick(index, item.name);
+                    handleClick(index, item);
                     handleNoFillChosen(true);
                   }}
                 >
