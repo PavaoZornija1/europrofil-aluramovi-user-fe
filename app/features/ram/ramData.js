@@ -21,6 +21,7 @@ export const ramData = createSlice({
       hingeHoleQty: 0,
       withMountPrice: 330,
     },
+    lockHole: 0,
     qty: 1,
     qtyTotal: 1,
     width: 1000,
@@ -39,6 +40,9 @@ export const ramData = createSlice({
     },
     setRalCode: (state, action) => {
       state.ralCode = action.payload;
+    },
+    setLockHole: (state, action) => {
+      state.lockHole = action.payload;
     },
     setSubfill: (state, action) => {
       state.subFill = action.payload;
@@ -82,6 +86,7 @@ export const ramData = createSlice({
   },
 });
 export const {
+  setLockHole,
   setHingeHole,
   setHandleHole,
   setTreatment,
