@@ -7,7 +7,7 @@ export const ramData = createSlice({
     treatment: {},
     ralCode: "",
     fill: {},
-    subFill: "",
+    subFill: {},
     additionalFillTreatment: "",
     hinge: "",
     hingeQty: 0,
