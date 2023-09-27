@@ -1,11 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/page";
-import data from "./mockData";
 import RamItem from "./components/ramItem/page";
 import axios from "axios";
 import { Config } from "@/config";
-import { useParams } from "next/navigation";
 
 function Rams() {
   const [rams, setRams] = useState([]);
@@ -13,7 +11,6 @@ function Rams() {
     const response = async () => {
       const res = await axios.get(`${Config.baseURL}/api/alu-profiles`);
       setRams(res.data);
-      console.log(res.data);
     };
     response();
   }, []);
