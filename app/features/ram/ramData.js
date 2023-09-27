@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export const ramData = createSlice({
   name: "data",
   initialState: {
-    treatment: "",
+    frameType: {},
+    treatment: {},
     ralCode: "",
-    fill: "",
+    fill: {},
     subFill: "",
     additionalFillTreatment: "",
     hinge: "",
@@ -17,6 +18,9 @@ export const ramData = createSlice({
     orientation: "",
   },
   reducers: {
+    setFrameType: (state, action) => {
+      state.frameType = action.payload;
+    },
     setTreatment: (state, action) => {
       state.treatment = action.payload;
     },
@@ -68,5 +72,6 @@ export const {
   setHeight,
   setAdditionalFillTreatment,
   setOrientation,
+  setFrameType,
 } = ramData.actions;
 export default ramData.reducer;
