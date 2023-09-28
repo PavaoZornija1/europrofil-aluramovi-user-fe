@@ -1,43 +1,43 @@
 export const messages = {
   en: {
     treatments: {
-        noFillLabel: "No Fill",
-        additionalTreatmentLabel: "Additional Treatment",
-        additionalTreatmentOptions: {
-          noTreatment: "No Treatment",
-          kpTreatment: "KP Treatment",
-          wholeGlassTreatment: "Sanding Entire Glass Surface",
-          glassTempering: "Glass Tempering",
-          faceting5mm: "Beveling 5mm",
-          faceting10mm: "Beveling 10mm",
-          faceting15mm: "Beveling 15mm",
-          protectiveFoil: "Protective Foil",
-          decorativeFoil: "Decorative Foil",
-          motiveFoil: "Motive Foil",
-          sandyFoil: "Sandy Foil",
-        },
+      noFillLabel: "No Fill",
+      additionalTreatmentLabel: "Additional Treatment",
+      additionalTreatmentOptions: {
+        noTreatment: "No Treatment",
+        kpTreatment: "KP Treatment",
+        wholeGlassTreatment: "Sanding Entire Glass Surface",
+        glassTempering: "Glass Tempering",
+        faceting5mm: "Beveling 5mm",
+        faceting10mm: "Beveling 10mm",
+        faceting15mm: "Beveling 15mm",
+        protectiveFoil: "Protective Foil",
+        decorativeFoil: "Decorative Foil",
+        motiveFoil: "Motive Foil",
+        sandyFoil: "Sandy Foil",
+      },
     },
     accordion: {
-        noFillLabel: "No Fill",
-        additionalTreatmentLabel: "Additional Treatment",
-        additionalTreatmentOptions: {
-          none: "None",
-          kpTreatment: "KP Treatment",
-          sandingEntireGlassSurface: "Sanding Entire Glass Surface",
-          glassTempering: "Glass Tempering",
-          beveling5mm: "Beveling 5mm",
-          beveling10mm: "Beveling 10mm",
-          beveling15mm: "Beveling 15mm",
-          protectiveFilm: "Protective Film",
-          decorativeFilm: "Decorative Film",
-          customFilm: "Custom Film",
-          sandblastFilm: "Sandblast Film",
-        },
-    },
-//app\rams\[id]\page.jsx
-    ramType: {
-        title: "RAM Type",
+      noFillLabel: "No Fill",
+      additionalTreatmentLabel: "Additional Treatment",
+      additionalTreatmentOptions: {
+        none: "None",
+        kpTreatment: "KP Treatment",
+        sandingEntireGlassSurface: "Sanding Entire Glass Surface",
+        glassTempering: "Glass Tempering",
+        beveling5mm: "Beveling 5mm",
+        beveling10mm: "Beveling 10mm",
+        beveling15mm: "Beveling 15mm",
+        protectiveFilm: "Protective Film",
+        decorativeFilm: "Decorative Film",
+        customFilm: "Custom Film",
+        sandblastFilm: "Sandblast Film",
       },
+    },
+    //app\rams\[id]\page.jsx
+    ramType: {
+      title: "RAM Type",
+    },
     //app\protectedRoute\page.jsx
 
     protectedRoute: {
@@ -103,51 +103,47 @@ export const messages = {
     },
   },
   bh: {
-
     treatments: {
-        noFillLabel: "Bez Ispune",
-        additionalTreatmentLabel: "Dodatna Obrada",
-        additionalTreatmentOptions: {
-          noTreatment: "Bez Dodatne Obrade",
-          kpTreatment: "KP Obrada",
-          wholeGlassTreatment: "Brušenje Cele Staklene Površine",
-          glassTempering: "Kaljenje Stakla",
-          faceting5mm: "Fazetiranje 5mm",
-          faceting10mm: "Fazetiranje 10mm",
-          faceting15mm: "Fazetiranje 15mm",
-          protectiveFoil: "Lepljenje Zaštitne Folije",
-          decorativeFoil: "Lepljenje Dekorativne Folije",
-          motiveFoil: "Lepljenje Folije Po Motivu",
-          sandyFoil: "Lepljenje Peskirne Folije",
-        },
+      noFillLabel: "Bez Ispune",
+      additionalTreatmentLabel: "Dodatna Obrada",
+      additionalTreatmentOptions: {
+        noTreatment: "Bez Dodatne Obrade",
+        kpTreatment: "KP Obrada",
+        wholeGlassTreatment: "Brušenje Cele Staklene Površine",
+        glassTempering: "Kaljenje Stakla",
+        faceting5mm: "Fazetiranje 5mm",
+        faceting10mm: "Fazetiranje 10mm",
+        faceting15mm: "Fazetiranje 15mm",
+        protectiveFoil: "Lepljenje Zaštitne Folije",
+        decorativeFoil: "Lepljenje Dekorativne Folije",
+        motiveFoil: "Lepljenje Folije Po Motivu",
+        sandyFoil: "Lepljenje Peskirne Folije",
       },
-
-    accordion: {
-        noFillLabel: "Bez Ispune",
-        additionalTreatmentLabel: "Dodatna Obrada",
-        additionalTreatmentOptions: {
-          none: "Bez Dodatne Obrade",
-          kpTreatment: "KP Obrada",
-          sandingEntireGlassSurface: "Brušenje Cele Staklene Površine",
-          glassTempering: "Kaljenje Stakla",
-          beveling5mm: "Fazetiranje 5mm",
-          beveling10mm: "Fazetiranje 10mm",
-          beveling15mm: "Fazetiranje 15mm",
-          protectiveFilm: "Lepljenje Zaštitne Folije",
-          decorativeFilm: "Lepljenje Dekorativne Folije",
-          customFilm: "Lepljenje Folije Po Motivu",
-          sandblastFilm: "Lepljenje Peskirne Folije",
-        },
     },
 
-   
+    accordion: {
+      noFillLabel: "Bez Ispune",
+      additionalTreatmentLabel: "Dodatna Obrada",
+      additionalTreatmentOptions: {
+        none: "Bez Dodatne Obrade",
+        kpTreatment: "KP Obrada",
+        sandingEntireGlassSurface: "Brušenje Cele Staklene Površine",
+        glassTempering: "Kaljenje Stakla",
+        beveling5mm: "Fazetiranje 5mm",
+        beveling10mm: "Fazetiranje 10mm",
+        beveling15mm: "Fazetiranje 15mm",
+        protectiveFilm: "Lepljenje Zaštitne Folije",
+        decorativeFilm: "Lepljenje Dekorativne Folije",
+        customFilm: "Lepljenje Folije Po Motivu",
+        sandblastFilm: "Lepljenje Peskirne Folije",
+      },
+    },
 
     //app\rams\[id]\page.jsx
-    
-    bh: {
-      ramType: {
-        title: "Vrsta RAM-a",
-      },
+  bh: {
+    ramType: {
+      title: "Vrsta RAM-a",
+    },
     //app\protectedRoute\page.jsx
     protectedRoute: {
       unauthorizedRedirect:
@@ -211,4 +207,6 @@ export const messages = {
       height: "Visina",
       orientation: "Orijentacija",
     },
-  }}};
+  },
+  }
+};

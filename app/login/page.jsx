@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
@@ -10,6 +10,7 @@ import { messages } from "../localization/messages";
 import { Config } from "../../config";
 
 export default function Login({ locale }) {
+  console.log(messages);
   const {
     title,
     usernameLabel,

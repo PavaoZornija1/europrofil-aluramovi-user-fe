@@ -1,10 +1,8 @@
 import Link from "next/link";
-import { messages } from "app/localization/messages.ts";
+import { messages } from "app/localization/messages.js";
 import { Config } from "../../config";
 
 export default function Footer({ locale }) {
-  const { rightsReserved, designDevelopment } = messages[locale].ftr;
-
   let date = new Date();
   let year = date.getFullYear();
 
@@ -18,10 +16,10 @@ export default function Footer({ locale }) {
         >
           Europrofil
         </Link>
-        &copy; {year}. {rightsReserved}
+        &copy; {year}. Europrofil
       </span>
       <span className="w-full">
-        {designDevelopment}
+        Manage IT
         <Link
           href={"https://manage-it.tech/"}
           target="_blank"

@@ -4,10 +4,11 @@ import Logo from "../../public/logo3.webp";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   setAdditionalFillTreatment,
   setFill,
@@ -24,6 +25,7 @@ import {
   setTreatment,
   setWidth,
 } from "../features/ram/ramData";
+import { messages } from "../localization/messages";
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -89,13 +91,13 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
-              <Link href={"/previous-orders"}>{oldOrder}</Link>
+              <Link href={"/previous-orders"}>Stara porudžbina</Link>
             </li>
             <button
               onClick={handleLogout}
               className="m-4 rounded-full px-3 py-1 align-middle text-2xl font-semibold text-red-500 underline transition-all hover:bg-white hover:text-black"
             >
-              {logoutButton}
+              Izloguj se
             </button>
           </ul>
         </div>
@@ -116,7 +118,7 @@ export default function Navbar() {
             href="/previous-orders"
             className="rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
           >
-            {oldOrder}
+            Stara porudžbina
           </Link>
         </div>
         {/* LOGO */}
@@ -136,7 +138,7 @@ export default function Navbar() {
             onClick={handleLogout}
             className="rounded-full border px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-red-600"
           >
-            {logoutButton}
+            Izloguj se
           </button>
         </div>
       </div>

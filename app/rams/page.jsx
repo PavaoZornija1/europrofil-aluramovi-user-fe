@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/page";
 import RamItem from "./components/ramItem/page";
 import axios from "axios";
-import { Config } from "@/config";
+import { Config } from "../../config";
 
 function Rams() {
   const [rams, setRams] = useState([]);
