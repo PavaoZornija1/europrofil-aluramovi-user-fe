@@ -1,7 +1,12 @@
 "use client";
-import { Config } from "@/config";
-import axios from "axios";
+import {
+  setHingeHole,
+  setHinges,
+  setHingesQty,
+} from "@/app/features/ram/ramData";
+
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function Hinges(props) {
   const {
@@ -11,7 +16,9 @@ function Hinges(props) {
     createCenterDistanceOfHolesArr,
   } = props;
 
-  const [hinge, setHinge] = useState("asd");
+  const [hinge, setHinge] = useState({});
+
+  const dispatch = useDispatch();
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -70,6 +77,26 @@ function Hinges(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    dispatch(
+      setHingeHole({
+        hingeHolePrice: 50,
+        hingeHoleQty: Number(value),
+        withMountPrice: 330,
+      })
+    );
+    dispatch(setHingesQty(Number(value)));
+  };
+
+  const handleChooseHingeType = (e) => {
+    let hingeType;
+    for (let i = 0; i < props.ram?.cmsAluHinges.length; ++i) {
+      if (props.ram?.cmsAluHinges[i].id === e.target.value) {
+        hingeType = props.ram?.cmsAluHinges[i];
+      }
+    }
+    setHinge(hingeType);
+
+    dispatch(setHinges(hingeType));
   };
 
   return (
@@ -161,15 +188,11 @@ function Hinges(props) {
                   type="number"
                   id="montingHinges"
                   className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  // value={frontsData[activeFrontId].hinges.numberOfHinges}
-                  // onChange={(e) => {
-                  //   updateNumberOfHinges(activeFrontId, e.target.value);
-                  // }}
-                  value={hinge}
-                  onChange={(e) => setHinge(e.target.value)}
+                  value={hinge.name}
+                  onChange={(e) => handleChooseHingeType(e)}
                 >
                   {props.ram?.cmsAluHinges?.map((hinge) => (
-                    <option value={hinge.name} key={hinge.id}>
+                    <option value={hinge.id} key={hinge.id}>
                       {hinge.name}
                     </option>
                   ))}

@@ -320,6 +320,7 @@ function Step2(props) {
               frontsData={frontsData}
               setFrontsData={setFrontsData}
               activeFrontId={activeFrontId}
+              ram={props.ram}
             />
           )}
         </div>

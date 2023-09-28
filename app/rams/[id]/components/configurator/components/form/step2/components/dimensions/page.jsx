@@ -1,5 +1,10 @@
 "use client";
-import { setHeight, setQty, setWidth } from "@/app/features/ram/ramData";
+import {
+  setHeight,
+  setQty,
+  setQtyTotal,
+  setWidth,
+} from "@/app/features/ram/ramData";
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -24,7 +29,9 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    dispatch(setQty(updatedFrontsData[activeFront].dimensions.numberOfPieces));
+    dispatch(
+      setQtyTotal(updatedFrontsData[activeFront].dimensions.numberOfPieces)
+    );
   };
 
   const updateWidth = (activeFront, value) => {

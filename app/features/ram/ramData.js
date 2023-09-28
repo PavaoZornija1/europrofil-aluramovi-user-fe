@@ -8,11 +8,26 @@ export const ramData = createSlice({
     ralCode: "",
     fill: {},
     subFill: {},
-    additionalFillTreatment: "",
-    hinge: "",
-    hingeQty: 0,
-    handleProfile: "",
+    additionalFillTreatment: {},
+    hinges: {},
+    hingesQty: 0,
+    liftingSystem: {},
+    handleProfile: {},
+    handleHole: {
+      handleHolePrice: 55,
+      handleHoleQty: 0,
+    },
+    hingeHole: {
+      hingeHolePrice: 50,
+      hingeHoleQty: 0,
+      withMountPrice: 330,
+    },
+    lockHole: {
+      lockPrice: 165,
+      lockAmount: 0,
+    },
     qty: 1,
+    qtyTotal: 1,
     width: 1000,
     height: 1000,
     orientation: "",
@@ -27,8 +42,14 @@ export const ramData = createSlice({
     setFill: (state, action) => {
       state.fill = action.payload;
     },
+    setLiftingSystem: (state, action) => {
+      state.liftingSystem = action.payload;
+    },
     setRalCode: (state, action) => {
       state.ralCode = action.payload;
+    },
+    setLockHole: (state, action) => {
+      state.lockHole = action.payload;
     },
     setSubfill: (state, action) => {
       state.subFill = action.payload;
@@ -36,17 +57,29 @@ export const ramData = createSlice({
     setAdditionalFillTreatment: (state, action) => {
       state.additionalFillTreatment = action.payload;
     },
-    setHinge: (state, action) => {
-      state.hinge = action.payload;
+    setHinges: (state, action) => {
+      state.hinges = action.payload;
     },
-    setHingeQty: (state, action) => {
-      state.hingeQty = action.payload;
+    setHingesQty: (state, action) => {
+      state.hingesQty = action.payload;
     },
+    setHandleHole: (state, action) => {
+      state.handleHole = action.payload;
+    },
+    setHingeHole: (state, action) => {
+      state.hingeHole = action.payload;
+    },
+
     setHandleProfile: (state, action) => {
       state.handleProfile = action.payload;
     },
     setQty: (state, action) => {
       state.qty = action.payload;
+    },
+
+    // FIKSATI OVO
+    setQtyTotal: (state, action) => {
+      state.qtyTotal += action.payload;
     },
     setWidth: (state, action) => {
       state.width = action.payload;
@@ -60,12 +93,16 @@ export const ramData = createSlice({
   },
 });
 export const {
+  setLiftingSystem,
+  setLockHole,
+  setHingeHole,
+  setHandleHole,
   setTreatment,
   setFill,
   setRalCode,
   setSubfill,
-  setHinge,
-  setHingeQty,
+  setHinges,
+  setHingesQty,
   setHandleProfile,
   setQty,
   setWidth,
@@ -73,5 +110,6 @@ export const {
   setAdditionalFillTreatment,
   setOrientation,
   setFrameType,
+  setQtyTotal,
 } = ramData.actions;
 export default ramData.reducer;

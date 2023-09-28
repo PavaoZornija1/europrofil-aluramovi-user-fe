@@ -1,8 +1,13 @@
 "use client";
-import React from "react";
+import { setLiftingSystem } from "@/app/features/ram/ramData";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function LiftingSystem(props) {
   const { frontsData, setFrontsData, activeFrontId } = props;
+  const [lift, setLift] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -53,6 +58,18 @@ function LiftingSystem(props) {
     });
 
     setFrontsData(updatedFrontsData);
+  };
+
+  const handleChooseLiftSupport = (e) => {
+    let liftSupport = e.target.value;
+    for (let i = 0; i < props.ram?.cmsAluLiftSupports.length; ++i) {
+      if (props.ram?.cmsAluLiftSupports[i].id === e.target.value) {
+        liftSupport = props.ram?.cmsAluLiftSupports[i];
+        console.log(props.ram?.cmsAluLiftSupports[i]);
+      }
+    }
+    setLift(liftSupport);
+    dispatch(setLiftingSystem(liftSupport));
   };
 
   return (
@@ -142,27 +159,17 @@ function LiftingSystem(props) {
                 type="number"
                 id="numOfStandardHinges"
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                value={
-                  frontsData[activeFrontId].liftingSystem.activeMechanismOption
-                }
+                value={lift}
                 onChange={(e) => {
                   handleMechanismOption(activeFrontId, Number(e.target.value));
+                  handleChooseLiftSupport(e);
                 }}
               >
-                <option value="0">- Izaberite mehanizam -</option>
-                <option value="1">OPM Amort.gasni 80N GTV</option>
-                <option value="2">OPM Amort.gasni 100N GTV</option>
-                <option value="3">OPM Amort.gasni 80N kratki GTV</option>
-                <option value="4">OPM Amort.gasni 100N slow HS</option>
-                <option value="5">OPM DUO STANDARD mehanizam HF</option>
-                <option value="6">OPM DUO FORTE Mehanizam HF</option>
-                <option value="7">OPM FREE FLAP B Mehanizam HF</option>
-                <option value="8">OPM FREE Flap C Mehanizam HF</option>
-                <option value="9">OPM FREE Flap D Mehanizam HF</option>
-                <option value="10">OPM FREE Flap F Mehanizam HF</option>
-                <option value="11">OPM FREE Flap G Mehanizam HF</option>
-                <option value="12">OPM FREE Flap E Mehanizam HF</option>
-                <option value="13">OPM HL Mehanizam BLUM</option>
+                {props.ram?.cmsAluLiftSupports?.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

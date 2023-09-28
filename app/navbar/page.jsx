@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+<<<<<<< HEAD
 import { messages } from "app/localization/messages.ts"; // Import localized messages
 
 export default function Navbar() {
@@ -15,8 +16,51 @@ export default function Navbar() {
     messages[locale].navbar;
 
   const router = useRouter();
+=======
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setAdditionalFillTreatment,
+  setFill,
+  setFrameType,
+  setHandleProfile,
+  setHeight,
+  setHinges,
+  setHingesQty,
+  setOrientation,
+  setQty,
+  setQtyTotal,
+  setRalCode,
+  setSubfill,
+  setTreatment,
+  setWidth,
+} from "../features/ram/ramData";
+
+export default function Navbar() {
+>>>>>>> 690f278bee432de41b544a72895449add688649e
   const [showMenu, setShowMenu] = useState(false);
   const { user, logout } = useAuth();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const qty = useSelector((state) => state.data.qtyTotal);
+
+  const handleDefaultValues = () => {
+    // dispatch(setFrameType({}));
+    // dispatch(setTreatment({}));
+    // dispatch(setRalCode(""));
+    // dispatch(setFill({}));
+    // dispatch(setSubfill({}));
+    // dispatch(setAdditionalFillTreatment({}));
+    // dispatch(setHinges({}));
+    // dispatch(setHingesQty(0));
+    // dispatch(setHandleProfile({}));
+    // dispatch(setQty(1));
+    // dispatch(setQtyTotal(0));
+    // dispatch(setWidth(1000));
+    // dispatch(setHeight(1000));
+    // dispatch(setOrientation(""));
+    // console.log(qty);
+    router.push("/");
+  };
 
   const handleLogout = async () => {
     await logout();
@@ -51,7 +95,13 @@ export default function Navbar() {
         >
           <ul className="m-14 flex min-h-[550px] flex-col items-center justify-center p-4 uppercase">
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
+<<<<<<< HEAD
               <Link href={"/rams"}>{newOrder}</Link>
+=======
+              <Link href={"/rams"} onClick={handleDefaultValues}>
+                Nova porudžbina
+              </Link>
+>>>>>>> 690f278bee432de41b544a72895449add688649e
             </li>
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
               <Link href={"/previous-orders"}>{oldOrder}</Link>
@@ -70,12 +120,18 @@ export default function Navbar() {
       <div className="m-auto hidden w-full justify-between bg-gradient-to-tl from-[#11698E] to-slate-800 p-4 xl:flex">
         {/* LINKS */}
         <div className="w-[33%] self-center p-2 py-5 text-black">
-          <Link
-            href="/rams"
+          <button
+            // href="/rams"
             className="mr-8 rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
+            onClick={() => handleDefaultValues()}
           >
+<<<<<<< HEAD
             {newOrder}
           </Link>
+=======
+            Nova porudžbina
+          </button>
+>>>>>>> 690f278bee432de41b544a72895449add688649e
           <Link
             href="/previous-orders"
             className="rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
