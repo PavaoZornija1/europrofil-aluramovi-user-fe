@@ -26,8 +26,8 @@ export const ramData = createSlice({
       lockPrice: 165,
       lockAmount: 0,
     },
-    qty: 1,
-    qtyTotal: 1,
+    qty: 0,
+    qtyTotal: 0,
     width: 1000,
     height: 1000,
     orientation: "",
@@ -79,7 +79,7 @@ export const ramData = createSlice({
 
     // FIKSATI OVO
     setQtyTotal: (state, action) => {
-      state.qtyTotal += action.payload;
+      state.qtyTotal = action.payload;
     },
     setWidth: (state, action) => {
       state.width = action.payload;
