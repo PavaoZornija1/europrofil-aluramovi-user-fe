@@ -5,7 +5,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useReducer } from "react";
-import { messages } from "app/localization/messages";
+import { messages } from "../localization/messages";
 
 const AuthContext = createContext();
 const initialState = {
@@ -20,7 +20,7 @@ const reducer = (state, action) => {
     case "logout":
       return { ...state, user: null, isAuthenticated: false };
     default:
-      throw new Error(messages[useRouter().locale || "en"].auth.unknownAction);
+      throw new Error("Unknown action");
   }
 };
 
@@ -29,8 +29,6 @@ export const AuthProvider = ({ children }) => {
     reducer,
     initialState
   );
-  const router = useRouter();
-  const { login, logout } = messages[useRouter().locale || "en"].auth; // Get localized login and logout labels
 
   const loginUser = async (username, password) => {
     const response = await axios.post(`${Config.baseURL}/api/auth/login`, {

@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
 import { useAuth } from "../context/AuthContext";
-import { messages, login } from "app/localization/messages.ts";
-import { Config } from "config.js";
+import { messages } from "../localization/messages";
+import { Config } from "../../config";
 
 export default function Login({ locale }) {
   const {

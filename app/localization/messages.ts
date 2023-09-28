@@ -211,5 +211,4 @@ export const messages = {
       height: "Visina",
       orientation: "Orijentacija",
     },
-},
-};
+  }}};

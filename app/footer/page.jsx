@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { messages } from "app/localization/messages.ts";
-import { Config } from "config.js";
+import { Config } from "../../config";
 
 export default function Footer({ locale }) {
   const { rightsReserved, designDevelopment } = messages[locale].ftr;
