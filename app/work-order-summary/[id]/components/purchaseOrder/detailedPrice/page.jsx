@@ -45,7 +45,7 @@ export default function DetailedPrice() {
     : 0
   ).toFixed(2);
 
-  let pdv = (20 / 100) * totalPrice;
+  let pdv = ((20 / 100) * totalPrice).toFixed(2);
 
   return (
     <div className="w-full ">
