@@ -17,6 +17,36 @@ export default function DetailedPrice() {
   const lock = useSelector((state) => state.data.lockHole);
   const liftSupport = useSelector((state) => state.data.liftingSystem);
 
+  let totalPrice =
+    (aluProfile?.pricePerMeter ? Number(aluProfile?.pricePerMeter * 4.4) : 0) +
+    (subfill?.pricePerSquareMeter
+      ? Number(subfill?.pricePerSquareMeter * 4)
+      : Number(fill?.pricePerSquareMeter * 4)) +
+    (aluProfile?.corverCoverPrice
+      ? Number(aluProfile?.corverCoverPrice * qtyTotal * 4)
+      : 0) +
+    (additionalFillTreatment?.price
+      ? Number(additionalFillTreatment?.price * qtyTotal * 4)
+      : 0) +
+    (handleHole?.handleHolePrice
+      ? Number(handleHole?.handleHolePrice * handleHole?.handleHoleQty)
+      : 0) +
+    (hingeHole?.withMountPrice
+      ? Number(hingeHole?.withMountPrice * hingeHole?.hingeHoleQty)
+      : 0) +
+    (handleHole?.handleHolePrice
+      ? Number(handleHole?.handleHolePrice * handleHole?.handleHoleQty)
+      : 0);
+  hinge?.price
+    ? Number(hinge?.price * hingeHole?.hingeHoleQty)
+    : 0 + (lock?.lockPrice ? Number(lock?.lockPrice * lock?.lockAmount) : 0);
+  (liftSupport?.pricePerUnit
+    ? Number(liftSupport?.pricePerUnit * qtyTotal)
+    : 0
+  ).toFixed(2);
+
+  let pdv = (20 / 100) * totalPrice;
+
   return (
     <div className="w-full ">
       <h3 className="pb-8 text-2xl font-semibold ">Detaljni obračun cene</h3>
@@ -72,7 +102,7 @@ export default function DetailedPrice() {
             {/* DODATI POPUST */}
             <td className="px-6 py-4 text-center text-lg">0%</td>
             <td className="px-6 py-4 text-end text-lg">
-              {(Number(aluProfile.pricePerMeter).toFixed(2) * 4.4).toFixed(2)}
+              {(Number(aluProfile.pricePerMeter) * 4.4).toFixed(2)}
             </td>
           </tr>
           {(subfill.name || fill.name) && (
@@ -87,21 +117,24 @@ export default function DetailedPrice() {
                 {subfill.name || fill.name}
               </td>
               <td className="px-6 py-4 text-center text-lg">
-                {Number(subfill?.pricePerSquareMeter).toFixed(2) ||
-                  Number(fill?.pricePerSquareMeter).toFixed(2)}
+                {subfill?.pricePerSquareMeter
+                  ? Number(subfill?.pricePerSquareMeter).toFixed(2)
+                  : Number(fill?.pricePerSquareMeter).toFixed(2)}
               </td>
               <td className="px-6 py-4 text-center text-lg">4.0</td>
               <td className="px-6 py-4 text-center text-lg">
                 m<sup>2</sup>
               </td>
               <td className="px-6 py-4 text-center text-lg">
-                {Number(subfill.pricePerSquareMeter).toFixed(2) ||
-                  Number(fill.pricePerSquareMeter).toFixed(2)}
+                {subfill?.pricePerSquareMeter
+                  ? Number(subfill?.pricePerSquareMeter).toFixed(2)
+                  : Number(fill?.pricePerSquareMeter).toFixed(2)}
               </td>
               <td className="px-6 py-4 text-center text-lg">0%</td>
               <td className="px-6 py-4 text-end text-lg">
-                {Number(subfill.pricePerSquareMeter).toFixed(2) ||
-                  Number(fill.pricePerSquareMeter).toFixed(2)}
+                {subfill?.pricePerSquareMeter
+                  ? Number(subfill?.pricePerSquareMeter * 4).toFixed(2)
+                  : Number(fill?.pricePerSquareMeter * 4).toFixed(2)}
               </td>
             </tr>
           )}
@@ -308,7 +341,6 @@ export default function DetailedPrice() {
             </tr>
           )}
 
-          {/* NEZAVRSENO */}
           {liftSupport?.name && (
             <tr className={"border-b"}>
               <td
@@ -323,14 +355,14 @@ export default function DetailedPrice() {
               <td className="px-6 py-4 text-center text-lg">
                 {Number(liftSupport.pricePerUnit).toFixed(2)}
               </td>
-              <td className="px-6 py-4 text-center text-lg"></td>
+              <td className="px-6 py-4 text-center text-lg">{qtyTotal}</td>
               <td className="px-6 py-4 text-center text-lg">kom</td>
               <td className="px-6 py-4 text-center text-lg">
-                {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
+                {Number(liftSupport.pricePerUnit * qtyTotal).toFixed(2)}
               </td>
               <td className="px-6 py-4 text-center text-lg">0%</td>
               <td className="px-6 py-4 text-end text-lg">
-                {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
+                {Number(liftSupport.pricePerUnit * qtyTotal).toFixed(2)}
               </td>
             </tr>
           )}
@@ -344,15 +376,17 @@ export default function DetailedPrice() {
         <div className="flex w-1/2 flex-col gap-4">
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">UKUPNO</h3>
-            <p>10,479.80 RSD</p>
+            <p> {totalPrice} RSD</p>
           </div>
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">PDV (20.00%)</h3>
-            <p>2,095.96 RSD</p>
+            <p>{pdv} RSD</p>
           </div>
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">UKUPNO SA PDV-om</h3>
-            <p className="text-lg font-semibold">12,575.77 RSD</p>
+            <p className="text-lg font-semibold">
+              {Number(pdv) + Number(totalPrice)} RSD
+            </p>
           </div>
         </div>
       </div>
