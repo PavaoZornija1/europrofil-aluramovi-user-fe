@@ -6,11 +6,19 @@ import PurchaseOrder from "./components/purchaseOrder/page";
 import Navbar from "@/app/navbar/page";
 import { usePathname } from "next/navigation";
 import createWorkOrderPdf from "./components/pdf/pdf";
+import { useSelector } from "react-redux";
 
 function WorkOrderMain(props) {
   const [workOrderActive, setWorkOrderActive] = useState(true);
   const [purchaseOrderActive, setPurchaseOrderActive] = useState(false);
   const pathname = usePathname();
+
+  const frameType = useSelector((state) => state.data.frameType.name);
+  const treatment = useSelector((state) => state.data.treatment.name);
+  const fill = useSelector((state) => state.data.fill.name);
+  const additionalTreatment = useSelector(
+    (state) => state.data.additionalFillTreatment.name
+  );
   return (
     <div>
       <Navbar />
@@ -68,7 +76,14 @@ function WorkOrderMain(props) {
             </Link> */}
             <div
               className="w-full max-w-[320px] cursor-pointer rounded-md border bg-gradient-to-tr from-green-500 to-green-600 px-3 py-1 text-center text-lg font-semibold uppercase text-white transition-all duration-200 hover:brightness-125"
-              onClick={createWorkOrderPdf}
+              onClick={() =>
+                createWorkOrderPdf(
+                  frameType,
+                  treatment,
+                  fill,
+                  additionalTreatment
+                )
+              }
             >
               Štampa
             </div>
