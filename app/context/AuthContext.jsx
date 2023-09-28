@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
     reducer,
     initialState
   );
+  const router = useRouter();
 
   const loginUser = async (username, password) => {
     const response = await axios.post(`${Config.baseURL}/api/auth/login`, {

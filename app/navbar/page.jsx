@@ -64,7 +64,7 @@ export default function Navbar() {
 
         {user && (
           <span className="text-xl tracking-wider text-white">
-            {userWelcome} {user}
+            Dobrodosli {user}
           </span>
         )}
 
@@ -130,7 +130,7 @@ export default function Navbar() {
         <div className="flex w-[33%] justify-end self-center p-2">
           {user && (
             <span className="mr-12  px-3 align-middle text-2xl font-bold tracking-wider text-white">
-              {userWelcome} {user}
+              Dobrodošli {user}
             </span>
           )}
 
