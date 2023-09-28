@@ -197,7 +197,6 @@ function Handles(props) {
     for (let i = 0; i < props.ram?.cmsAluHandleProfiles.length; ++i) {
       if (props.ram?.cmsAluHandleProfiles[i].id === e.target.value) {
         profileType = props.ram?.cmsAluHandleProfiles[i];
-        console.log(props.ram?.cmsAluHandleProfiles[i]);
       }
     }
     setHandle(profileType);

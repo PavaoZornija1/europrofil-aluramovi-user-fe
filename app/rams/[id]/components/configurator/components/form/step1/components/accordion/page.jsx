@@ -23,12 +23,10 @@ function Accordion(props) {
     const response = async () => {
       const res = await axios.get(`${Config.baseURL}/api/bevel-options`);
       setBevelOptions(res.data);
-      console.log(res.data);
       const res_2 = await axios.get(
         `${Config.baseURL}/api/sand-blasting-options`
       );
       setSandBlastingOptions(res_2.data);
-      console.log(res_2.data);
     };
     response();
   }, []);
@@ -42,13 +40,11 @@ function Accordion(props) {
     for (let i = 0; i < sandBlastingOptions?.length; ++i) {
       if (sandBlastingOptions[i]?.id === e.target.value) {
         addition = sandBlastingOptions[i];
-        console.log(sandBlastingOptions[i]);
       }
     }
     for (let i = 0; i < bevelOptions?.length; ++i) {
       if (bevelOptions[i]?.id === e.target.value) {
         addition = bevelOptions[i];
-        console.log(bevelOptions[i]);
       }
     }
     setAdd(addition);
@@ -72,10 +68,6 @@ function Accordion(props) {
   const handleNoFillChosen = (bool) => {
     setNoFillChosen(bool);
   };
-
-  useEffect(() => {
-    console.log(addFill);
-  }, [addFill]);
 
   return (
     <div>
