@@ -385,7 +385,7 @@ export default function DetailedPrice() {
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">UKUPNO SA PDV-om</h3>
             <p className="text-lg font-semibold">
-              {Number(pdv) + Number(totalPrice)} RSD
+              {(Number(pdv) + Number(totalPrice)).toFixed(2)} RSD
             </p>
           </div>
         </div>
