@@ -4,11 +4,16 @@ import Logo from "../../public/logo3.webp";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { messages } from "app/localization/messages.ts"; // Import localized messages
 
 export default function Navbar() {
+  const { locale } = useRouter(); // Get the current locale
+  const { userWelcome, menuButton, newOrder, oldOrder, logoutButton } =
+    messages[locale].navbar;
+
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
   const { user, logout } = useAuth();
@@ -20,11 +25,11 @@ export default function Navbar() {
   return (
     <>
       <div className="w-full bg-gradient-to-tl from-[#11698E] to-slate-800 p-4 xl:hidden">
-        {/* profilna slika + logout */}
+        {/* Profile Picture + Logout */}
 
         {user && (
           <span className="text-xl tracking-wider text-white">
-            Welcome {user}
+            {userWelcome} {user}
           </span>
         )}
 
@@ -46,16 +51,16 @@ export default function Navbar() {
         >
           <ul className="m-14 flex min-h-[550px] flex-col items-center justify-center p-4 uppercase">
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
-              <Link href={"/rams"}>Nova porudžbina</Link>
+              <Link href={"/rams"}>{newOrder}</Link>
             </li>
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
-              <Link href={"/previous-orders"}>Stara porudžbina</Link>
+              <Link href={"/previous-orders"}>{oldOrder}</Link>
             </li>
             <button
               onClick={handleLogout}
               className="m-4 rounded-full px-3 py-1 align-middle text-2xl font-semibold text-red-500 underline transition-all hover:bg-white hover:text-black"
             >
-              Log Out
+              {logoutButton}
             </button>
           </ul>
         </div>
@@ -63,19 +68,19 @@ export default function Navbar() {
 
       {/* DESKTOP MODE */}
       <div className="m-auto hidden w-full justify-between bg-gradient-to-tl from-[#11698E] to-slate-800 p-4 xl:flex">
-        {/* LINKOVI */}
+        {/* LINKS */}
         <div className="w-[33%] self-center p-2 py-5 text-black">
           <Link
             href="/rams"
             className="mr-8 rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
           >
-            Nova porudžbina
+            {newOrder}
           </Link>
           <Link
             href="/previous-orders"
             className="rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
           >
-            Stara porudžbina
+            {oldOrder}
           </Link>
         </div>
         {/* LOGO */}
@@ -83,11 +88,11 @@ export default function Navbar() {
           <Image src={Logo} alt="europrofil logo" className="m-auto" priority />
         </div>
 
-        {/* profilna slika + logout */}
+        {/* Profile Picture + Logout */}
         <div className="flex w-[33%] justify-end self-center p-2">
           {user && (
             <span className="mr-12  px-3 align-middle text-2xl font-bold tracking-wider text-white">
-              Welcome {user}
+              {userWelcome} {user}
             </span>
           )}
 
@@ -95,7 +100,7 @@ export default function Navbar() {
             onClick={handleLogout}
             className="rounded-full border px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-red-600"
           >
-            Log Out
+            {logoutButton}
           </button>
         </div>
       </div>

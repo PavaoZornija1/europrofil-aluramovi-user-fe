@@ -1,8 +1,13 @@
 import Link from "next/link";
+import { messages } from "app/localization/messages.ts";
+import { Config } from "config.js";
 
-export default function Footer() {
+export default function Footer({ locale }) {
+  const { rightsReserved, designDevelopment } = messages[locale].ftr;
+
   let date = new Date();
   let year = date.getFullYear();
+
   return (
     <footer className="fixed bottom-0 flex w-full justify-around bg-gradient-to-tl from-[#11698E] to-slate-800 px-4 py-2 text-center text-xs font-bold text-white md:text-lg">
       <span className="w-full">
@@ -13,10 +18,10 @@ export default function Footer() {
         >
           Europrofil
         </Link>
-        &copy; {year}. Sva prava zadržana.
+        &copy; {year}. {rightsReserved}
       </span>
       <span className="w-full">
-        Dizajn i razvoj:
+        {designDevelopment}
         <Link
           href={"https://manage-it.tech/"}
           target="_blank"
