@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   const loginUser = async (username, password) => {
-    const response = await axios.post(`${Config.baseURL}/api/auth/login`, {
+    const response = await axios.post(`${Config.baseURL}/api/auth/customer-login`, {
       username: username,
       password: password,
     });
