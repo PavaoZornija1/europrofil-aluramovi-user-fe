@@ -65,7 +65,6 @@ function LiftingSystem(props) {
     for (let i = 0; i < props.ram?.cmsAluLiftSupports.length; ++i) {
       if (props.ram?.cmsAluLiftSupports[i].id === e.target.value) {
         liftSupport = props.ram?.cmsAluLiftSupports[i];
-        console.log(props.ram?.cmsAluLiftSupports[i]);
       }
     }
     setLift(liftSupport);

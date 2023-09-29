@@ -2,7 +2,12 @@
 import pdfMake from "pdfmake/build/pdfmake.js";
 import pdfFonts from "pdfmake/build/vfs_fonts.js";
 
-export default function createWorkOrderPdf() {
+export default function createWorkOrderPdf(
+  frameType,
+  treatment,
+  fill,
+  additionalTreatment
+) {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
   const docDefinitions = {
     content: [
@@ -463,22 +468,22 @@ export default function createWorkOrderPdf() {
             ],
             [
               {
-                text: `${"RAM 1009"}`,
+                text: `${frameType}`,
                 border: [true, false, false, false],
                 borderColor: ["#BEBEBE", "#BEBEBE", "#BEBEBE", "#BEBEBE"],
               },
               {
-                text: `${"Srebro mat SM"}`,
+                text: `${treatment}`,
                 border: [false, false, false, false],
                 borderColor: ["#BEBEBE", "#BEBEBE", "#BEBEBE", "#BEBEBE"],
               },
               {
-                text: `${"Ogledalo bronza"}`,
+                text: `${fill}`,
                 border: [false, false, false, false],
                 borderColor: ["#BEBEBE", "#BEBEBE", "#BEBEBE", "#BEBEBE"],
               },
               {
-                text: `${""}`,
+                text: `${additionalTreatment}`,
                 border: [false, false, true, false],
                 borderColor: ["#BEBEBE", "#BEBEBE", "#BEBEBE", "#BEBEBE"],
               },

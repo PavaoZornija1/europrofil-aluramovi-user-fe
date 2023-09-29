@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -35,21 +35,20 @@ export default function Navbar() {
   const qty = useSelector((state) => state.data.qtyTotal);
 
   const handleDefaultValues = () => {
-    // dispatch(setFrameType({}));
-    // dispatch(setTreatment({}));
-    // dispatch(setRalCode(""));
-    // dispatch(setFill({}));
-    // dispatch(setSubfill({}));
-    // dispatch(setAdditionalFillTreatment({}));
-    // dispatch(setHinges({}));
-    // dispatch(setHingesQty(0));
-    // dispatch(setHandleProfile({}));
-    // dispatch(setQty(1));
-    // dispatch(setQtyTotal(0));
-    // dispatch(setWidth(1000));
-    // dispatch(setHeight(1000));
-    // dispatch(setOrientation(""));
-    // console.log(qty);
+    dispatch(setFrameType({}));
+    dispatch(setTreatment({}));
+    dispatch(setRalCode(""));
+    dispatch(setFill({}));
+    dispatch(setSubfill({}));
+    dispatch(setAdditionalFillTreatment({}));
+    dispatch(setHinges({}));
+    dispatch(setHingesQty(0));
+    dispatch(setHandleProfile({}));
+    dispatch(setQty(0));
+    dispatch(setQtyTotal(0));
+    dispatch(setWidth(1000));
+    dispatch(setHeight(1000));
+    dispatch(setOrientation(""));
     router.push("/");
   };
 
