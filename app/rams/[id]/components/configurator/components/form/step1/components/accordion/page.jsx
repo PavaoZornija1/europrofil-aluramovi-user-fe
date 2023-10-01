@@ -36,7 +36,7 @@ function Accordion(props) {
   const addFill = useSelector((state) => state.data.additionalFillTreatment);
 
   const handleChooseSandblasting = (e) => {
-    let addition = e.target.value;
+    let addition;
     for (let i = 0; i < sandBlastingOptions?.length; ++i) {
       if (sandBlastingOptions[i]?.id === e.target.value) {
         addition = sandBlastingOptions[i];
@@ -48,6 +48,8 @@ function Accordion(props) {
       }
     }
     setAdd(addition);
+
+    setAdditionalTreatment(e.target.value);
 
     dispatch(setAdditionalFillTreatment(addition));
   };
@@ -216,7 +218,7 @@ function Accordion(props) {
               name="additionalWork"
               id=""
               className="sm:ml-8 border focus:outline-none border-r-sm"
-              value={add.name}
+              value={additionalTreatment}
               onChange={(e) => handleChooseSandblasting(e)}
             >
               <optgroup label="Peskarenje">
