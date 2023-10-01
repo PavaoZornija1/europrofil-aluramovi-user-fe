@@ -17,6 +17,7 @@ function Hinges(props) {
   } = props;
 
   const [hinge, setHinge] = useState({});
+  const [chosenHinge, setChosenHinge] = useState("");
 
   const dispatch = useDispatch();
 
@@ -94,6 +95,7 @@ function Hinges(props) {
         hingeType = props.ram?.cmsAluHinges[i];
       }
     }
+    setChosenHinge(e.target.value);
     setHinge(hingeType);
 
     dispatch(setHinges(hingeType));
@@ -188,7 +190,7 @@ function Hinges(props) {
                   type="number"
                   id="montingHinges"
                   className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={hinge.name}
+                  value={chosenHinge}
                   onChange={(e) => handleChooseHingeType(e)}
                 >
                   {props.ram?.cmsAluHinges?.map((hinge) => (
