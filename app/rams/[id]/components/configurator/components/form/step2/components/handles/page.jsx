@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Handles(props) {
   const { frontsData, setFrontsData, activeFrontId } = props;
   const [handle, setHandle] = useState({});
-  const chosenHandle = useSelector((state) => state.data.handleProfile);
+  const [chosenHandle, setChosenHandle] = useState("");
 
   const dispatch = useDispatch();
 
@@ -199,6 +199,7 @@ function Handles(props) {
         profileType = props.ram?.cmsAluHandleProfiles[i];
       }
     }
+    setChosenHandle(e.target.value);
     setHandle(profileType);
 
     dispatch(setHandleProfile(profileType));
@@ -401,7 +402,7 @@ function Handles(props) {
               </label>
               <select
                 id="profiless"
-                value={chosenHandle.name}
+                value={chosenHandle}
                 onChange={(e) => handleChooseHandleProfile(e)}
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
               >
