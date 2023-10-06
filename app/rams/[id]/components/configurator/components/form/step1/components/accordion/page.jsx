@@ -8,8 +8,9 @@ import { Config } from "@/config";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { messages } from "../localization/messages";
 
-function Accordion(props) {
+function Accordion(props, locale) {
   const { items, accordionFor } = props;
   const [activeIndex, setActiveIndex] = useState(-1);
   const [activeSubfillIndex, setActiveSubfillIndex] = useState(-1);
@@ -18,6 +19,28 @@ function Accordion(props) {
   const [bevelOptions, setBevelOptions] = useState([]);
   const [sandBlastingOptions, setSandBlastingOptions] = useState([]);
   const [add, setAdd] = useState({});
+
+  console.log(messages.accordion);
+  const {
+    noFillLabel,
+    additionalTreatmentLabel,
+    additionalTreatmentOptions: {
+      none,
+      kpTreatment,
+      sandingEntireGlassSurface,
+      glassTempering,
+      beveling5mm,
+      beveling10mm,
+      beveling15mm,
+      protectiveFilm,
+      decorativeFilm,
+      customFilm,
+      sandblastFilm,
+    },
+  } = messages[Config.locale].accordion;
+
+  let date = new Date();
+  let year = date.getFullYear();
 
   useEffect(() => {
     const response = async () => {

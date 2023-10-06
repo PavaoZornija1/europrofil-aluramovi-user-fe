@@ -3,6 +3,8 @@ import { messages } from "app/localization/messages.js";
 import { Config } from "../../config";
 
 export default function Footer({ locale }) {
+  console.log(messages.ftr);
+  const { rightsReserved, designDevelopment } = messages[Config.locale].ftr;
   let date = new Date();
   let year = date.getFullYear();
 
@@ -16,10 +18,10 @@ export default function Footer({ locale }) {
         >
           Europrofil
         </Link>
-        &copy; {year}. Europrofil
+        &copy; {year}. {rightsReserved}
       </span>
       <span className="w-full">
-        Manage IT
+        {designDevelopment}
         <Link
           href={"https://manage-it.tech/"}
           target="_blank"

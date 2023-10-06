@@ -10,16 +10,16 @@ import { messages } from "../localization/messages";
 import { Config } from "../../config";
 
 export default function Login({ locale }) {
-  // console.log(messages);
-  // const {
-  //   title,
-  //   usernameLabel,
-  //   passwordLabel,
-  //   forgotPassword,
-  //   loginButton,
-  //   invalidUsername,
-  //   invalidPassword,
-  // } = messages[Config.locale].login;
+  console.log(messages.login);
+  const {
+    title,
+    usernameLabel,
+    passwordLabel,
+    forgotPassword,
+    loginButton,
+    invalidUsername,
+    invalidPassword,
+  } = messages[Config.locale].login;
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -65,13 +65,13 @@ export default function Login({ locale }) {
       <form onSubmit={handleSubmit}>
         <div className="w-full p-6 text-center">
           <h2 className="cursor-default text-3xl font-semibold tracking-widest text-white underline sm:text-4xl">
-            EUROPROFIL
+            {title}
           </h2>
         </div>
 
         <div className="flex w-full flex-col items-start justify-center p-5">
           <label htmlFor="username" className="font-semibold text-white">
-            Username
+            {usernameLabel}
           </label>
           <input
             type="text"
@@ -89,7 +89,7 @@ export default function Login({ locale }) {
 
         <div className="relative flex w-full flex-col items-start justify-center p-5">
           <label htmlFor="userPassword" className="font-semibold text-white">
-            Password
+            {passwordLabel}
           </label>
           <div className="input-group relative flex w-full">
             <input
@@ -115,7 +115,7 @@ export default function Login({ locale }) {
             href="/"
             className="mt-2 text-sm font-semibold text-white underline"
           >
-            Forgott password?
+            {forgotPassword}{" "}
           </Link>
         </div>
 
@@ -124,7 +124,7 @@ export default function Login({ locale }) {
             type="submit"
             className="cursor-pointer rounded-full border px-4 py-2 font-bold text-white transition-all hover:scale-105 hover:bg-white hover:text-black"
           >
-            Login
+            {loginButton}
           </button>
         </div>
       </form>

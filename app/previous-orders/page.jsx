@@ -1,28 +1,39 @@
 "use client";
 import Link from "next/link";
 import Navbar from "../navbar/page";
+import { messages } from "../localization/messages";
+import { Config } from "../../config";
 
-export default function PreviousOrders() {
+export default function PreviousOrders({ locale }) {
+  console.log(messages.previousOrders);
+  const {
+    pageTitle,
+    pageDescription,
+    orderTitle,
+    preparingStatus,
+    sentStatus,
+    mechDes,
+  } = messages[Config.locale].previousOrders;
   const ordersData = [
     {
       orderId: "#1288",
-      status: "U pripremi",
-      mech: "RAM 1009, 2000mm x 1600mm, 1 komad",
+      status: { preparingStatus },
+      mech: mechDes,
     },
     {
       orderId: "#1291",
-      status: "Poslato na izvršenje",
-      mech: "RAM 1009, 2000mm x 1600mm, 1 koma",
+      status: { sentStatus },
+      mech: mechDes,
     },
     {
       orderId: "#1305",
-      status: "U pripremi",
-      mech: "RAM 1009, 2000mm x 1600mm, 1 koma",
+      status: { preparingStatus },
+      mech: mechDes,
     },
     {
       orderId: "#1321",
-      status: "Poslato na izvršenje",
-      mech: "RAM 1009, 2000mm x 1600mm, 1 koma",
+      status: { sentStatus },
+      mech: mechDes,
     },
   ];
 
@@ -30,12 +41,8 @@ export default function PreviousOrders() {
     <>
       <Navbar />
       <div className="m-auto mt-8 flex max-w-3xl flex-col rounded-md border p-6 shadow-lg text-black">
-        <h1 className="border-b-2 pb-4 text-3xl font-semibold">
-          Vaše prethodne porudžbine
-        </h1>
-        <p className="mt-4">
-          Ovde možete pronaći sve Vaše prethodne porudžbine
-        </p>
+        <h1 className="border-b-2 pb-4 text-3xl font-semibold">{pageTitle}</h1>
+        <p className="mt-4">{pageDescription} </p>
       </div>
       <div className="my-8 grid w-full grid-cols-1 place-items-center gap-6 p-4 text-black md:grid-cols-2 xl:grid-cols-3">
         {ordersData.map((order, id) => {
@@ -52,14 +59,16 @@ export default function PreviousOrders() {
             >
               <div className="mb-2 flex flex-col-reverse items-start gap-2 sm:flex-row sm:justify-between">
                 <h2 className="font-semibold text-blue-400">
-                  Porudžbina {order.orderId}
+                  {orderTitle} {order.orderId}
                 </h2>
                 <p
                   className={`rounded-lg ${
-                    order.status === "U pripremi" ? "bg-blue-400" : "bg-red-400"
+                    order.preparingStatus === "U pripremi"
+                      ? "bg-blue-400"
+                      : "bg-red-400"
                   } px-2 text-white`}
                 >
-                  {order.status}
+                  {order.sentStatus}
                 </p>
               </div>
               <p>{order.mech}</p>

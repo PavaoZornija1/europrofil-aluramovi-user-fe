@@ -8,6 +8,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
+import { messages } from "../localization/messages";
+import { Config } from "../../config";
 
 import {
   setAdditionalFillTreatment,
@@ -25,9 +27,12 @@ import {
   setTreatment,
   setWidth,
 } from "../features/ram/ramData";
-import { messages } from "../localization/messages";
 
-export default function Navbar() {
+export default function Navbar({ locale }) {
+  console.log(messages.navbar);
+  const { userWelcome, menuButton, newOrder, oldOrder, logoutButton } =
+    messages[Config.locale].navbar;
+
   const [showMenu, setShowMenu] = useState(false);
   const { user, logout } = useAuth();
   const router = useRouter();
@@ -63,7 +68,7 @@ export default function Navbar() {
 
         {user && (
           <span className="text-xl tracking-wider text-white">
-            Dobrodosli {user}
+            {userWelcome} {user}
           </span>
         )}
 
@@ -86,17 +91,17 @@ export default function Navbar() {
           <ul className="m-14 flex min-h-[550px] flex-col items-center justify-center p-4 uppercase">
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
               <Link href={"/rams"} onClick={handleDefaultValues}>
-                Nova porudžbina
+                {newOrder}
               </Link>
             </li>
             <li className="m-4 rounded-full px-3 py-1 text-center align-middle text-2xl font-semibold text-white underline transition-all hover:bg-white hover:text-black">
-              <Link href={"/previous-orders"}>Stara porudžbina</Link>
+              <Link href={"/previous-orders"}>{oldOrder}</Link>
             </li>
             <button
               onClick={handleLogout}
               className="m-4 rounded-full px-3 py-1 align-middle text-2xl font-semibold text-red-500 underline transition-all hover:bg-white hover:text-black"
             >
-              Izloguj se
+              {logoutButton}
             </button>
           </ul>
         </div>
@@ -111,13 +116,13 @@ export default function Navbar() {
             className="mr-8 rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
             onClick={() => handleDefaultValues()}
           >
-            Nova porudžbina
+            {newOrder}
           </button>
           <Link
             href="/previous-orders"
             className="rounded-full border border-white px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-white hover:text-black"
           >
-            Stara porudžbina
+            {oldOrder}
           </Link>
         </div>
         {/* LOGO */}
@@ -129,7 +134,7 @@ export default function Navbar() {
         <div className="flex w-[33%] justify-end self-center p-2">
           {user && (
             <span className="mr-12  px-3 align-middle text-2xl font-bold tracking-wider text-white">
-              Dobrodošli {user}
+              {userWelcome}
             </span>
           )}
 
@@ -137,7 +142,7 @@ export default function Navbar() {
             onClick={handleLogout}
             className="rounded-full border px-3 py-1 align-middle font-semibold text-white transition-all hover:bg-red-600"
           >
-            Izloguj se
+            {logoutButton}
           </button>
         </div>
       </div>

@@ -1,8 +1,13 @@
 "use client";
 import React from "react";
 import { useSelector } from "react-redux";
+import { messages } from "app/localization/messages.js";
+import { Config } from "@/config";
 
 const Specifications = () => {
+  console.log(messages.pdf);
+  const { basicSpec, ramType, proccessing, filling, addProcc } =
+    messages[Config.locale].pdf;
   const frame = useSelector((state) => state.data.frameType);
   const treatment = useSelector((state) => state.data.treatment);
   const fill = useSelector((state) => state.data.fill);
@@ -14,24 +19,24 @@ const Specifications = () => {
 
   return (
     <div className="flex flex-col border-t py-4">
-      <h3 className="text-2xl font-semibold">Osnovna specifikacija</h3>
+      <h3 className="text-2xl font-semibold">{basicSpec}</h3>
       <div className="flex flex-col gap-4 py-4 sm:flex-row sm:justify-evenly">
         <div className="flex gap-2">
-          <span className="font-semibold">Tip rama:</span>
+          <span className="font-semibold">{ramType}</span>
           <span>{frame?.name}</span>
         </div>
         <div className="flex gap-2">
-          <span className="font-semibold">Obrada:</span>
+          <span className="font-semibold">{proccessing}</span>
           <span>
             {treatment?.name} {ralCode && `(RAL ${ralCode})`}
           </span>
         </div>
         <div className="flex gap-2">
-          <span className="font-semibold">Ispuna:</span>
+          <span className="font-semibold">{filling}</span>
           <span>{subfill?.name ? subfill?.name : fill?.name}</span>
         </div>
         <div className="flex gap-2">
-          <span className="font-semibold">Dodatna obrada:</span>
+          <span className="font-semibold">{addProcc}</span>
           <span>{additionalTreatment?.name}</span>
         </div>
       </div>

@@ -2,12 +2,14 @@
 import pdfMake from "pdfmake/build/pdfmake.js";
 import pdfFonts from "pdfmake/build/vfs_fonts.js";
 
+
 export default function createWorkOrderPdf(
   frameType,
   treatment,
   fill,
   additionalTreatment
 ) {
+
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
   const docDefinitions = {
     content: [
