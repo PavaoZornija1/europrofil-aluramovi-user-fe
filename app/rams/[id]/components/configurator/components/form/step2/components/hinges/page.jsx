@@ -1,11 +1,7 @@
 "use client";
-import {
-  setHingeHole,
-  setHinges,
-  setHingesQty,
-} from "@/app/features/ram/ramData";
+import { setIndividualFronts } from "@/app/features/ram/ramData";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Hinges(props) {
@@ -14,12 +10,15 @@ function Hinges(props) {
     setFrontsData,
     activeFrontId,
     createCenterDistanceOfHolesArr,
+    ram,
   } = props;
 
   const [hinge, setHinge] = useState({});
   const [chosenHinge, setChosenHinge] = useState("");
+  const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const dispatch = useDispatch();
+  console.log("ram ", ram);
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -38,6 +37,20 @@ function Hinges(props) {
     });
 
     setFrontsData(updatedFrontsData);
+  };
+
+  const handleResetHinges = (activeFront) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+    fronts[activeFront].hinges = {
+      ...fronts[activeFront].hinges,
+      hasHinge: false,
+      shouldMount: false,
+      activeOption: 0,
+      hinge: {},
+      numberOfHinges: 2,
+      centerDistanceOfHoles: ["100", "900"],
+    };
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateCenterDistanceOfHole = (activeFront, holeId, value) => {
@@ -60,6 +73,8 @@ function Hinges(props) {
   };
 
   const updateNumberOfHinges = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -78,27 +93,23 @@ function Hinges(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    dispatch(
-      setHingeHole({
-        hingeHolePrice: 50,
-        hingeHoleQty: Number(value),
-        withMountPrice: 330,
-      })
-    );
-    dispatch(setHingesQty(Number(value)));
+    fronts[activeFront].hinges.numberOfHinges = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
-  const handleChooseHingeType = (e) => {
+  const handleChooseHingeType = (e, activeFront) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     let hingeType;
-    for (let i = 0; i < props.ram?.cmsAluHinges.length; ++i) {
-      if (props.ram?.cmsAluHinges[i].id === e.target.value) {
-        hingeType = props.ram?.cmsAluHinges[i];
+    for (let i = 0; i < ram?.cmsAluHinges.length; ++i) {
+      if (ram?.cmsAluHinges[i].id === e.target.value) {
+        hingeType = ram?.cmsAluHinges[i];
       }
     }
     setChosenHinge(e.target.value);
     setHinge(hingeType);
 
-    dispatch(setHinges(hingeType));
+    fronts[activeFront].hinges.hinge = hingeType;
+    dispatch(setIndividualFronts(fronts));
   };
 
   return (
@@ -113,6 +124,7 @@ function Hinges(props) {
             className="flex items-center cursor-pointer"
             onClick={() => {
               handleRadioClick(activeFrontId, 0);
+              handleResetHinges(activeFrontId);
             }}
           >
             <input
@@ -124,6 +136,7 @@ function Hinges(props) {
               checked={frontsData[activeFrontId].hinges.activeOption === 0}
               onChange={() => {
                 handleRadioClick(activeFrontId, 0);
+                handleResetHinges(activeFrontId);
               }}
             />
             <label htmlFor="noHinges" className="text-lg cursor-pointer">
@@ -149,8 +162,16 @@ function Hinges(props) {
               onChange={() => {
                 handleRadioClick(activeFrontId, 1);
               }}
+              disabled={ram?.requiresSpecialHinges ?? false}
             />
-            <label htmlFor="standardHinge" className="text-lg cursor-pointer">
+            <label
+              htmlFor="standardHinge"
+              className={`text-lg ${
+                ram?.requiresSpecialHinges
+                  ? "text-slate-400 cursor-not-allowed line-through"
+                  : "cursor-pointer"
+              }`}
+            >
               Bušenje rupa za standardne šarke 35 mm
             </label>
           </div>
@@ -190,13 +211,13 @@ function Hinges(props) {
                   type="number"
                   id="montingHinges"
                   className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={chosenHinge}
-                  onChange={(e) => handleChooseHingeType(e)}
+                  value={individualFronts[activeFrontId]?.hinges?.hinge?.id}
+                  onChange={(e) => handleChooseHingeType(e, activeFrontId)}
                 >
                   <option value={null} key={`initial-option-1`}>
                     -Izaberi-
                   </option>
-                  {props.ram?.cmsAluHinges?.map((hinge) => (
+                  {ram?.cmsAluHinges?.map((hinge) => (
                     <option value={hinge.id} key={hinge.id}>
                       {hinge.name}
                     </option>
