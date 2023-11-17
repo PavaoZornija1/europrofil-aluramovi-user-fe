@@ -54,6 +54,8 @@ function Hinges(props) {
   };
 
   const updateCenterDistanceOfHole = (activeFront, holeId, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -70,6 +72,9 @@ function Hinges(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].hinges.centerDistanceOfHoles[holeId] = value;
+
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateNumberOfHinges = (activeFront, value) => {
@@ -94,6 +99,11 @@ function Hinges(props) {
 
     setFrontsData(updatedFrontsData);
     fronts[activeFront].hinges.numberOfHinges = Number(value);
+    fronts[activeFront].hinges.centerDistanceOfHoles =
+      createCenterDistanceOfHolesArr(
+        fronts[activeFront].dimensions.height,
+        Number(value)
+      );
     dispatch(setIndividualFronts(fronts));
   };
 
