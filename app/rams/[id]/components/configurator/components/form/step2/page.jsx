@@ -80,6 +80,7 @@ function Step2(props) {
   const dispatch = useDispatch();
 
   const updateOrientation = (activeFront, newOrientation) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return { ...obj, orientation: newOrientation };
@@ -88,7 +89,9 @@ function Step2(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    dispatch(setOrientation(updatedFrontsData[activeFront].orientation));
+    fronts[activeFront].orientation =
+      updatedFrontsData[activeFront].orientation;
+    dispatch(setIndividualFronts(fronts));
   };
 
   const addNewFront = () => {
