@@ -4,6 +4,7 @@ import {
   setFill,
   setSubfill,
 } from "@/app/features/ram/ramData";
+import store from "@/app/store/store";
 import { Config } from "@/config";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -34,6 +35,7 @@ function Accordion(props) {
   const dispatch = useDispatch();
 
   const addFill = useSelector((state) => state.data.additionalFillTreatment);
+  console.log(store.getState());
 
   const handleChooseSandblasting = (e) => {
     let addition;
