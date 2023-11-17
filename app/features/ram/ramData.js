@@ -1,77 +1,79 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  frameType: {},
+  treatment: {},
+  ralCode: "",
+  fill: {},
+  subFill: {},
+  additionalFillTreatment: {},
+  hinges: {},
+  hingesQty: 0,
+  liftingSystem: {},
+  handleProfile: {},
+  handleHole: {
+    handleHolePrice: 55,
+    handleHoleQty: 0,
+  },
+  hingeHole: {
+    hingeHolePrice: 50,
+    hingeHoleQty: 0,
+    withMountPrice: 330,
+  },
+  lockHole: {
+    lockPrice: 165,
+    lockAmount: 0,
+  },
+  individualFronts: [
+    {
+      orientation: "Leva vrata",
+      dimensions: {
+        width: "1000",
+        height: "1000",
+        numberOfPieces: "1",
+      },
+      hinges: {
+        hasHinge: false,
+        shouldMount: false,
+        activeOption: 0,
+        hinge: {},
+        numberOfHinges: 2,
+        centerDistanceOfHoles: ["100", "900"],
+      },
+      handles: {
+        shouldDrillHoles: false,
+        shouldMountProfile: false,
+        activeOption: 0,
+        positionOption: 0,
+        wheelbaseOption: 0,
+        centerDistanceOfHole: ["38", "38"],
+        profileOption: 0,
+        profileLengthOption: 0,
+        profilePositionOption: 0,
+        profileLength: "250",
+        profileDistance: "0",
+      },
+      locks: {
+        activeOption: 0,
+        holeDiameter: "250",
+        centerDistanceOfHole: ["200", "24"],
+      },
+      liftingSystem: {
+        activeOption: 0,
+        activePositionOption: 0,
+        activeMechanismOption: 0,
+      },
+    },
+  ],
+  qty: 0,
+  qtyTotal: 0,
+  width: 1000,
+  height: 1000,
+  orientation: "",
+};
 export const ramData = createSlice({
   name: "data",
-  initialState: {
-    frameType: {},
-    treatment: {},
-    ralCode: "",
-    fill: {},
-    subFill: {},
-    additionalFillTreatment: {},
-    hinges: {},
-    hingesQty: 0,
-    liftingSystem: {},
-    handleProfile: {},
-    handleHole: {
-      handleHolePrice: 55,
-      handleHoleQty: 0,
-    },
-    hingeHole: {
-      hingeHolePrice: 50,
-      hingeHoleQty: 0,
-      withMountPrice: 330,
-    },
-    lockHole: {
-      lockPrice: 165,
-      lockAmount: 0,
-    },
-    individualFronts: [
-      {
-        orientation: "Leva vrata",
-        dimensions: {
-          width: "1000",
-          height: "1000",
-          numberOfPieces: "1",
-        },
-        hinges: {
-          hasHinge: false,
-          shouldMount: false,
-          activeOption: 0,
-          numberOfHinges: 2,
-          centerDistanceOfHoles: ["100", "900"],
-        },
-        handles: {
-          shouldDrillHoles: false,
-          shouldMountProfile: false,
-          activeOption: 0,
-          positionOption: 0,
-          wheelbaseOption: 0,
-          centerDistanceOfHole: ["38", "38"],
-          profileOption: 0,
-          profileLengthOption: 0,
-          profilePositionOption: 0,
-          profileLength: "250",
-          profileDistance: "0",
-        },
-        locks: {
-          activeOption: 0,
-          holeDiameter: "250",
-          centerDistanceOfHole: ["200", "24"],
-        },
-        liftingSystem: {
-          activeOption: 0,
-          activePositionOption: 0,
-          activeMechanismOption: 0,
-        },
-      },
-    ],
-    qty: 0,
-    qtyTotal: 0,
-    width: 1000,
-    height: 1000,
-    orientation: "",
-  },
+  initialState,
   reducers: {
     setFrameType: (state, action) => {
       state.frameType = action.payload;
@@ -133,9 +135,13 @@ export const ramData = createSlice({
     setOrientation: (state, action) => {
       state.orientation = action.payload;
     },
+    setReset: () => {
+      return initialState;
+    },
   },
 });
 export const {
+  setReset,
   setIndividualFronts,
   setLiftingSystem,
   setLockHole,
