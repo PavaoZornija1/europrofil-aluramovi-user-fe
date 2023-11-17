@@ -1,12 +1,13 @@
 "use client";
 import {
   setHeight,
+  setIndividualFronts,
   setQty,
   setQtyTotal,
   setWidth,
 } from "@/app/features/ram/ramData";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Dimensions(props) {
   const {
@@ -16,8 +17,10 @@ function Dimensions(props) {
     createCenterDistanceOfHolesArr,
   } = props;
   const dispatch = useDispatch();
+  const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const updateNumberOfPieces = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -29,12 +32,14 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    dispatch(
-      setQtyTotal(updatedFrontsData[activeFront].dimensions.numberOfPieces)
-    );
+    fronts[activeFront].dimensions.numberOfPieces =
+      updatedFrontsData[activeFront].dimensions.numberOfPieces;
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateWidth = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -46,10 +51,14 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    dispatch(setWidth(updatedFrontsData[activeFront].dimensions.width));
+    fronts[activeFront].dimensions.width =
+      updatedFrontsData[activeFront].dimensions.width;
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateHeight = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -68,7 +77,9 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    dispatch(setHeight(updatedFrontsData[activeFront].dimensions.height));
+    fronts[activeFront].dimensions.height =
+      updatedFrontsData[activeFront].dimensions.height;
+    dispatch(setIndividualFronts(fronts));
   };
 
   return (
