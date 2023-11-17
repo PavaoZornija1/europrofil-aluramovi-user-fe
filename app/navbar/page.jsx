@@ -21,6 +21,7 @@ import {
   setQty,
   setQtyTotal,
   setRalCode,
+  setReset,
   setSubfill,
   setTreatment,
   setWidth,
@@ -35,20 +36,7 @@ export default function Navbar() {
   const qty = useSelector((state) => state.data.qtyTotal);
 
   const handleDefaultValues = () => {
-    dispatch(setFrameType({}));
-    dispatch(setTreatment({}));
-    dispatch(setRalCode(""));
-    dispatch(setFill({}));
-    dispatch(setSubfill({}));
-    dispatch(setAdditionalFillTreatment({}));
-    dispatch(setHinges({}));
-    dispatch(setHingesQty(0));
-    dispatch(setHandleProfile({}));
-    dispatch(setQty(0));
-    dispatch(setQtyTotal(0));
-    dispatch(setWidth(1000));
-    dispatch(setHeight(1000));
-    dispatch(setOrientation(""));
+    dispatch(setReset());
     router.push("/");
   };
 
