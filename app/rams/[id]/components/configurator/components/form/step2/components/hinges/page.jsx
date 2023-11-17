@@ -184,7 +184,7 @@ function Hinges(props) {
             {frontsData[activeFrontId].hinges.shouldMount && (
               <div className="mb-4">
                 <label htmlFor="montingHinges" className="text-lg mr-8">
-                  Sarke za montazu
+                  Šarke za montazu
                 </label>
                 <select
                   type="number"
@@ -193,6 +193,9 @@ function Hinges(props) {
                   value={chosenHinge}
                   onChange={(e) => handleChooseHingeType(e)}
                 >
+                  <option value={null} key={`initial-option-1`}>
+                    -Izaberi-
+                  </option>
                   {props.ram?.cmsAluHinges?.map((hinge) => (
                     <option value={hinge.id} key={hinge.id}>
                       {hinge.name}
@@ -214,6 +217,7 @@ function Hinges(props) {
                   updateNumberOfHinges(activeFrontId, e.target.value);
                 }}
               >
+                <option value={null}>-Izaberi-</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -229,7 +233,7 @@ function Hinges(props) {
                 {frontsData[activeFrontId].orientation === "Kip vrata"
                   ? " leve "
                   : " donje "}
-                spoljne ivice
+                spoljne ivice.
               </p>
               <div className="flex flex-col gap-2 mt-4">
                 {frontsData[activeFrontId].hinges.centerDistanceOfHoles.map(
