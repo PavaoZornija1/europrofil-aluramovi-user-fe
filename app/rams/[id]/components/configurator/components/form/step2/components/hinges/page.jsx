@@ -119,6 +119,7 @@ function Hinges(props) {
     setHinge(hingeType);
 
     fronts[activeFront].hinges.hinge = hingeType;
+    fronts[activeFront].hinges.hasHinge = true;
     dispatch(setIndividualFronts(fronts));
   };
 
