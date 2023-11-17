@@ -180,7 +180,6 @@ function Step2(props) {
         },
       ])
     );
-    // dispatch(setIndividualFronts([]));
   };
 
   const copyFront = (activeFront) => {
