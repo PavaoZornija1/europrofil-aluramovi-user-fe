@@ -26,6 +26,46 @@ export const ramData = createSlice({
       lockPrice: 165,
       lockAmount: 0,
     },
+    individualFronts: [
+      {
+        orientation: "Leva vrata",
+        dimensions: {
+          width: "1000",
+          height: "1000",
+          numberOfPieces: "1",
+        },
+        hinges: {
+          hasHinge: false,
+          shouldMount: false,
+          activeOption: 0,
+          numberOfHinges: 2,
+          centerDistanceOfHoles: ["100", "900"],
+        },
+        handles: {
+          shouldDrillHoles: false,
+          shouldMountProfile: false,
+          activeOption: 0,
+          positionOption: 0,
+          wheelbaseOption: 0,
+          centerDistanceOfHole: ["38", "38"],
+          profileOption: 0,
+          profileLengthOption: 0,
+          profilePositionOption: 0,
+          profileLength: "250",
+          profileDistance: "0",
+        },
+        locks: {
+          activeOption: 0,
+          holeDiameter: "250",
+          centerDistanceOfHole: ["200", "24"],
+        },
+        liftingSystem: {
+          activeOption: 0,
+          activePositionOption: 0,
+          activeMechanismOption: 0,
+        },
+      },
+    ],
     qty: 0,
     qtyTotal: 0,
     width: 1000,
@@ -35,6 +75,9 @@ export const ramData = createSlice({
   reducers: {
     setFrameType: (state, action) => {
       state.frameType = action.payload;
+    },
+    setIndividualFronts: (state, action) => {
+      state.individualFronts = action.payload;
     },
     setTreatment: (state, action) => {
       state.treatment = action.payload;
@@ -93,6 +136,7 @@ export const ramData = createSlice({
   },
 });
 export const {
+  setIndividualFronts,
   setLiftingSystem,
   setLockHole,
   setHingeHole,
