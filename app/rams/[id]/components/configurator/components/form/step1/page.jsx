@@ -9,7 +9,7 @@ import Treatments from "./components/treatments/page";
 export default function Step1(props) {
   return (
     <div className="w-full grid gap-8 grid-cols-1 lg:grid-cols-2">
-      <div className="border border-sky-100 rounded-lg shadow-md shadow-gray-500 p-6">
+      <div className="border border-sky-100 rounded-lg shadow-md shadow-gray-500 p-6 self-start">
         <h2 className="text-xl font-semibold uppercase tracking-wider text-black">
           Profil i ispuna
         </h2>
