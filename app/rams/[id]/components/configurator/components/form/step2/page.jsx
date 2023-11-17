@@ -8,8 +8,12 @@ import Handles from "./components/handles/page";
 import Sketch from "./components/sketch/page";
 import Locks from "./components/locks/page";
 import LiftingSystem from "./components/lifting -system/page";
-import { useDispatch } from "react-redux";
-import { setOrientation } from "@/app/features/ram/ramData";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setIndividualFronts,
+  setOrientation,
+} from "@/app/features/ram/ramData";
+import store from "@/app/store/store";
 
 function Step2(props) {
   const [frontsData, setFrontsData] = useState([
@@ -52,6 +56,9 @@ function Step2(props) {
       },
     },
   ]);
+  console.log(store.getState());
+  const individualFronts = useSelector((state) => state.data.individualFronts);
+  console.log(individualFronts);
 
   const [activeFrontId, setActiveFrontId] = useState(0);
   const [activeOrientation, setActiveOrientation] = useState(0);
@@ -130,6 +137,50 @@ function Step2(props) {
         },
       ]);
     }
+    dispatch(
+      setIndividualFronts([
+        ...individualFronts,
+        {
+          orientation: "Leva vrata",
+          dimensions: {
+            width: "1000",
+            height: "1000",
+            numberOfPieces: "1",
+          },
+          hinges: {
+            hasHinge: false,
+            shouldMount: false,
+            activeOption: 0,
+            numberOfHinges: 2,
+            centerDistanceOfHoles: ["100", "900"],
+          },
+          handles: {
+            shouldDrillHoles: false,
+            shouldMountProfile: false,
+            activeOption: 0,
+            positionOption: 0,
+            wheelbaseOption: 0,
+            centerDistanceOfHole: ["38", "38"],
+            profileOption: 0,
+            profileLengthOption: 0,
+            profilePositionOption: 0,
+            profileLength: "250",
+            profileDistance: "0",
+          },
+          locks: {
+            activeOption: 0,
+            holeDiameter: "250",
+            centerDistanceOfHole: ["200", "24"],
+          },
+          liftingSystem: {
+            activeOption: 0,
+            activePositionOption: 0,
+            activeMechanismOption: 0,
+          },
+        },
+      ])
+    );
+    // dispatch(setIndividualFronts([]));
   };
 
   const copyFront = (activeFront) => {
