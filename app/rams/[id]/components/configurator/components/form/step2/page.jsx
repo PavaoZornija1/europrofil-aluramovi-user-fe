@@ -200,6 +200,7 @@ function Step2(props) {
       setFrontsData((prev) => {
         const filteredArray = Array.from(prev);
         filteredArray.splice(activeFront, 1);
+        dispatch(setIndividualFronts(filteredArray));
 
         if (activeFront === 0) {
           setActiveOrientation(() =>
