@@ -6,7 +6,7 @@ import {
   setQtyTotal,
   setWidth,
 } from "@/app/features/ram/ramData";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Dimensions(props) {
@@ -75,7 +75,6 @@ function Dimensions(props) {
       }
       return obj;
     });
-
     setFrontsData(updatedFrontsData);
     fronts[activeFront].dimensions.height =
       updatedFrontsData[activeFront].dimensions.height;
