@@ -1,7 +1,7 @@
 "use client";
 import { setIndividualFronts } from "@/app/features/ram/ramData";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Hinges(props) {
@@ -18,7 +18,33 @@ function Hinges(props) {
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const dispatch = useDispatch();
-  console.log("ram ", ram);
+
+  useEffect(() => {
+    const updatedFrontsData = frontsData.map((obj, id) => {
+      if (id === activeFrontId) {
+        return {
+          ...obj,
+          hinges: {
+            ...obj.hinges,
+            centerDistanceOfHoles: obj.hinges.centerDistanceOfHoles.map(
+              (hole, index) => {
+                let a =
+                  100 +
+                  ((Number(individualFronts[activeFrontId].dimensions.height) -
+                    200) /
+                    Number(obj.hinges.centerDistanceOfHoles.length - 1)) *
+                    index;
+                return a;
+              }
+            ),
+          },
+        };
+      }
+      return obj;
+    });
+
+    dispatch(setIndividualFronts(updatedFrontsData));
+  }, [individualFronts[activeFrontId].dimensions.height]);
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -179,7 +205,7 @@ function Hinges(props) {
               htmlFor="standardHinge"
               className={`text-lg ${
                 ram?.requiresSpecialHinges
-                  ? "text-slate-400 cursor-not-allowed line-through"
+                  ? "text-slate-400 cursor-not-allowed line-through pointer-events-none"
                   : "cursor-pointer"
               }`}
             >
@@ -288,7 +314,10 @@ function Hinges(props) {
                         <input
                           type="text"
                           id={`hole-${id}`}
-                          value={hole}
+                          value={
+                            individualFronts[activeFrontId].hinges
+                              .centerDistanceOfHoles[id]
+                          }
                           onChange={(e) => {
                             updateCenterDistanceOfHole(
                               activeFrontId,
