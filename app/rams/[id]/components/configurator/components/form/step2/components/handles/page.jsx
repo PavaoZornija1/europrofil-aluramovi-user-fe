@@ -4,6 +4,7 @@ import {
   setHandleHole,
   setHandleHoleQty,
   setHandleProfile,
+  setIndividualFronts,
 } from "@/app/features/ram/ramData";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,7 @@ function Handles(props) {
   const [chosenHandle, setChosenHandle] = useState("");
 
   const dispatch = useDispatch();
+  const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -35,13 +37,14 @@ function Handles(props) {
   };
 
   const updatePosition = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
           handles: {
             ...obj.handles,
-            positionOption: Number(value),
+            positionOption: value,
           },
         };
       }
@@ -49,37 +52,30 @@ function Handles(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.positionOption =
+      updatedFrontsData[activeFront].handles.positionOption;
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateWheelbaseOption = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
           handles: {
             ...obj.handles,
-            wheelbaseOption: Number(value),
+            wheelbaseOption: value,
           },
         };
       }
       return obj;
     });
-    if (updatedFrontsData[activeFront].handles.wheelbaseOption === 15) {
-      dispatch(
-        setHandleHole({
-          handleHolePrice: 55,
-          handleHoleQty: 1,
-        })
-      );
-    } else {
-      dispatch(
-        setHandleHole({
-          handleHolePrice: 55,
-          handleHoleQty: 2,
-        })
-      );
-    }
+
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.wheelbaseOption =
+      updatedFrontsData[activeFront].handles.wheelbaseOption;
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateCenterDistanceOfHole = (activeFront, value, index) => {
@@ -296,13 +292,24 @@ function Handles(props) {
                   value={frontsData[activeFrontId].handles.positionOption}
                   onChange={(e) => {
                     updatePosition(activeFrontId, e.target.value);
+                    console.log(e.target.value);
                   }}
                 >
-                  <option value="0">Horizontalno, uz gornju ivicu</option>
-                  <option value="1">Horizontalno, uz donju ivicu</option>
-                  <option value="2">Vertikalno, pri gornjoj ivici</option>
-                  <option value="3">Vertikalno, na sredini</option>
-                  <option value="4">Vertikalno, pri donjoj ivici</option>
+                  <option value="Horizontalno, uz gornju ivicu">
+                    Horizontalno, uz gornju ivicu
+                  </option>
+                  <option value="Horizontalno, uz donju ivicu">
+                    Horizontalno, uz donju ivicu
+                  </option>
+                  <option value="Vertikalno, pri gornjoj ivici">
+                    Vertikalno, pri gornjoj ivici
+                  </option>
+                  <option value="Vertikalno, na sredini">
+                    Vertikalno, na sredini
+                  </option>
+                  <option value="Vertikalno, pri donjoj ivici">
+                    Vertikalno, pri donjoj ivici
+                  </option>
                 </select>
               </div>
             ) : (
@@ -317,18 +324,19 @@ function Handles(props) {
                   value={frontsData[activeFrontId].handles.positionOption}
                   onChange={(e) => {
                     updatePosition(activeFrontId, e.target.value);
+                    console.log(e.target.value);
                   }}
                 >
-                  <option value="0">Pri levoj ivici</option>
-                  <option value="1">Centrirano</option>
-                  <option value="2">Pri desnoj ivici</option>
+                  <option value="Pri levoj ivici">Pri levoj ivici</option>
+                  <option value="Centrirano">Centrirano</option>
+                  <option value="Pri desnoj ivici">Pri desnoj ivici</option>
                 </select>
               </div>
             )}
 
             <div className="mb-4">
               <label htmlFor="numOfStandardHinges" className="text-lg mr-8">
-                Osno rastojanje rupa
+                Osnovno rastojanje rupa
               </label>
               <select
                 type="number"
@@ -339,23 +347,27 @@ function Handles(props) {
                   updateWheelbaseOption(activeFrontId, e.target.value);
                 }}
               >
-                <option value="0">32 mm</option>
-                <option value="1">64 mm</option>
-                <option value="2">96 mm</option>
-                <option value="3">128 mm</option>
-                <option value="4">160 mm</option>
-                <option value="5">192 mm</option>
-                <option value="6">224 mm</option>
-                <option value="7">256 mm</option>
-                <option value="8">282 mm</option>
-                <option value="9">320 mm</option>
-                <option value="10">352 mm</option>
-                <option value="11">384 mm</option>
-                <option value="12">416 mm</option>
-                <option value="13">448 mm</option>
-                <option value="14">480 mm</option>
-                <option value="15">Samo jedna rupa (dugme rucica)</option>
-                <option value="16">Rucni unos osnog rastojanja</option>
+                <option value="32 mm">32 mm</option>
+                <option value="64 mm">64 mm</option>
+                <option value="96 mm">96 mm</option>
+                <option value="128 mm">128 mm</option>
+                <option value="160 mm">160 mm</option>
+                <option value="192 mm">192 mm</option>
+                <option value="224 mm">224 mm</option>
+                <option value="256 mm">256 mm</option>
+                <option value="282 mm">282 mm</option>
+                <option value="320 mm">320 mm</option>
+                <option value="352 mm">352 mm</option>
+                <option value="384 mm">384 mm</option>
+                <option value="416 mm">416 mm</option>
+                <option value="448 mm">448 mm</option>
+                <option value="480 mm">480 mm</option>
+                <option value="Samo jedna rupa (dugme rucica)">
+                  Samo jedna rupa (dugme rucica)
+                </option>
+                <option value="Rucni unos osnog rastojanja">
+                  Rucni unos osnog rastojanja
+                </option>
               </select>
             </div>
 
