@@ -50,6 +50,7 @@ const initialState = {
         holeDistanceValue: "",
         centerDistanceOfHole: ["0", "0"],
         profileOption: 0,
+        handleProfile: {},
         profileLengthOption: 0,
         profilePositionOption: 0,
         profileLength: "250",
