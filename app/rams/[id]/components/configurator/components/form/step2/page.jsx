@@ -124,6 +124,7 @@ function Step2(props) {
             wheelbaseOption: 0,
             centerDistanceOfHole: ["38", "38"],
             profileOption: 0,
+            handleProfile: {},
             profileLengthOption: 0,
             profilePositionOption: 0,
             profileLength: "250",
