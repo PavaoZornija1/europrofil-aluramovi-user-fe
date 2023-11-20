@@ -4,6 +4,7 @@ import {
   setHandleHole,
   setHandleHoleQty,
   setHandleProfile,
+  setIndividualFronts,
 } from "@/app/features/ram/ramData";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,33 @@ function Handles(props) {
   const [chosenHandle, setChosenHandle] = useState("");
 
   const dispatch = useDispatch();
+  const individualFronts = useSelector((state) => state.data.individualFronts);
+  const handlePosition = [
+    "Horizontalno, uz gornju ivicu",
+    "Horizontalno, uz donju ivicu",
+    "Vertikalno, pri gornjoj ivici",
+    "Vertikalno, na sredini",
+    "Vertikalno, pri donjoj ivici",
+  ];
+  const holeDistanceOptions = [
+    32,
+    64,
+    96,
+    128,
+    160,
+    192,
+    224,
+    256,
+    282,
+    320,
+    352,
+    384,
+    416,
+    448,
+    480,
+    "Samo jedna rupa (dugme rucica)",
+    "Rucni unos osnovnog rastojanja",
+  ];
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -34,7 +62,8 @@ function Handles(props) {
     setFrontsData(updatedFrontsData);
   };
 
-  const updatePosition = (activeFront, value) => {
+  const updatePosition = (activeFront, value, positionName) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -49,9 +78,14 @@ function Handles(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.positionName = positionName;
+    fronts[activeFront].handles.positionOption = value;
+    dispatch(setIndividualFronts(fronts));
   };
 
-  const updateWheelbaseOption = (activeFront, value) => {
+  const updateWheelbaseOption = (activeFront, value, holeValue) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -64,22 +98,12 @@ function Handles(props) {
       }
       return obj;
     });
-    if (updatedFrontsData[activeFront].handles.wheelbaseOption === 15) {
-      dispatch(
-        setHandleHole({
-          handleHolePrice: 55,
-          handleHoleQty: 1,
-        })
-      );
-    } else {
-      dispatch(
-        setHandleHole({
-          handleHolePrice: 55,
-          handleHoleQty: 2,
-        })
-      );
-    }
+
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.holeDistanceValue =
+      typeof holeValue === "number" ? `${holeValue} mm` : holeValue;
+    fronts[activeFront].handles.wheelbaseOption = value;
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateCenterDistanceOfHole = (activeFront, value, index) => {
@@ -295,14 +319,18 @@ function Handles(props) {
                   className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                   value={frontsData[activeFrontId].handles.positionOption}
                   onChange={(e) => {
-                    updatePosition(activeFrontId, e.target.value);
+                    updatePosition(
+                      activeFrontId,
+                      e.target.value,
+                      handlePosition[e.target.value]
+                    );
                   }}
                 >
-                  <option value="0">Horizontalno, uz gornju ivicu</option>
-                  <option value="1">Horizontalno, uz donju ivicu</option>
-                  <option value="2">Vertikalno, pri gornjoj ivici</option>
-                  <option value="3">Vertikalno, na sredini</option>
-                  <option value="4">Vertikalno, pri donjoj ivici</option>
+                  {handlePosition?.map((handle, index) => (
+                    <option key={`handle-${index}`} value={index}>
+                      {handle}
+                    </option>
+                  ))}
                 </select>
               </div>
             ) : (
@@ -328,7 +356,7 @@ function Handles(props) {
 
             <div className="mb-4">
               <label htmlFor="numOfStandardHinges" className="text-lg mr-8">
-                Osno rastojanje rupa
+                Osnovno rastojanje rupa
               </label>
               <select
                 type="number"
@@ -336,26 +364,20 @@ function Handles(props) {
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                 value={frontsData[activeFrontId].handles.wheelbaseOption}
                 onChange={(e) => {
-                  updateWheelbaseOption(activeFrontId, e.target.value);
+                  updateWheelbaseOption(
+                    activeFrontId,
+                    e.target.value,
+                    holeDistanceOptions[e.target.value]
+                  );
                 }}
               >
-                <option value="0">32 mm</option>
-                <option value="1">64 mm</option>
-                <option value="2">96 mm</option>
-                <option value="3">128 mm</option>
-                <option value="4">160 mm</option>
-                <option value="5">192 mm</option>
-                <option value="6">224 mm</option>
-                <option value="7">256 mm</option>
-                <option value="8">282 mm</option>
-                <option value="9">320 mm</option>
-                <option value="10">352 mm</option>
-                <option value="11">384 mm</option>
-                <option value="12">416 mm</option>
-                <option value="13">448 mm</option>
-                <option value="14">480 mm</option>
-                <option value="15">Samo jedna rupa (dugme rucica)</option>
-                <option value="16">Rucni unos osnog rastojanja</option>
+                <optgroup label="Udaljenost">
+                  {holeDistanceOptions?.map((hole, index) => (
+                    <option key={`hole-${index}`} value={index}>
+                      {typeof hole === "number" ? `${hole} mm` : hole}
+                    </option>
+                  ))}
+                </optgroup>
               </select>
             </div>
 
