@@ -107,6 +107,8 @@ function Handles(props) {
   };
 
   const updateCenterDistanceOfHole = (activeFront, value, index) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         const updatedDistanceArray = obj.handles.centerDistanceOfHole.map(
@@ -129,6 +131,8 @@ function Handles(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.centerDistanceOfHole[index] = value;
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateProfileOption = (activeFront, value) => {
