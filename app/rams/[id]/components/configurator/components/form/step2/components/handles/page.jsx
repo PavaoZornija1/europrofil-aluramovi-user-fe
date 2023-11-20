@@ -428,6 +428,9 @@ function Handles(props) {
                 onChange={(e) => handleChooseHandleProfile(e)}
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
               >
+                <option value={null} key={`defaultKey`}>
+                  -Izaberite profil-
+                </option>
                 {props.ram?.cmsAluHandleProfiles?.map((handle) => (
                   <option value={handle.id} key={handle.id}>
                     {handle.name}
