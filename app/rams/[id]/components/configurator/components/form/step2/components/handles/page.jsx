@@ -220,7 +220,8 @@ function Handles(props) {
     setFrontsData(updatedFrontsData);
   };
 
-  const handleChooseHandleProfile = (e) => {
+  const handleChooseHandleProfile = (activeFront, e) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     let profileType = e.target.value;
     for (let i = 0; i < props.ram?.cmsAluHandleProfiles.length; ++i) {
       if (props.ram?.cmsAluHandleProfiles[i].id === e.target.value) {
@@ -231,6 +232,11 @@ function Handles(props) {
     setHandle(profileType);
 
     dispatch(setHandleProfile(profileType));
+    fronts[activeFront].handles = {
+      ...fronts[activeFront].handles,
+      handleProfile: profileType,
+    };
+    console.log(fronts[activeFront].handles);
   };
 
   return (
@@ -420,7 +426,7 @@ function Handles(props) {
             </div>
           </div>
         )}
-        {frontsData[activeFrontId].handles.shouldMountProfile && (
+        {props.ram.requiresPvc && (
           <div className="ml-6 my-2">
             <div className="mb-4">
               <label htmlFor="profiless" className="text-lg mr-8">
@@ -429,7 +435,7 @@ function Handles(props) {
               <select
                 id="profiless"
                 value={chosenHandle}
-                onChange={(e) => handleChooseHandleProfile(e)}
+                onChange={(e) => handleChooseHandleProfile(activeFrontId, e)}
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
               >
                 <option value={null} key={`defaultKey`}>
@@ -443,7 +449,7 @@ function Handles(props) {
               </select>
             </div>
 
-            {frontsData[activeFrontId].handles.profileOption > 0 && (
+            {frontsData[activeFrontId].handles.profileOption >= 0 && (
               <div className="mb-4">
                 <label htmlFor="duzina" className="text-lg mr-8">
                   Duzina
