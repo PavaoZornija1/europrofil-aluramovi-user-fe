@@ -426,7 +426,7 @@ function Handles(props) {
             </div>
           </div>
         )}
-        {props.ram.requiresPvc && (
+        {frontsData[activeFrontId].handles.shouldMountProfile && (
           <div className="ml-6 my-2">
             <div className="mb-4">
               <label htmlFor="profiless" className="text-lg mr-8">
