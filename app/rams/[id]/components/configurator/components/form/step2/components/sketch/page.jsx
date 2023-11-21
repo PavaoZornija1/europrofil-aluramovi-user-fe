@@ -4,11 +4,13 @@ import HingesRenderer from "./components/hingesRenderer/page";
 import HandlesRenderer from "./components/handlesRenderer/page";
 import ProfileRenderer from "./components/profileRenderer/page";
 import LocksRenderer from "./components/locksRenderer/page";
+import { useSelector } from "react-redux";
 
 function Sketch(props) {
   const { frontsData, activeFrontId } = props;
 
   const scheme = useRef(null);
+  const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const [dimensions, setDimensions] = useState({
     w: frontsData[activeFrontId].dimensions.width,
@@ -145,7 +147,7 @@ function Sketch(props) {
                     dimensions.h
                   )}`,
                 }}
-                className={`bg-green-200 border-gray-800 border relative`}
+                className={`bg-green-200 border-gray-800 border relative w-full`}
               >
                 {frontsData[activeFrontId].hinges.activeOption > 0 && (
                   <HingesRenderer
@@ -161,14 +163,18 @@ function Sketch(props) {
                     dimensions={dimensions}
                   />
                 )}
-                {frontsData[activeFrontId].handles.activeOption === 2 &&
-                  frontsData[activeFrontId].handles.profileOption > 0 && (
-                    <ProfileRenderer
-                      frontsData={frontsData}
-                      activeFrontId={activeFrontId}
-                      dimensions={dimensions}
-                    />
-                  )}
+                {/* {frontsData[activeFrontId].handles.activeOption === 2 &&
+                  frontsData[activeFrontId].handles.profileOption > 0 && ( */}
+                {individualFronts[activeFrontId]?.handles?.handleProfile?.id ? (
+                  <ProfileRenderer
+                    frontsData={frontsData}
+                    activeFrontId={activeFrontId}
+                    dimensions={dimensions}
+                  />
+                ) : (
+                  console.log("fronts: ", individualFronts)
+                )}
+                {/* // )} */}
                 {frontsData[activeFrontId].locks.activeOption === 1 &&
                   (frontsData[activeFrontId].orientation === "Leva vrata" ||
                     frontsData[activeFrontId].orientation ===
