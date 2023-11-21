@@ -153,6 +153,8 @@ function Handles(props) {
   };
 
   const updateProfilePositionOption = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -167,9 +169,13 @@ function Handles(props) {
       return obj;
     });
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.profilePositionOption = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateProfileLengthOption = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -184,6 +190,8 @@ function Handles(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.profileLengthOption = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateProfileDistance = (activeFront, value) => {
@@ -193,7 +201,7 @@ function Handles(props) {
           ...obj,
           handles: {
             ...obj.handles,
-            profileDistance: value,
+            profileDistance: Number(value),
           },
         };
       }
@@ -204,6 +212,8 @@ function Handles(props) {
   };
 
   const updateProfileLength = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -218,6 +228,8 @@ function Handles(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.profileLength = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const handleChooseHandleProfile = (activeFront, e) => {
@@ -231,12 +243,11 @@ function Handles(props) {
     setChosenHandle(e.target.value);
     setHandle(profileType);
 
-    dispatch(setHandleProfile(profileType));
     fronts[activeFront].handles = {
       ...fronts[activeFront].handles,
       handleProfile: profileType,
     };
-    console.log(fronts[activeFront].handles);
+    dispatch(setIndividualFronts(fronts));
   };
 
   return (
@@ -468,7 +479,8 @@ function Handles(props) {
               </div>
             )}
 
-            {frontsData[activeFrontId].handles.profileOption > 0 ? (
+            {individualFronts[activeFrontId].handles.handleProfile?.id &&
+            individualFronts[activeFrontId].orientation !== "Kip vrata" ? (
               frontsData[activeFrontId].handles.profileLengthOption === 0 ? (
                 frontsData[activeFrontId].orientation === "Leva vrata" ||
                 frontsData[activeFrontId].orientation === "Desna vrata" ? (
