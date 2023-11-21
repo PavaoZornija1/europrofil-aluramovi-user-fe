@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function ProfileRenderer(props) {
   const { frontsData, activeFrontId, dimensions } = props;
@@ -8,13 +9,17 @@ function ProfileRenderer(props) {
   const [height, setHeight] = useState("");
   const [width, setWidth] = useState("");
 
+  const individualFronts = useSelector((state) => state.data.individualFronts);
+
   const generateTop = () => {
-    switch (frontsData[activeFrontId].handles.profileLengthOption) {
+    switch (individualFronts[activeFrontId].handles.profileLengthOption) {
       case 0:
-        switch (frontsData[activeFrontId].orientation) {
+        switch (individualFronts[activeFrontId].orientation) {
           case "Leva vrata":
           case "Desna vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
               case 1:
                 setTop("0%");
@@ -30,10 +35,12 @@ function ProfileRenderer(props) {
         }
         break;
       case 1:
-        switch (frontsData[activeFrontId].orientation) {
+        switch (individualFronts[activeFrontId].orientation) {
           case "Leva vrata":
           case "Desna vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
                 setTop("0%");
                 break;
@@ -43,9 +50,9 @@ function ProfileRenderer(props) {
               case 2:
                 setTop(
                   `calc(0% + ${
-                    (1000 / dimensions.h) *
+                    (100 / dimensions.h) *
                       Number(
-                        frontsData[activeFrontId].handles.profileDistance
+                        individualFronts[activeFrontId].handles.profileDistance
                       ) +
                     "%"
                   })`
@@ -54,8 +61,10 @@ function ProfileRenderer(props) {
               case 3:
                 setTop(
                   `calc(50% - ${
-                    ((1000 / dimensions.h) *
-                      Number(frontsData[activeFrontId].handles.profileLength)) /
+                    ((100 / dimensions.h) *
+                      Number(
+                        individualFronts[activeFrontId].handles.profileLength
+                      )) /
                       2 +
                     "%"
                   })`
@@ -64,13 +73,15 @@ function ProfileRenderer(props) {
               case 4:
                 setTop(
                   `calc(100% - ${
-                    (1000 / dimensions.h) *
-                      Number(frontsData[activeFrontId].handles.profileLength) +
+                    (100 / dimensions.h) *
+                      Number(
+                        individualFronts[activeFrontId].handles.profileLength
+                      ) +
                     "%"
                   } - ${
-                    (1000 / dimensions.h) *
+                    (100 / dimensions.h) *
                       Number(
-                        frontsData[activeFrontId].handles.profileDistance
+                        individualFronts[activeFrontId].handles.profileDistance
                       ) +
                     "%"
                   })`
@@ -79,7 +90,9 @@ function ProfileRenderer(props) {
             }
             break;
           case "Kip vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               default:
                 setTop("95%");
             }
@@ -90,11 +103,13 @@ function ProfileRenderer(props) {
   };
 
   const generateLeft = () => {
-    switch (frontsData[activeFrontId].handles.profileLengthOption) {
+    switch (individualFronts[activeFrontId].handles.profileLengthOption) {
       case 0:
-        switch (frontsData[activeFrontId].orientation) {
+        switch (individualFronts[activeFrontId].orientation) {
           case "Leva vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
                 setLeft("95%");
                 break;
@@ -105,7 +120,9 @@ function ProfileRenderer(props) {
             }
             break;
           case "Desna vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
               case 1:
               case 2:
@@ -119,20 +136,24 @@ function ProfileRenderer(props) {
         }
         break;
       case 1:
-        switch (frontsData[activeFrontId].orientation) {
+        switch (individualFronts[activeFrontId].orientation) {
           case "Leva vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
               case 1:
                 setLeft(
                   `calc(100% - ${
-                    (1000 / dimensions.h) *
-                      Number(frontsData[activeFrontId].handles.profileLength) +
+                    (100 / dimensions.h) *
+                      Number(
+                        individualFronts[activeFrontId].handles.profileLength
+                      ) +
                     "%"
                   } - ${
-                    (1000 / dimensions.h) *
+                    (100 / dimensions.h) *
                       Number(
-                        frontsData[activeFrontId].handles.profileDistance
+                        individualFronts[activeFrontId].handles.profileDistance
                       ) +
                     "%"
                   })`
@@ -144,14 +165,16 @@ function ProfileRenderer(props) {
             }
             break;
           case "Desna vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
               case 1:
                 setLeft(
                   `calc(0% + ${
-                    (1000 / dimensions.h) *
+                    (100 / dimensions.h) *
                       Number(
-                        frontsData[activeFrontId].handles.profileDistance
+                        individualFronts[activeFrontId].handles.profileDistance
                       ) +
                     "%"
                   })`
@@ -162,13 +185,15 @@ function ProfileRenderer(props) {
             }
             break;
           case "Kip vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
                 setLeft(
                   `calc(0% + ${
-                    (1000 / dimensions.h) *
+                    (100 / dimensions.h) *
                       Number(
-                        frontsData[activeFrontId].handles.profileDistance
+                        individualFronts[activeFrontId].handles.profileDistance
                       ) +
                     "%"
                   })`
@@ -177,8 +202,10 @@ function ProfileRenderer(props) {
               case 1:
                 setLeft(
                   `calc(50% - ${
-                    ((1000 / dimensions.h) *
-                      Number(frontsData[activeFrontId].handles.profileLength)) /
+                    ((100 / dimensions.h) *
+                      Number(
+                        individualFronts[activeFrontId].handles.profileLength
+                      )) /
                       2 +
                     "%"
                   })`
@@ -187,13 +214,15 @@ function ProfileRenderer(props) {
               case 2:
                 setLeft(
                   `calc(100% - ${
-                    (1000 / dimensions.h) *
-                      Number(frontsData[activeFrontId].handles.profileLength) +
+                    (100 / dimensions.h) *
+                      Number(
+                        individualFronts[activeFrontId].handles.profileLength
+                      ) +
                     "%"
                   } - ${
-                    (1000 / dimensions.h) *
+                    (100 / dimensions.h) *
                       Number(
-                        frontsData[activeFrontId].handles.profileDistance
+                        individualFronts[activeFrontId].handles.profileDistance
                       ) +
                     "%"
                   })`
@@ -207,12 +236,14 @@ function ProfileRenderer(props) {
   };
 
   const generateHeight = () => {
-    switch (frontsData[activeFrontId].handles.profileLengthOption) {
+    switch (individualFronts[activeFrontId].handles.profileLengthOption) {
       case 0:
-        switch (frontsData[activeFrontId].orientation) {
+        switch (individualFronts[activeFrontId].orientation) {
           case "Leva vrata":
           case "Desna vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
                 setHeight("100%");
                 break;
@@ -228,10 +259,12 @@ function ProfileRenderer(props) {
         }
         break;
       case 1:
-        switch (frontsData[activeFrontId].orientation) {
+        switch (individualFronts[activeFrontId].orientation) {
           case "Leva vrata":
           case "Desna vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
               case 1:
                 setHeight("5%");
@@ -239,15 +272,19 @@ function ProfileRenderer(props) {
               default:
                 setHeight(
                   `calc(${
-                    (1000 / dimensions.h) *
-                      Number(frontsData[activeFrontId].handles.profileLength) +
+                    (100 / dimensions.h) *
+                      Number(
+                        individualFronts[activeFrontId].handles.profileLength
+                      ) +
                     "%"
                   })`
                 );
             }
             break;
           case "Kip vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               default:
                 setHeight("5%");
                 break;
@@ -259,12 +296,14 @@ function ProfileRenderer(props) {
   };
 
   const generateWidth = () => {
-    switch (frontsData[activeFrontId].handles.profileLengthOption) {
+    switch (individualFronts[activeFrontId].handles.profileLengthOption) {
       case 0:
-        switch (frontsData[activeFrontId].orientation) {
+        switch (individualFronts[activeFrontId].orientation) {
           case "Leva vrata":
           case "Desna vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
                 setWidth("5%");
                 break;
@@ -280,16 +319,20 @@ function ProfileRenderer(props) {
         }
         break;
       case 1:
-        switch (frontsData[activeFrontId].orientation) {
+        switch (individualFronts[activeFrontId].orientation) {
           case "Leva vrata":
           case "Desna vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               case 0:
               case 1:
                 setWidth(
                   `calc(${
-                    (1000 / dimensions.h) *
-                      Number(frontsData[activeFrontId].handles.profileLength) +
+                    (100 / dimensions.h) *
+                      Number(
+                        individualFronts[activeFrontId].handles.profileLength
+                      ) +
                     "%"
                   })`
                 );
@@ -301,12 +344,16 @@ function ProfileRenderer(props) {
             }
             break;
           case "Kip vrata":
-            switch (frontsData[activeFrontId].handles.profilePositionOption) {
+            switch (
+              individualFronts[activeFrontId].handles.profilePositionOption
+            ) {
               default:
                 setWidth(
                   `calc(${
-                    (1000 / dimensions.h) *
-                      Number(frontsData[activeFrontId].handles.profileLength) +
+                    (100 / dimensions.h) *
+                      Number(
+                        individualFronts[activeFrontId].handles.profileLength
+                      ) +
                     "%"
                   })`
                 );
@@ -324,12 +371,12 @@ function ProfileRenderer(props) {
     generateHeight();
     generateWidth();
   }, [
-    frontsData[activeFrontId].orientation,
-    frontsData[activeFrontId].handles.profileOption,
-    frontsData[activeFrontId].handles.profileLengthOption,
-    frontsData[activeFrontId].handles.profilePositionOption,
-    frontsData[activeFrontId].handles.profileLength,
-    frontsData[activeFrontId].handles.profileDistance,
+    individualFronts[activeFrontId].orientation,
+    individualFronts[activeFrontId].handles.profileOption,
+    individualFronts[activeFrontId].handles.profileLengthOption,
+    individualFronts[activeFrontId].handles.profilePositionOption,
+    individualFronts[activeFrontId].handles.profileLength,
+    individualFronts[activeFrontId].handles.profileDistance,
   ]);
 
   return (
