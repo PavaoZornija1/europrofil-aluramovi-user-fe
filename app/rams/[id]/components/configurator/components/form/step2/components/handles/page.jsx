@@ -13,6 +13,10 @@ function Handles(props) {
   const { frontsData, setFrontsData, activeFrontId } = props;
   const [handle, setHandle] = useState({});
   const [chosenHandle, setChosenHandle] = useState("");
+  const [profileDistanceStartPosition, setProfileDistanceStartPosition] =
+    useState("");
+  const [showProfilePositionStart, setShowProfilePositionStart] =
+    useState(true);
 
   const dispatch = useDispatch();
   const individualFronts = useSelector((state) => state.data.individualFronts);
@@ -195,6 +199,8 @@ function Handles(props) {
   };
 
   const updateProfileDistance = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -209,6 +215,8 @@ function Handles(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].handles.profileDistance = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateProfileLength = (activeFront, value) => {
@@ -249,6 +257,82 @@ function Handles(props) {
     };
     dispatch(setIndividualFronts(fronts));
   };
+
+  const handleProfilePositionText = () => {
+    switch (individualFronts[activeFrontId].orientation) {
+      case "Leva vrata":
+        switch (individualFronts[activeFrontId].handles.profilePositionOption) {
+          case 0:
+          case 1:
+            setProfileDistanceStartPosition("desnu");
+            setShowProfilePositionStart(true);
+            break;
+          case 2:
+            setProfileDistanceStartPosition("gornju");
+            setShowProfilePositionStart(true);
+            break;
+          case 3:
+            setShowProfilePositionStart(false);
+            break;
+          case 4:
+            setProfileDistanceStartPosition("donju");
+            setShowProfilePositionStart(true);
+            break;
+          default:
+            setShowProfilePositionStart(true);
+            break;
+        }
+        break;
+      case "Desna vrata":
+        switch (individualFronts[activeFrontId].handles.profilePositionOption) {
+          case 0:
+          case 1:
+            setProfileDistanceStartPosition("levu");
+            setShowProfilePositionStart(true);
+            break;
+          case 2:
+            setProfileDistanceStartPosition("gornju");
+            setShowProfilePositionStart(true);
+            break;
+          case 3:
+            setShowProfilePositionStart(false);
+            break;
+          case 4:
+            setProfileDistanceStartPosition("donju");
+            setShowProfilePositionStart(true);
+            break;
+          default:
+            setShowProfilePositionStart(true);
+            break;
+        }
+        break;
+      case "Kip vrata":
+        switch (individualFronts[activeFrontId].handles.profilePositionOption) {
+          case 0:
+            setProfileDistanceStartPosition("levu");
+            setShowProfilePositionStart(true);
+            break;
+          case 1:
+            setShowProfilePositionStart(false);
+            break;
+          case 2:
+            setProfileDistanceStartPosition("desnu");
+            setShowProfilePositionStart(true);
+            break;
+          default:
+            setShowProfilePositionStart(true);
+            break;
+        }
+        break;
+    }
+  };
+
+  useEffect(() => {
+    handleProfilePositionText();
+  }, [
+    individualFronts[activeFrontId].orientation,
+    individualFronts[activeFrontId].handles.profilePositionOption,
+  ]);
 
   return (
     <div className="relative w-full self-start rounded-lg shadow-md shadow-gray-500 p-6">
@@ -479,8 +563,7 @@ function Handles(props) {
               </div>
             )}
 
-            {individualFronts[activeFrontId].handles.handleProfile?.id &&
-            individualFronts[activeFrontId].orientation !== "Kip vrata" ? (
+            {individualFronts[activeFrontId].handles.handleProfile?.id ? (
               frontsData[activeFrontId].handles.profileLengthOption === 0 ? (
                 frontsData[activeFrontId].orientation === "Leva vrata" ||
                 frontsData[activeFrontId].orientation === "Desna vrata" ? (
@@ -617,14 +700,18 @@ function Handles(props) {
               ""
             )}
 
-            {frontsData[activeFrontId].handles.profileLengthOption === 1 && (
-              <div>
+            {/* {frontsData[activeFrontId].handles.profileLengthOption === 0 ||
+              (frontsData[activeFrontId].handles.profileLengthOption === 1 &&
+                frontsData[activeFrontId].orientation === "Leva vrata" && ( */}
+            <div>
+              {showProfilePositionStart === true ? (
                 <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
                   <label
                     htmlFor={`startEdge`}
                     className="text-lg mb-2 2xl:mb-0"
                   >
-                    Pocetak u odnosu na levu spoljnu ivicu
+                    Pocetak u odnosu na {profileDistanceStartPosition} spoljnu
+                    ivicu
                   </label>
                   <input
                     type="text"
@@ -636,25 +723,27 @@ function Handles(props) {
                     className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
                   />
                 </div>
-                <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
-                  <label
-                    htmlFor={`lengthOfProfile`}
-                    className="text-lg mb-2 2xl:mb-0"
-                  >
-                    Duzina profila rucice
-                  </label>
-                  <input
-                    type="text"
-                    id={`lengthOfProfile`}
-                    value={frontsData[activeFrontId].handles.profileLength}
-                    onChange={(e) => {
-                      updateProfileLength(activeFrontId, e.target.value);
-                    }}
-                    className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
-                  />
-                </div>
+              ) : null}
+              {/*  */}
+              <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+                <label
+                  htmlFor={`lengthOfProfile`}
+                  className="text-lg mb-2 2xl:mb-0"
+                >
+                  Duzina profila rucice
+                </label>
+                <input
+                  type="text"
+                  id={`lengthOfProfile`}
+                  value={frontsData[activeFrontId].handles.profileLength}
+                  onChange={(e) => {
+                    updateProfileLength(activeFrontId, e.target.value);
+                  }}
+                  className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
+                />
               </div>
-            )}
+            </div>
+            {/* ))} */}
           </div>
         )}
       </div>
