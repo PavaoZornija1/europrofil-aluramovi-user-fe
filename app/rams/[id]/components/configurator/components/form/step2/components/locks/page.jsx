@@ -1,14 +1,16 @@
 "use client";
-import { setLockHole } from "@/app/features/ram/ramData";
+import { setIndividualFronts, setLockHole } from "@/app/features/ram/ramData";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Locks(props) {
   const { frontsData, setFrontsData, activeFrontId } = props;
+  const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const dispatch = useDispatch();
 
   const handleRadioClick = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -23,12 +25,13 @@ function Locks(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    dispatch(
-      setLockHole({ lockPrice: 165, lockAmount: updatedFrontsData.length })
-    );
+    fronts[activeFront].locks.activeOption = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateHoleDiameter = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -43,9 +46,13 @@ function Locks(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].locks.holeDiameter = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updateCenterDistanceOfHole = (activeFront, value, index) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         const updatedDistanceArray = obj.locks.centerDistanceOfHole.map(
@@ -68,6 +75,8 @@ function Locks(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    fronts[activeFront].locks.centerDistanceOfHole[index] = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
   return (
