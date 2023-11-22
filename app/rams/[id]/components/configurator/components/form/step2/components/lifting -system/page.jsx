@@ -1,5 +1,8 @@
 "use client";
-import { setLiftingSystem } from "@/app/features/ram/ramData";
+import {
+  setIndividualFronts,
+  setLiftingSystem,
+} from "@/app/features/ram/ramData";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,6 +11,7 @@ function LiftingSystem(props) {
   const [lift, setLift] = useState("");
 
   const dispatch = useDispatch();
+  const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const handleRadioClick = (activeFront, value) => {
     const updatedFrontsData = frontsData.map((obj, id) => {
@@ -60,15 +64,18 @@ function LiftingSystem(props) {
     setFrontsData(updatedFrontsData);
   };
 
-  const handleChooseLiftSupport = (e) => {
+  const handleChooseLiftSupport = (e, activeFront) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
     let liftSupport = e.target.value;
     for (let i = 0; i < props.ram?.cmsAluLiftSupports.length; ++i) {
       if (props.ram?.cmsAluLiftSupports[i].id === e.target.value) {
         liftSupport = props.ram?.cmsAluLiftSupports[i];
       }
     }
+
     setLift(liftSupport);
-    dispatch(setLiftingSystem(liftSupport));
+    fronts[activeFront].liftingSystem.liftSupport = liftSupport;
+    dispatch(setIndividualFronts(fronts));
   };
 
   return (
@@ -158,12 +165,18 @@ function LiftingSystem(props) {
                 type="number"
                 id="numOfStandardHinges"
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                value={lift}
+                value={
+                  individualFronts[activeFrontId]?.liftingSystem?.liftSupport
+                    ?.id
+                }
                 onChange={(e) => {
                   handleMechanismOption(activeFrontId, Number(e.target.value));
-                  handleChooseLiftSupport(e);
+                  handleChooseLiftSupport(e, activeFrontId);
                 }}
               >
+                <option value={null} key={`option-LiftSupport`}>
+                  -Izaberite-
+                </option>
                 {props.ram?.cmsAluLiftSupports?.map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.name}

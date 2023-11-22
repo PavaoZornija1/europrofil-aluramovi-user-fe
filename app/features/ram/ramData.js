@@ -65,6 +65,7 @@ const initialState = {
         activeOption: 0,
         activePositionOption: 0,
         activeMechanismOption: 0,
+        liftSupport: {},
       },
     },
   ],
