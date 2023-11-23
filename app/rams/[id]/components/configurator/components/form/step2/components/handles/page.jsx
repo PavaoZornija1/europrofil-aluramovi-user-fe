@@ -17,6 +17,8 @@ function Handles(props) {
     useState("");
   const [showProfilePositionStart, setShowProfilePositionStart] =
     useState(true);
+  const [isSingleHole, setIsSingleHole] = useState(false);
+  const [isManualInput, setIsManualInput] = useState(false);
 
   const dispatch = useDispatch();
   const individualFronts = useSelector((state) => state.data.individualFronts);
