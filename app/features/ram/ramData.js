@@ -48,6 +48,7 @@ const initialState = {
         positionName: "",
         wheelbaseOption: 0,
         holeDistanceValue: "",
+        holeDistanceManualValue: 0,
         centerDistanceOfHole: ["0", "0"],
         profileOption: 0,
         handleProfile: {},
