@@ -1,11 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function HandlesRenderer(props) {
   const { frontsData, activeFrontId, dimensions } = props;
   const [top, setTop] = useState("");
   const [left, setLeft] = useState("");
   const [orientation, setOrientation] = useState("row");
+  const individualFronts = useSelector((state) => state.data.individualFronts);
 
   // console.table(frontsData[activeFrontId].handles);
 
@@ -194,7 +196,12 @@ function HandlesRenderer(props) {
         alignItems: "flex-start",
         gap: `calc(${
           (100 / dimensions.h) *
-            wheelBasesArr[frontsData[activeFrontId].handles.wheelbaseOption] +
+            (individualFronts[activeFrontId].handles.holeDistanceValue ===
+            "Rucni unos osnovnog rastojanja"
+              ? individualFronts[activeFrontId].handles.holeDistanceManualValue
+              : wheelBasesArr[
+                  frontsData[activeFrontId].handles.wheelbaseOption
+                ]) +
           "%"
         } - ${(1000 / dimensions.h) * 1.8 * 1 + "%"})`,
       }}
