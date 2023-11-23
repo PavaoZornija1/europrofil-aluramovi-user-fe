@@ -91,6 +91,8 @@ function Handles(props) {
 
   const updateWheelbaseOption = (activeFront, value, holeValue) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
+    setIsSingleHole(false);
+    setIsManualInput(false);
 
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
@@ -105,6 +107,12 @@ function Handles(props) {
       return obj;
     });
 
+    if (holeValue === "Samo jedna rupa (dugme rucica)") {
+      setIsSingleHole(true);
+    }
+    if (holeValue === "Rucni unos osnovnog rastojanja") {
+      setIsManualInput(true);
+    }
     setFrontsData(updatedFrontsData);
     fronts[activeFront].handles.holeDistanceValue =
       typeof holeValue === "number" ? `${holeValue} mm` : holeValue;
@@ -329,6 +337,15 @@ function Handles(props) {
     }
   };
 
+  const handleManualHoleDistance = (e, activeFront) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
+    fronts[activeFront].handles.holeDistanceManualValue = Number(
+      e.target.value
+    );
+    dispatch(setIndividualFronts(fronts));
+  };
+
   useEffect(() => {
     handleProfilePositionText();
   }, [
@@ -488,6 +505,23 @@ function Handles(props) {
               </select>
             </div>
 
+            {isManualInput ? (
+              <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+                <label htmlFor={`firstHole`} className="text-lg mb-2 2xl:mb-0">
+                  Unesite osnovno rastojanje
+                </label>
+                <input
+                  type="text"
+                  id={`firstHole`}
+                  value={
+                    individualFronts[activeFrontId].handles
+                      .holeDistanceManualValue
+                  }
+                  onChange={(e) => handleManualHoleDistance(e, activeFrontId)}
+                  className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
+                />
+              </div>
+            ) : null}
             <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
               <label htmlFor={`firstHole`} className="text-lg mb-2 2xl:mb-0">
                 Centar prve rupe od desne spoljne ivice (mm)
