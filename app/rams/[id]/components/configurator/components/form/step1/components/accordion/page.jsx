@@ -19,6 +19,7 @@ function Accordion(props) {
   const [bevelOptions, setBevelOptions] = useState([]);
   const [sandBlastingOptions, setSandBlastingOptions] = useState([]);
   const [add, setAdd] = useState({});
+  const fill = useSelector((state) => state.data.fill);
 
   useEffect(() => {
     const response = async () => {
@@ -53,7 +54,7 @@ function Accordion(props) {
 
     setAdditionalTreatment(e.target.value);
 
-    dispatch(setAdditionalFillTreatment(addition));
+    dispatch(setFill({ ...fill, additionalFillTreatment: addition }));
   };
 
   const handleClick = (index) => {
@@ -66,11 +67,12 @@ function Accordion(props) {
 
   const handleSubfillClick = (index, item) => {
     setActiveSubfillIndex(index === activeSubfillIndex ? index : index);
-    dispatch(setSubfill(item));
+    dispatch(setFill({ ...fill, subfill: item }));
   };
 
   const handleNoFillChosen = (bool) => {
     setNoFillChosen(bool);
+    dispatch(setFill({}));
   };
 
   return (
@@ -219,10 +221,13 @@ function Accordion(props) {
             <select
               name="additionalWork"
               id=""
-              className="sm:ml-8 border focus:outline-none border-r-sm"
+              className="sm:ml-8 border focus:outline-none border-r-sm text-center"
               value={additionalTreatment}
               onChange={(e) => handleChooseSandblasting(e)}
             >
+              <option value={null} key={`defaultOptionKey`}>
+                -Izaberite-
+              </option>
               <optgroup label="Peskarenje">
                 {sandBlastingOptions?.map((options) => (
                   <option key={options.id} value={options.id}>
