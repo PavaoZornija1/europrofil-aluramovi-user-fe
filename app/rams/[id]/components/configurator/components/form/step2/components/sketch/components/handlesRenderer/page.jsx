@@ -206,15 +206,25 @@ function HandlesRenderer(props) {
         } - ${(1000 / dimensions.h) * 1.8 * 1 + "%"})`,
       }}
     >
-      {frontsData[activeFrontId].handles.centerDistanceOfHole.map(
-        (holeDistance, id) => (
-          <div
-            key={Math.random()}
-            style={{
-              height: (1000 / dimensions.h) * 1.8 + "%",
-            }}
-            className="border border-gray-800 aspect-square rounded-full bg-white"
-          ></div>
+      {frontsData[activeFrontId].handles.wheelbaseOption === 15 ? (
+        <div
+          key={`singleHoleDistance}`}
+          style={{
+            height: (1000 / dimensions.h) * 1.8 + "%",
+          }}
+          className="border border-gray-800 aspect-square rounded-full bg-white"
+        ></div>
+      ) : (
+        frontsData[activeFrontId].handles.centerDistanceOfHole.map(
+          (holeDistance, id) => (
+            <div
+              key={`holeDistance - ${id}`}
+              style={{
+                height: (1000 / dimensions.h) * 1.8 + "%",
+              }}
+              className="border border-gray-800 aspect-square rounded-full bg-white"
+            ></div>
+          )
         )
       )}
     </div>
