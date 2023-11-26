@@ -126,7 +126,7 @@ function Handles(props) {
     setFrontsData(updatedFrontsData);
     fronts[activeFront].handles.holeDistanceValue =
       typeof holeValue === "number" ? `${holeValue} mm` : holeValue;
-    fronts[activeFront].handles.wheelbaseOption = value;
+    fronts[activeFront].handles.wheelbaseOption = Number(value);
     dispatch(setIndividualFronts(fronts));
   };
 
@@ -157,23 +157,6 @@ function Handles(props) {
     setFrontsData(updatedFrontsData);
     fronts[activeFront].handles.centerDistanceOfHole[index] = value;
     dispatch(setIndividualFronts(fronts));
-  };
-
-  const updateProfileOption = (activeFront, value) => {
-    const updatedFrontsData = frontsData.map((obj, id) => {
-      if (id === activeFront) {
-        return {
-          ...obj,
-          handles: {
-            ...obj.handles,
-            profileOption: Number(value),
-          },
-        };
-      }
-      return obj;
-    });
-
-    setFrontsData(updatedFrontsData);
   };
 
   const updateProfilePositionOption = (activeFront, value) => {

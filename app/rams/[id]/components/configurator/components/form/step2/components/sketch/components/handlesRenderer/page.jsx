@@ -206,7 +206,7 @@ function HandlesRenderer(props) {
         } - ${(1000 / dimensions.h) * 1.8 * 1 + "%"})`,
       }}
     >
-      {frontsData[activeFrontId].handles.wheelbaseOption === 15 ? (
+      {individualFronts[activeFrontId].handles.wheelbaseOption === 15 ? (
         <div
           key={`singleHoleDistance}`}
           style={{
@@ -215,7 +215,7 @@ function HandlesRenderer(props) {
           className="border border-gray-800 aspect-square rounded-full bg-white"
         ></div>
       ) : (
-        frontsData[activeFrontId].handles.centerDistanceOfHole.map(
+        individualFronts[activeFrontId].handles.centerDistanceOfHole.map(
           (holeDistance, id) => (
             <div
               key={`holeDistance - ${id}`}
