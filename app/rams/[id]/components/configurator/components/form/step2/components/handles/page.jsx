@@ -19,6 +19,14 @@ function Handles(props) {
     useState(true);
   const [isSingleHole, setIsSingleHole] = useState(false);
   const [isManualInput, setIsManualInput] = useState(false);
+  const [
+    handlesHorizontalPositionOptionText,
+    setHandlesHorizontalPositionOptionText,
+  ] = useState("");
+  const [
+    handlesVerticalPositionOptionText,
+    setHandlesVerticalPositionOptionText,
+  ] = useState("");
 
   const dispatch = useDispatch();
   const individualFronts = useSelector((state) => state.data.individualFronts);
@@ -85,7 +93,7 @@ function Handles(props) {
 
     setFrontsData(updatedFrontsData);
     fronts[activeFront].handles.positionName = positionName;
-    fronts[activeFront].handles.positionOption = value;
+    fronts[activeFront].handles.positionOption = Number(value);
     dispatch(setIndividualFronts(fronts));
   };
 
@@ -336,6 +344,84 @@ function Handles(props) {
         break;
     }
   };
+  const handleHandlesPositionText = () => {
+    switch (individualFronts[activeFrontId].orientation) {
+      case "Leva vrata":
+        switch (individualFronts[activeFrontId].handles.positionOption) {
+          case 0: {
+            setHandlesHorizontalPositionOptionText("desne");
+            setHandlesVerticalPositionOptionText("gornje");
+            break;
+          }
+          case 1: {
+            setHandlesHorizontalPositionOptionText("desne");
+            setHandlesVerticalPositionOptionText("donje");
+            break;
+          }
+          case 2: {
+            setHandlesHorizontalPositionOptionText("gornje");
+            setHandlesVerticalPositionOptionText("desne");
+            break;
+          }
+          case 3: {
+            setHandlesHorizontalPositionOptionText("desne");
+            break;
+          }
+          case 4: {
+            setHandlesHorizontalPositionOptionText("donje");
+            setHandlesVerticalPositionOptionText("desne");
+            break;
+          }
+        }
+        break;
+      case "Desna vrata":
+        switch (individualFronts[activeFrontId].handles.positionOption) {
+          case 0: {
+            setHandlesHorizontalPositionOptionText("leve");
+            setHandlesVerticalPositionOptionText("gornje");
+            break;
+          }
+          case 1: {
+            setHandlesHorizontalPositionOptionText("leve");
+            setHandlesVerticalPositionOptionText("donje");
+            break;
+          }
+          case 2: {
+            setHandlesHorizontalPositionOptionText("gornje");
+            setHandlesVerticalPositionOptionText("leve");
+            break;
+          }
+          case 3: {
+            setHandlesHorizontalPositionOptionText("leve");
+            break;
+          }
+          case 4: {
+            setHandlesHorizontalPositionOptionText("donje");
+            setHandlesVerticalPositionOptionText("leve");
+            break;
+          }
+        }
+        break;
+      case "Kip vrata":
+        switch (individualFronts[activeFrontId].handles.positionOption) {
+          case 0: {
+            setHandlesHorizontalPositionOptionText("leve");
+            setHandlesVerticalPositionOptionText("donje");
+            break;
+          }
+          case 1: {
+            setHandlesHorizontalPositionOptionText("donje");
+            break;
+          }
+          case 2: {
+            setHandlesHorizontalPositionOptionText("desne");
+            setHandlesVerticalPositionOptionText("donje");
+            break;
+          }
+        }
+        break;
+    }
+  };
 
   const handleManualHoleDistance = (e, activeFront) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
@@ -348,9 +434,11 @@ function Handles(props) {
 
   useEffect(() => {
     handleProfilePositionText();
+    handleHandlesPositionText();
   }, [
     individualFronts[activeFrontId].orientation,
     individualFronts[activeFrontId].handles.profilePositionOption,
+    individualFronts[activeFrontId].handles.positionOption,
   ]);
 
   return (
@@ -524,7 +612,8 @@ function Handles(props) {
             ) : null}
             <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
               <label htmlFor={`firstHole`} className="text-lg mb-2 2xl:mb-0">
-                Centar prve rupe od desne spoljne ivice (mm)
+                Centar prve rupe od {handlesHorizontalPositionOptionText}{" "}
+                spoljne ivice (mm)
               </label>
               <input
                 type="text"
@@ -541,7 +630,8 @@ function Handles(props) {
 
             <div className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row">
               <label htmlFor={`secondHole`} className="text-lg mb-2 2xl:mb-0">
-                Centar prve rupe od gornje spoljne ivice (mm)
+                Centar prve rupe od {handlesVerticalPositionOptionText} spoljne
+                ivice (mm)
               </label>
               <input
                 type="text"
