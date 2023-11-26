@@ -27,6 +27,8 @@ function Handles(props) {
     handlesVerticalPositionOptionText,
     setHandlesVerticalPositionOptionText,
   ] = useState("");
+  const [showPartialProfileLengthOptions, setShowPartialProfileLengthOptions] =
+    useState(false);
 
   const dispatch = useDispatch();
   const individualFronts = useSelector((state) => state.data.individualFronts);
@@ -192,6 +194,7 @@ function Handles(props) {
     });
     setFrontsData(updatedFrontsData);
     fronts[activeFront].handles.profilePositionOption = Number(value);
+
     dispatch(setIndividualFronts(fronts));
   };
 
@@ -213,6 +216,11 @@ function Handles(props) {
 
     setFrontsData(updatedFrontsData);
     fronts[activeFront].handles.profileLengthOption = Number(value);
+    if (Number(value) === 1) {
+      setShowPartialProfileLengthOptions(true);
+    } else {
+      setShowPartialProfileLengthOptions(false);
+    }
     dispatch(setIndividualFronts(fronts));
   };
 
@@ -836,7 +844,7 @@ function Handles(props) {
               ""
             )}
 
-            {showProfilePositionStart === true ? (
+            {showPartialProfileLengthOptions && showProfilePositionStart && (
               <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
                 <label htmlFor={`startEdge`} className="text-lg mb-2 2xl:mb-0">
                   Pocetak u odnosu na {profileDistanceStartPosition} spoljnu
@@ -852,25 +860,26 @@ function Handles(props) {
                   className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
                 />
               </div>
-            ) : null}
-            <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
-              <label
-                htmlFor={`lengthOfProfile`}
-                className="text-lg mb-2 2xl:mb-0"
-              >
-                Duzina profila rucice
-              </label>
-              <input
-                type="text"
-                id={`lengthOfProfile`}
-                value={frontsData[activeFrontId].handles.profileLength}
-                onChange={(e) => {
-                  updateProfileLength(activeFrontId, e.target.value);
-                }}
-                className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
-              />
-            </div>
-            {/* *********** */}
+            )}
+            {showPartialProfileLengthOptions && (
+              <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+                <label
+                  htmlFor={`lengthOfProfile`}
+                  className="text-lg mb-2 2xl:mb-0"
+                >
+                  Duzina profila rucice
+                </label>
+                <input
+                  type="text"
+                  id={`lengthOfProfile`}
+                  value={frontsData[activeFrontId].handles.profileLength}
+                  onChange={(e) => {
+                    updateProfileLength(activeFrontId, e.target.value);
+                  }}
+                  className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
