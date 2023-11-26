@@ -628,23 +628,33 @@ function Handles(props) {
               />
             </div>
 
-            <div className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row">
-              <label htmlFor={`secondHole`} className="text-lg mb-2 2xl:mb-0">
-                Centar prve rupe od {handlesVerticalPositionOptionText} spoljne
-                ivice (mm)
-              </label>
-              <input
-                type="text"
-                id={`secondHole`}
-                value={
-                  frontsData[activeFrontId].handles.centerDistanceOfHole[1]
-                }
-                onChange={(e) => {
-                  updateCenterDistanceOfHole(activeFrontId, e.target.value, 1);
-                }}
-                className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
-              />
-            </div>
+            {((individualFronts[activeFrontId].orientation === "Leva vrata" ||
+              individualFronts[activeFrontId].orientation === "Desna vrata") &&
+              individualFronts[activeFrontId].handles.positionOption !== 3) ||
+            (individualFronts[activeFrontId].orientation === "Kip vrata" &&
+              individualFronts[activeFrontId].handles.positionOption !== 1) ? (
+              <div className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row">
+                <label htmlFor={`secondHole`} className="text-lg mb-2 2xl:mb-0">
+                  Centar prve rupe od {handlesVerticalPositionOptionText}{" "}
+                  spoljne ivice (mm)
+                </label>
+                <input
+                  type="text"
+                  id={`secondHole`}
+                  value={
+                    frontsData[activeFrontId].handles.centerDistanceOfHole[1]
+                  }
+                  onChange={(e) => {
+                    updateCenterDistanceOfHole(
+                      activeFrontId,
+                      e.target.value,
+                      1
+                    );
+                  }}
+                  className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
+                />
+              </div>
+            ) : null}
           </div>
         )}
         {frontsData[activeFrontId].handles.shouldMountProfile && (
