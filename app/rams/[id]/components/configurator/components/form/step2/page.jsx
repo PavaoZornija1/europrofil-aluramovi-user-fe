@@ -39,7 +39,7 @@ function Step2(props) {
         positionName: "",
         wheelbaseOption: 0,
         holeDistanceValue: "",
-        centerDistanceOfHole: ["0", "0"],
+        centerDistanceOfHole: ["32", "32"],
         profileOption: 0,
         profileLengthOption: 0,
         profilePositionOption: 0,
