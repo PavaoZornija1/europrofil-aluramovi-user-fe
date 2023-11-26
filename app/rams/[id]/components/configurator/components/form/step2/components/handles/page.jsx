@@ -688,7 +688,7 @@ function Handles(props) {
               </select>
             </div>
 
-            {frontsData[activeFrontId].handles.profileOption >= 0 && (
+            {individualFronts[activeFrontId].handles.handleProfile?.id ? (
               <div className="mb-4">
                 <label htmlFor="duzina" className="text-lg mr-8">
                   Duzina
@@ -705,13 +705,16 @@ function Handles(props) {
                   <option value="1">Delimicno</option>
                 </select>
               </div>
-            )}
+            ) : null}
 
             {individualFronts[activeFrontId].handles.handleProfile?.id ? (
-              frontsData[activeFrontId].handles.profileLengthOption === 0 ? (
-                frontsData[activeFrontId].orientation === "Leva vrata" ||
-                frontsData[activeFrontId].orientation === "Desna vrata" ? (
-                  frontsData[activeFrontId].orientation === "Leva vrata" ? (
+              individualFronts[activeFrontId].handles.profileLengthOption ===
+              0 ? (
+                individualFronts[activeFrontId].orientation === "Leva vrata" ||
+                individualFronts[activeFrontId].orientation ===
+                  "Desna vrata" ? (
+                  individualFronts[activeFrontId].orientation ===
+                  "Leva vrata" ? (
                     <div className="mb-4">
                       <label htmlFor="polozaj" className="text-lg mr-8">
                         Polozaj
@@ -720,7 +723,7 @@ function Handles(props) {
                         id="polozaj"
                         className="border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                         value={
-                          frontsData[activeFrontId].handles
+                          individualFronts[activeFrontId].handles
                             .profilePositionOption
                         }
                         onChange={(e) => {
@@ -744,7 +747,7 @@ function Handles(props) {
                         id="polozaj"
                         className="border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                         value={
-                          frontsData[activeFrontId].handles
+                          individualFronts[activeFrontId].handles
                             .profilePositionOption
                         }
                         onChange={(e) => {
@@ -763,9 +766,11 @@ function Handles(props) {
                 ) : (
                   ""
                 )
-              ) : frontsData[activeFrontId].orientation === "Leva vrata" ||
-                frontsData[activeFrontId].orientation === "Desna vrata" ? (
-                frontsData[activeFrontId].orientation === "Leva vrata" ? (
+              ) : individualFronts[activeFrontId].orientation ===
+                  "Leva vrata" ||
+                individualFronts[activeFrontId].orientation ===
+                  "Desna vrata" ? (
+                individualFronts[activeFrontId].orientation === "Leva vrata" ? (
                   <div className="mb-4">
                     <label htmlFor="polozaj" className="text-lg mr-8">
                       Polozaj
@@ -774,7 +779,8 @@ function Handles(props) {
                       id="polozaj"
                       className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                       value={
-                        frontsData[activeFrontId].handles.profilePositionOption
+                        individualFronts[activeFrontId].handles
+                          .profilePositionOption
                       }
                       onChange={(e) => {
                         updateProfilePositionOption(
@@ -799,7 +805,8 @@ function Handles(props) {
                       id="polozaj"
                       className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                       value={
-                        frontsData[activeFrontId].handles.profilePositionOption
+                        individualFronts[activeFrontId].handles
+                          .profilePositionOption
                       }
                       onChange={(e) => {
                         updateProfilePositionOption(
@@ -825,7 +832,8 @@ function Handles(props) {
                     id="polozaj"
                     className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                     value={
-                      frontsData[activeFrontId].handles.profilePositionOption
+                      individualFronts[activeFrontId].handles
+                        .profilePositionOption
                     }
                     onChange={(e) => {
                       updateProfilePositionOption(
@@ -853,7 +861,9 @@ function Handles(props) {
                 <input
                   type="text"
                   id={`startEdge`}
-                  value={frontsData[activeFrontId].handles.profileDistance}
+                  value={
+                    individualFronts[activeFrontId].handles.profileDistance
+                  }
                   onChange={(e) => {
                     updateProfileDistance(activeFrontId, e.target.value);
                   }}
@@ -872,7 +882,7 @@ function Handles(props) {
                 <input
                   type="text"
                   id={`lengthOfProfile`}
-                  value={frontsData[activeFrontId].handles.profileLength}
+                  value={individualFronts[activeFrontId].handles.profileLength}
                   onChange={(e) => {
                     updateProfileLength(activeFrontId, e.target.value);
                   }}
