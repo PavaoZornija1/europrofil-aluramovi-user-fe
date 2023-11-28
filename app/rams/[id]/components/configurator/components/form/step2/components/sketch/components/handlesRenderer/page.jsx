@@ -9,58 +9,62 @@ function HandlesRenderer(props) {
   const [orientation, setOrientation] = useState("row");
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
-  // console.table(frontsData[activeFrontId].handles);
-
   const wheelBasesArr = [
     32, 64, 96, 128, 160, 192, 224, 256, 282, 320, 352, 384, 416, 448, 480,
   ];
 
   const generateTop = () => {
     if (
-      frontsData[activeFrontId].orientation === "Leva vrata" ||
-      frontsData[activeFrontId].orientation === "Desna vrata"
+      individualFronts[activeFrontId].orientation === "Leva vrata" ||
+      individualFronts[activeFrontId].orientation === "Desna vrata"
     ) {
-      if (
-        frontsData[activeFrontId].handles.positionOption === 0 ||
-        frontsData[activeFrontId].handles.positionOption === 2
-      ) {
+      if (individualFronts[activeFrontId].handles.positionOption === 0) {
         setTop(
           `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
             (100 / dimensions.h) *
-              frontsData[activeFrontId].handles.centerDistanceOfHole[1] +
+              individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
             "%"
           })`
         );
       }
 
-      if (frontsData[activeFrontId].handles.positionOption === 1) {
+      if (individualFronts[activeFrontId].handles.positionOption === 1) {
         setTop(
           `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
             (100 / dimensions.h) *
-              frontsData[activeFrontId].handles.centerDistanceOfHole[1] +
+              individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
             "%"
           } + 1px)`
         );
-      } else if (frontsData[activeFrontId].handles.positionOption === 4) {
+      } else if (individualFronts[activeFrontId].handles.positionOption === 4) {
         setTop(
           `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
             (100 / dimensions.h) *
-              frontsData[activeFrontId].handles.centerDistanceOfHole[1] +
+              Number(
+                individualFronts[activeFrontId].handles.centerDistanceOfHole[1]
+              ) +
             "%"
-          } - ${
+          }
+          
+           + 1px)`
+        );
+      }
+      if (individualFronts[activeFrontId].handles.positionOption === 2) {
+        setTop(
+          `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
             (100 / dimensions.h) *
-              wheelBasesArr[frontsData[activeFrontId].handles.wheelbaseOption] +
+              individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
             "%"
-          } + 1px)`
+          })`
         );
       }
 
-      if (frontsData[activeFrontId].handles.positionOption === 3) {
+      if (individualFronts[activeFrontId].handles.positionOption === 3) {
         setTop(
           `calc(50% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
             ((100 / dimensions.h) *
               wheelBasesArr[
-                frontsData[activeFrontId].handles.wheelbaseOption
+                individualFronts[activeFrontId].handles.wheelbaseOption
               ]) /
               2 +
             "%"
@@ -68,11 +72,11 @@ function HandlesRenderer(props) {
         );
       }
     }
-    if (frontsData[activeFrontId].orientation === "Kip vrata") {
+    if (individualFronts[activeFrontId].orientation === "Kip vrata") {
       setTop(
         `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
           (100 / dimensions.h) *
-            frontsData[activeFrontId].handles.centerDistanceOfHole[1] +
+            individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
           "%"
         } + 1px)`
       );
@@ -80,52 +84,73 @@ function HandlesRenderer(props) {
   };
 
   const generateLeft = () => {
-    if (frontsData[activeFrontId].orientation === "Desna vrata") {
+    if (individualFronts[activeFrontId].orientation === "Desna vrata") {
       setLeft(
         `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
           (100 / dimensions.h) *
-            frontsData[activeFrontId].handles.centerDistanceOfHole[0] +
+            individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
           "%"
         })`
       );
     }
-    if (frontsData[activeFrontId].orientation === "Leva vrata") {
+    if (individualFronts[activeFrontId].orientation === "Leva vrata") {
       if (
-        frontsData[activeFrontId].handles.positionOption === 0 ||
-        frontsData[activeFrontId].handles.positionOption === 1
+        individualFronts[activeFrontId].handles.positionOption === 0 ||
+        individualFronts[activeFrontId].handles.positionOption === 1
       ) {
-        setLeft(
-          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-            (100 / dimensions.h) *
-              wheelBasesArr[frontsData[activeFrontId].handles.wheelbaseOption] +
-            "%"
-          } - ${
-            (100 / dimensions.h) *
-              frontsData[activeFrontId].handles.centerDistanceOfHole[0] +
-            "%"
-          } + 1px)`
-        );
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 15) {
+          setLeft(
+            `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
+              (100 / dimensions.h) *
+                Number(
+                  individualFronts[activeFrontId].handles
+                    .centerDistanceOfHole[0]
+                ) +
+              "%"
+            } - ${
+              (100 / dimensions.h) *
+                individualFronts[activeFrontId].handles
+                  .centerDistanceOfHole[0] +
+              "%"
+            } + 1px)`
+          );
+        } else {
+          setLeft(
+            `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
+              (100 / dimensions.h) *
+                wheelBasesArr[
+                  individualFronts[activeFrontId].handles.wheelbaseOption
+                ] +
+              "%"
+            } - ${
+              (100 / dimensions.h) *
+                individualFronts[activeFrontId].handles
+                  .centerDistanceOfHole[0] +
+              "%"
+            } + 1px)`
+          );
+        }
       } else {
         setLeft(
           `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
             (100 / dimensions.h) *
-              frontsData[activeFrontId].handles.centerDistanceOfHole[0] +
+              individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
             "%"
           } + 1px)`
         );
       }
     }
-    if (frontsData[activeFrontId].orientation === "Kip vrata") {
-      if (frontsData[activeFrontId].handles.positionOption === 0) {
+    if (individualFronts[activeFrontId].orientation === "Kip vrata") {
+      if (individualFronts[activeFrontId].handles.positionOption === 0) {
         setLeft(
           `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
             (100 / dimensions.h) *
-              frontsData[activeFrontId].handles.centerDistanceOfHole[0] +
+              individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
             "%"
           })`
         );
       }
-      if (frontsData[activeFrontId].handles.positionOption === 1) {
+      if (individualFronts[activeFrontId].handles.positionOption === 1) {
         setLeft(
           `calc(50% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
             ((100 / dimensions.h) *
@@ -176,10 +201,10 @@ function HandlesRenderer(props) {
     generateLeft();
     generateOrientation();
   }, [
-    frontsData[activeFrontId].orientation,
-    frontsData[activeFrontId].handles.positionOption,
-    frontsData[activeFrontId].handles.wheelbaseOption,
-    frontsData[activeFrontId].handles.centerDistanceOfHole,
+    individualFronts[activeFrontId].orientation,
+    individualFronts[activeFrontId].handles.positionOption,
+    individualFronts[activeFrontId].handles.wheelbaseOption,
+    individualFronts[activeFrontId].handles.centerDistanceOfHole,
   ]);
 
   return (
