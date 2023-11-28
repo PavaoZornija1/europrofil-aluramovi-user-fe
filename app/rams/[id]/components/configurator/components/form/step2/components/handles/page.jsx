@@ -350,8 +350,8 @@ function Handles(props) {
             break;
           }
           case 2: {
-            setHandlesHorizontalPositionOptionText("gornje");
-            setHandlesVerticalPositionOptionText("desne");
+            setHandlesHorizontalPositionOptionText("desne");
+            setHandlesVerticalPositionOptionText("gornje");
             break;
           }
           case 3: {
@@ -359,8 +359,8 @@ function Handles(props) {
             break;
           }
           case 4: {
-            setHandlesHorizontalPositionOptionText("donje");
-            setHandlesVerticalPositionOptionText("desne");
+            setHandlesHorizontalPositionOptionText("desne");
+            setHandlesVerticalPositionOptionText("donje");
             break;
           }
         }
