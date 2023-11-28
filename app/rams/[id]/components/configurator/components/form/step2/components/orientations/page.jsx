@@ -32,8 +32,8 @@ function OrientationsAndDimensions(props) {
             <Image
               alt={item.imageName}
               src={`/images/${item.imageName}`}
-              width={100}
-              height={100}
+              width={150}
+              height={150}
             ></Image>
             <p className="font-semibold text-lg">{item.name}</p>
           </div>
