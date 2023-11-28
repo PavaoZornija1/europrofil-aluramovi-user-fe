@@ -68,15 +68,15 @@ function Step2(props) {
   const orientationData = [
     {
       name: "Leva vrata",
-      imageName: "left.png",
+      imageName: "left.jpg",
     },
     {
       name: "Kip vrata",
-      imageName: "top.png",
+      imageName: "top.jpg",
     },
     {
       name: "Desna vrata",
-      imageName: "right.png",
+      imageName: "right.jpg",
     },
   ];
   const dispatch = useDispatch();
