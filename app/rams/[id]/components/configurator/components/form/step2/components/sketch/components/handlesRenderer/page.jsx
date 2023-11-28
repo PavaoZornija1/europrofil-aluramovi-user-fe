@@ -10,8 +10,24 @@ function HandlesRenderer(props) {
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const wheelBasesArr = [
-    32, 64, 96, 128, 160, 192, 224, 256, 282, 320, 352, 384, 416, 448, 480,
+    32,
+    64,
+    96,
+    128,
+    160,
+    192,
+    224,
+    256,
+    282,
+    320,
+    352,
+    384,
+    416,
+    448,
+    480,
+    Number(individualFronts[activeFrontId].handles.holeDistanceManualValue),
   ];
+  console.log(wheelBasesArr);
 
   const generateTop = () => {
     if (
@@ -219,13 +235,16 @@ function HandlesRenderer(props) {
         flexDirection: orientation,
         justifyContent: "flex-start",
         alignItems: "flex-start",
+
         gap: `calc(${
           (100 / dimensions.h) *
-            (individualFronts[activeFrontId].handles.holeDistanceValue ===
-            "Rucni unos osnovnog rastojanja"
-              ? individualFronts[activeFrontId].handles.holeDistanceManualValue
+            (individualFronts[activeFrontId].handles.wheelbaseOption === 16
+              ? Number(
+                  individualFronts[activeFrontId].handles
+                    .holeDistanceManualValue
+                )
               : wheelBasesArr[
-                  frontsData[activeFrontId].handles.wheelbaseOption
+                  individualFronts[activeFrontId].handles.wheelbaseOption
                 ]) +
           "%"
         } - ${(1000 / dimensions.h) * 1.8 * 1 + "%"})`,
@@ -233,7 +252,7 @@ function HandlesRenderer(props) {
     >
       {individualFronts[activeFrontId].handles.wheelbaseOption === 15 ? (
         <div
-          key={`singleHoleDistance}`}
+          key={`singleHoleDistance`}
           style={{
             height: (1000 / dimensions.h) * 1.8 + "%",
           }}
@@ -246,6 +265,7 @@ function HandlesRenderer(props) {
               key={`holeDistance - ${id}`}
               style={{
                 height: (1000 / dimensions.h) * 1.8 + "%",
+                backgroundColor: id === 0 ? "red" : "blue",
               }}
               className="border border-gray-800 aspect-square rounded-full bg-white"
             ></div>
