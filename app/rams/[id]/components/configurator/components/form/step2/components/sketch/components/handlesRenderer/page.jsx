@@ -9,6 +9,10 @@ function HandlesRenderer(props) {
   const [orientation, setOrientation] = useState("row");
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
+  let manualDistanceInput = individualFronts[activeFrontId].handles
+    .holeDistanceManualValue
+    ? Number(individualFronts[activeFrontId].handles.holeDistanceManualValue)
+    : 0;
   const wheelBasesArr = [
     32,
     64,
@@ -25,7 +29,7 @@ function HandlesRenderer(props) {
     416,
     448,
     480,
-    Number(individualFronts[activeFrontId].handles.holeDistanceManualValue),
+    +manualDistanceInput,
   ];
   console.log(wheelBasesArr);
 
@@ -115,20 +119,30 @@ function HandlesRenderer(props) {
         individualFronts[activeFrontId].handles.positionOption === 1
       ) {
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 15) {
+          // setLeft(
+          //   `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
+          //     (100 / dimensions.h) *
+          //       Number(
+          //         individualFronts[activeFrontId].handles
+          //           .centerDistanceOfHole[0]
+          //       ) +
+          //     "%"
+          //   } - ${
+          //     (100 / dimensions.h) *
+          //       individualFronts[activeFrontId].handles
+          //         .centerDistanceOfHole[0] +
+          //     "%"
+          //   } + 1px)`
+          // );
           setLeft(
-            `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
+            `calc(100% - ${1000 / dimensions.h + "%"} - ${
               (100 / dimensions.h) *
                 Number(
                   individualFronts[activeFrontId].handles
                     .centerDistanceOfHole[0]
                 ) +
               "%"
-            } - ${
-              (100 / dimensions.h) *
-                individualFronts[activeFrontId].handles
-                  .centerDistanceOfHole[0] +
-              "%"
-            } + 1px)`
+            }`
           );
         } else {
           setLeft(
