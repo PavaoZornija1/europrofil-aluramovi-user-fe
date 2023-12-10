@@ -14,6 +14,8 @@ function LiftingSystem(props) {
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const handleRadioClick = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -28,9 +30,15 @@ function LiftingSystem(props) {
     });
 
     setFrontsData(updatedFrontsData);
+    if (value === 0) {
+      fronts[activeFront].liftingSystem.liftSupport = {};
+      dispatch(setIndividualFronts(fronts));
+    }
   };
 
   const handlePositionOption = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -44,7 +52,9 @@ function LiftingSystem(props) {
       return obj;
     });
 
+    fronts[activeFront].liftingSystem.activePositionOption = value;
     setFrontsData(updatedFrontsData);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const handleMechanismOption = (activeFront, value) => {
