@@ -6,6 +6,7 @@ function HandlesRenderer(props) {
   const { frontsData, activeFrontId, dimensions } = props;
   const [top, setTop] = useState("");
   const [left, setLeft] = useState("");
+  const [justifyContentPosition, setJustifyContentPosition] = useState("");
   const [orientation, setOrientation] = useState("row");
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
@@ -29,9 +30,8 @@ function HandlesRenderer(props) {
     416,
     448,
     480,
-    +manualDistanceInput,
+    Number(manualDistanceInput),
   ];
-  console.log(wheelBasesArr);
 
   const generateTop = () => {
     if (
@@ -68,6 +68,13 @@ function HandlesRenderer(props) {
           
            + 1px)`
         );
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
+          setTop(
+            `calc(100% - ${1000 / dimensions.h + "%"} - ${
+              (100 / dimensions.h) * Number(manualDistanceInput) + "%"
+            }) `
+          );
+        }
       }
       if (individualFronts[activeFrontId].handles.positionOption === 2) {
         setTop(
@@ -100,6 +107,19 @@ function HandlesRenderer(props) {
           "%"
         } + 1px)`
       );
+
+      if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
+        if (individualFronts[activeFrontId].handles.positionOption === 1) {
+          setTop(
+            `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
+              (100 / dimensions.h) *
+                individualFronts[activeFrontId].handles
+                  .centerDistanceOfHole[0] +
+              "%"
+            } + 1px)`
+          );
+        }
+      }
     }
   };
 
@@ -160,6 +180,13 @@ function HandlesRenderer(props) {
             } + 1px)`
           );
         }
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
+          setLeft(
+            `calc(100% - ${1000 / dimensions.h + "%"} - ${
+              (100 / dimensions.h) * Number(manualDistanceInput) + "%"
+            } - 3px)`
+          );
+        }
       } else {
         setLeft(
           `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
@@ -172,6 +199,7 @@ function HandlesRenderer(props) {
     }
     if (individualFronts[activeFrontId].orientation === "Kip vrata") {
       if (individualFronts[activeFrontId].handles.positionOption === 0) {
+        setJustifyContentPosition("flex-start");
         setLeft(
           `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
             (100 / dimensions.h) *
@@ -191,8 +219,30 @@ function HandlesRenderer(props) {
             "%"
           } + 1px)`
         );
+
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
+          setJustifyContentPosition("center");
+          setLeft(
+            `calc(50% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
+              ((100 / dimensions.h) *
+                wheelBasesArr[
+                  frontsData[activeFrontId].handles.wheelbaseOption
+                ]) /
+                2 +
+              "%"
+            } + 1px)`
+          );
+        }
       }
       if (frontsData[activeFrontId].handles.positionOption === 2) {
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
+          setJustifyContentPosition("flex-end");
+          setLeft(
+            `calc(0% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
+              ((100 / dimensions.h) * Number(manualDistanceInput)) / 2 + "%"
+            } )`
+          );
+        }
         setLeft(
           `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
             (100 / dimensions.h) *
@@ -202,7 +252,7 @@ function HandlesRenderer(props) {
             (100 / dimensions.h) *
               frontsData[activeFrontId].handles.centerDistanceOfHole[0] +
             "%"
-          } + 1px)`
+          } )`
         );
       }
     }
@@ -247,7 +297,7 @@ function HandlesRenderer(props) {
         width: "100%",
         display: "flex",
         flexDirection: orientation,
-        justifyContent: "flex-start",
+        justifyContent: justifyContentPosition,
         alignItems: "flex-start",
 
         gap: `calc(${
