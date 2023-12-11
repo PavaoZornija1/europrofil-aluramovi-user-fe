@@ -2,7 +2,6 @@
 import {
   setAdditionalFillTreatment,
   setFill,
-  setSubfill,
 } from "@/app/features/ram/ramData";
 import store from "@/app/store/store";
 import { Config } from "@/config";
@@ -35,7 +34,9 @@ function Accordion(props) {
 
   const dispatch = useDispatch();
 
-  const addFill = useSelector((state) => state.data.additionalFillTreatment);
+  const additionalFillTreatment = useSelector(
+    (state) => state.data.additionalFillTreatment
+  );
   console.log(store.getState());
 
   const handleChooseSandblasting = (e) => {
@@ -54,7 +55,7 @@ function Accordion(props) {
 
     setAdditionalTreatment(e.target.value);
 
-    dispatch(setFill({ ...fill, additionalFillTreatment: addition }));
+    dispatch(setAdditionalFillTreatment(addition));
   };
 
   const handleClick = (index) => {
