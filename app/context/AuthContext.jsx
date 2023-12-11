@@ -1,11 +1,17 @@
 "use client";
-
-import { Config } from "config.js";
+import { Config } from "@/config";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useReducer } from "react";
-import { messages } from "../localization/messages";
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+  useEffect,
+} from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/ram/ramData";
 
 const AuthContext = createContext();
 const initialState = {
@@ -20,43 +26,62 @@ const reducer = (state, action) => {
     case "logout":
       return { ...state, user: null, isAuthenticated: false };
     default:
-      throw new Error("Unknown action");
+      throw new Error("Unknow action");
   }
 };
 
 export const AuthProvider = ({ children }) => {
-  const [{ user, isAuthenticated }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
   const router = useRouter();
+  const dispatchLoggedUser = useDispatch();
 
-  const loginUser = async (username, password) => {
-    const response = await axios.post(`${Config.baseURL}/api/auth/customer-login`, {
-      username: username,
-      password: password,
-    });
+  const storedUserData =
+    typeof window !== "undefined" ? localStorage.getItem("userData") : false;
+  const initialUserData = storedUserData ? JSON.parse(storedUserData) : null;
+
+  const [{ user, isAuthenticated }, dispatch] = useReducer(reducer, {
+    user: initialUserData,
+    isAuthenticated: !!initialUserData,
+  });
+  const login = async (username, password) => {
+    const response = await axios.post(
+      `${Config.baseURL}/api/auth/customer-login`,
+      {
+        username: username,
+        password: password,
+      }
+    );
     if (response.data) {
-      Cookies.set("aluToken", response.data);
-      router.push("/");
-      dispatch({ type: "login", payload: username });
+      Cookies.set("token", response.data.token);
+      localStorage.setItem("userData", JSON.stringify(response.data));
+      dispatch({ type: "login", payload: response.data });
+      dispatchLoggedUser(setUser(response.data));
+      console.log(response.data);
     }
+    router.push("/rams");
   };
 
-  const logoutUser = () => {
-    Cookies.remove("aluToken");
-    router.replace("/login");
+  const logout = () => {
+    Cookies.remove("token");
+    localStorage.removeItem("userData");
+    router.push("/login");
     dispatch({ type: "logout" });
   };
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (!token) return;
+    // authenticate(token);
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user,
         isAuthenticated,
-        login: loginUser,
-        logout: logoutUser,
-        token: Cookies.get("aluToken"),
+        login,
+        logout,
+        token: Cookies.get("token"),
       }}
     >
       {children}
