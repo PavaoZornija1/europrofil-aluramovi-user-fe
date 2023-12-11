@@ -329,7 +329,6 @@ function HandlesRenderer(props) {
               key={`holeDistance - ${id}`}
               style={{
                 height: (1000 / dimensions.h) * 1.8 + "%",
-                backgroundColor: id === 0 ? "red" : "blue",
               }}
               className="border border-gray-800 aspect-square rounded-full bg-white"
             ></div>
