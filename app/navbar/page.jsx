@@ -9,24 +9,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  setAdditionalFillTreatment,
-  setFill,
-  setFrameType,
-  setHandleProfile,
-  setHeight,
-  setHinges,
-  setHingesQty,
-  setOrientation,
-  setQty,
-  setQtyTotal,
-  setRalCode,
-  setReset,
-  setSubfill,
-  setTreatment,
-  setWidth,
-} from "../features/ram/ramData";
-import { messages } from "../localization/messages";
+import { setReset } from "../features/ram/ramData";
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
