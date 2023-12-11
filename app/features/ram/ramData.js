@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  user: {},
   frameType: {},
   treatment: {},
   ralCode: "",
@@ -80,6 +81,9 @@ export const ramData = createSlice({
   name: "data",
   initialState,
   reducers: {
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
     setFrameType: (state, action) => {
       state.frameType = action.payload;
     },
@@ -146,6 +150,7 @@ export const ramData = createSlice({
   },
 });
 export const {
+  setUser,
   setReset,
   setIndividualFronts,
   setLiftingSystem,
