@@ -1,6 +1,7 @@
 import store from "@/app/store/store";
 import React from "react";
 import { useSelector } from "react-redux";
+import SketchDetails from "./sketch/page";
 
 const DoorDetails = ({ activeFrame }) => {
   const frames = useSelector((state) => state.data.individualFronts);
@@ -8,7 +9,7 @@ const DoorDetails = ({ activeFrame }) => {
     (state) => state.data.additionalFillTreatment
   );
   // console.log(store.getState());
-  console.log(frames);
+  // console.log(frames);
 
   // Calculate fill width
   const calculateFillWidth = (front, frame) => {
@@ -27,9 +28,9 @@ const DoorDetails = ({ activeFrame }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-2 border border-black">
+    <div className="grid grid-cols-2 gap-2 ">
       {frames.map((frame, index) => (
-        <div key={index} className="h-40 border border-slate-500">
+        <div key={index} className="border border-slate-500">
           <h2 className="text-xl font-semibold uppercase">
             Front {index + 1} - {frame.orientation}, komada{" "}
             {frame.dimensions.numberOfPieces}
@@ -52,6 +53,8 @@ const DoorDetails = ({ activeFrame }) => {
               <span>Profil ručice: {frame.handles?.handleProfile?.name}</span>
             ) : null}
           </div>
+          {/* SCHEME */}
+          <SketchDetails frame={frame} />
         </div>
       ))}
     </div>
