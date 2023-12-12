@@ -8,7 +8,8 @@ const RenderHandleProfileDetails = ({ frame }) => {
   return (
     <div className="h-56 w-52 border-slate-400 border-2 bg-green-400 relative">
       {/* IF LEVA VRATA */}
-      {frame.orientation === "Leva vrata" ? (
+      {/* OPTION #1 */}
+      {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
         frame.handles.profilePositionOption === 0 &&
         frame.handles.profileLengthOption === 1 && (
@@ -16,11 +17,15 @@ const RenderHandleProfileDetails = ({ frame }) => {
             className="absolute right-0 h-2 bg-red-500"
             style={{ width: `${left}%` }}
           ></div>
-        )
-      ) : (
-        <div className="absolute right-0 w-2 bg-red-500 h-full"></div>
-      )}
-      {frame.orientation === "Leva vrata" ? (
+        )}
+      {frame.orientation === "Leva vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 0 && (
+          <div className="absolute right-0 w-2 bg-red-500 h-full"></div>
+        )}
+      {/* ******************* */}
+      {/* OPTION #2 */}
+      {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
         frame.handles.profilePositionOption === 1 &&
         frame.handles.profileLengthOption === 1 && (
@@ -28,11 +33,15 @@ const RenderHandleProfileDetails = ({ frame }) => {
             className={`absolute bottom-0 right-0 h-2 bg-red-500 `}
             style={{ width: `${right}%` }}
           ></div>
-        )
-      ) : (
-        <div className="absolute top-0 w-full bg-red-500 h-2"></div>
-      )}
-      {frame.orientation === "Leva vrata" ? (
+        )}
+      {frame.orientation === "Leva vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 1 && (
+          <div className="absolute top-0 w-full h-2 bg-red-500"></div>
+        )}
+      {/* ******************************** */}
+      {/* OPTION #3 */}
+      {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
         frame.handles.profilePositionOption === 2 &&
         frame.handles.profileLengthOption === 1 && (
@@ -40,10 +49,14 @@ const RenderHandleProfileDetails = ({ frame }) => {
             className="absolute right-0 bg-red-500 w-2"
             style={{ height: `${top}%` }}
           ></div>
-        )
-      ) : (
-        <div className="absolute bottom-0 w-full h-2 bg-red-500"></div>
-      )}
+        )}
+
+      {frame.orientation === "Leva vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 2 && (
+          <div className="absolute bottom-0 w-full h-2 bg-red-500"></div>
+        )}
+      {/* ******************************** */}
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
         frame.handles.profilePositionOption === 3 &&
@@ -67,34 +80,116 @@ const RenderHandleProfileDetails = ({ frame }) => {
       {/* ************ */}
 
       {/* IF DESNA VRATA */}
-      {frame.orientation === "Desna vrata"
-        ? frame.handles?.handleProfile?.id &&
-          frame.handles.profilePositionOption === 0 && (
-            <div className="absolute left-0 w-2 bg-red-500 h-full"></div>
-          )
-        : null}
-      {frame.orientation === "Desna vrata"
-        ? frame.handles?.handleProfile?.id &&
-          frame.handles.profilePositionOption === 1 && (
-            <div className="absolute top-0 h-2 bg-red-500 w-full"></div>
-          )
-        : null}
-      {frame.orientation === "Desna vrata"
-        ? frame.handles?.handleProfile?.id &&
-          frame.handles.profilePositionOption === 2 && (
-            <div className="absolute bottom-0 h-2 bg-red-500 w-full"></div>
-          )
-        : null}
-
-      {/* ************ */}
+      {/* OPTION #! */}
+      {frame.orientation === "Desna vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 0 &&
+        frame.handles.profileLengthOption === 1 && (
+          <div
+            className="absolute top-0 left-0 h-2 bg-red-500"
+            style={{ width: `${left}%` }}
+          ></div>
+        )}
+      {frame.orientation === "Desna vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 0 && (
+          <div className="absolute left-0 w-2 bg-red-500 h-full"></div>
+        )}
+      {/* **************** */}
+      {/* OPTION #2 */}
+      {frame.orientation === "Desna vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 1 &&
+        frame.handles.profileLengthOption === 1 && (
+          <div
+            className={`absolute bottom-0 left-0 right-0 h-2 bg-red-500 `}
+            style={{ width: `${left}%` }}
+          ></div>
+        )}
+      {frame.orientation === "Desna vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 1 && (
+          <div className="absolute top-0 w-full bg-red-500 h-2"></div>
+        )}
+      {/* ********************* */}
+      {/* OPTION #3 */}
+      {frame.orientation === "Desna vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 2 &&
+        frame.handles.profileLengthOption === 1 && (
+          <div
+            className="absolute left-0 top-0 bg-red-500 w-2"
+            style={{ height: `${top}%` }}
+          ></div>
+        )}
+      {frame.orientation === "Desna vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 2 && (
+          <div className="absolute bottom-0 w-full bg-red-500 h-2"></div>
+        )}
+      {/* ******************* */}
+      {frame.orientation === "Desna vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 3 &&
+        frame.handles.profileLengthOption === 1 && (
+          <div className="h-full w-2 relative flex items-center mr-auto">
+            <div
+              className="absolute left-0 bg-red-500 w-2"
+              style={{ height: `${top}%` }}
+            ></div>
+          </div>
+        )}
+      {frame.orientation === "Desna vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 4 &&
+        frame.handles.profileLengthOption === 1 && (
+          <div
+            className="absolute bottom-0 left-0 bg-red-500 w-2"
+            style={{ height: `${bottom}%` }}
+          ></div>
+        )}
+      {/* ********** */}
 
       {/* IF KIP VRATA */}
-      {frame.orientation === "Kip vrata"
-        ? frame.handles?.handleProfile?.id && (
-            <div className="absolute bottom-0 h-2 bg-red-500 w-full"></div>
-          )
-        : null}
-      {/* ********** */}
+      {/* OPTION #1 */}
+      {frame.orientation === "Kip vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profileLengthOption === 0 && (
+          <div className="absolute bottom-0 w-full bg-red-500 h-2"></div>
+        )}
+      {frame.orientation === "Kip vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 0 &&
+        frame.handles.profileLengthOption === 1 && (
+          <div
+            className="absolute bottom-0 left-0 bg-red-500 h-2"
+            style={{ width: `${right}%` }}
+          ></div>
+        )}
+      {/* *********************** */}
+      {/* OPTION #2 */}
+      {frame.orientation === "Kip vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 1 &&
+        frame.handles.profileLengthOption === 1 && (
+          <div className="w-full absolute bottom-0 flex justify-center h-2">
+            <div className="bg-red-500 h-2" style={{ width: `${left}%` }}></div>
+          </div>
+        )}
+      {/* ******************** */}
+      {/* OPTION #3 */}
+
+      {frame.orientation === "Kip vrata" &&
+        frame.handles?.handleProfile?.id &&
+        frame.handles.profilePositionOption === 2 &&
+        frame.handles.profileLengthOption === 1 && (
+          <div
+            className="absolute bottom-0 right-0 bg-red-500 h-2"
+            style={{ width: `${right}%` }}
+          ></div>
+        )}
+      {/* ************* */}
+      {/* ***************************** */}
     </div>
   );
 };
