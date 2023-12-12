@@ -48,10 +48,11 @@ const DoorDetails = ({ activeFrame }) => {
             ) : null}
             <span className="px-2">{frame?.hinges?.numberOfHinges} kom</span>
           </div>
-          <div>
+          <div className="flex justify-between">
             {frame.handles?.handleProfile?.id ? (
               <span>Profil ručice: {frame.handles?.handleProfile?.name}</span>
             ) : null}
+            <span className="px-2">{frame.handles?.profileLength} mm</span>
           </div>
           {/* SCHEME */}
           <SketchDetails frame={frame} />
