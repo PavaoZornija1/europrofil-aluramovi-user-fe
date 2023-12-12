@@ -13,7 +13,8 @@ function WorkOrderMain(props) {
   const [purchaseOrderActive, setPurchaseOrderActive] = useState(false);
   const pathname = usePathname();
 
-  const frameType = useSelector((state) => state.data.frameType.name);
+  const frameType = useSelector((state) => state.data.frameType);
+  const individualFronts = useSelector((state) => state.data.individualFronts);
   const treatment = useSelector((state) => state.data.treatment.name);
   const fill = useSelector((state) => state.data.fill.name);
   const additionalTreatment = useSelector(
@@ -78,7 +79,7 @@ function WorkOrderMain(props) {
               className="w-full max-w-[320px] cursor-pointer rounded-md border bg-gradient-to-tr from-green-500 to-green-600 px-3 py-1 text-center text-lg font-semibold uppercase text-white transition-all duration-200 hover:brightness-125"
               onClick={() =>
                 createWorkOrderPdf(
-                  frameType,
+                  frameType?.name,
                   treatment,
                   fill,
                   additionalTreatment
@@ -95,7 +96,12 @@ function WorkOrderMain(props) {
             </Link>
           </div>
         </div>
-        {workOrderActive && <WorkOrder />}
+        {workOrderActive && (
+          <WorkOrder
+            activeFrame={frameType}
+            individualFronts={individualFronts}
+          />
+        )}
         {purchaseOrderActive && <PurchaseOrder />}
       </div>
     </div>
