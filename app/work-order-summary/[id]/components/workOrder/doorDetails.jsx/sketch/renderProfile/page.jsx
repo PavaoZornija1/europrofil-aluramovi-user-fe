@@ -6,7 +6,7 @@ const RenderHandleProfileDetails = ({ frame }) => {
   let top = Number(frame.handles.profileLength / 10);
   let bottom = Number(frame.handles.profileLength / 10);
   return (
-    <div className="h-56 w-52 border-slate-400 border-2 bg-green-400 relative">
+    <>
       {/* IF LEVA VRATA */}
       {/* OPTION #1 */}
       {frame.orientation === "Leva vrata" &&
@@ -190,7 +190,7 @@ const RenderHandleProfileDetails = ({ frame }) => {
         )}
       {/* ************* */}
       {/* ***************************** */}
-    </div>
+    </>
   );
 };
 
