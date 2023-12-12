@@ -17,13 +17,19 @@ const DoorDetails = () => {
             Front {index + 1} - {frame.orientation}, komada{" "}
             {frame.dimensions.numberOfPieces}
           </h2>
-          <p>{additionalFillTreatment?.name}</p>
-          {frame.hinges?.hinge?.id ? (
-            <p>Šarke: {frame.hinges?.hinge?.name}</p>
-          ) : null}
-          {frame.handles?.handleProfile?.id ? (
-            <p>Profil ručice: {frame.handles?.handleProfile?.name}</p>
-          ) : null}
+          <div>
+            <span>{additionalFillTreatment?.name}</span>
+          </div>
+          <div>
+            {frame.hinges?.hinge?.id ? (
+              <span>Šarke: {frame.hinges?.hinge?.name}</span>
+            ) : null}
+          </div>
+          <div>
+            {frame.handles?.handleProfile?.id ? (
+              <span>Profil ručice: {frame.handles?.handleProfile?.name}</span>
+            ) : null}
+          </div>
         </div>
       ))}
     </div>
