@@ -2,6 +2,7 @@ import React from "react";
 import RenderHandleProfileDetails from "./renderProfile/page";
 import LeftSupport from "./liftSupport/LeftSupport";
 import RightSupport from "./liftSupport/RightSupport";
+import RenderHingesDetails from "./renderHingesDetails/RenderHingesDetails";
 
 const SketchDetails = ({ frame }) => {
   console.log(frame);
@@ -22,7 +23,10 @@ const SketchDetails = ({ frame }) => {
           )}
         </div>
         {/* MAIN CONTAINER */}
-        <RenderHandleProfileDetails frame={frame} />
+        <div className="h-56 w-52 border-slate-400 border-2 bg-green-400 relative">
+          <RenderHandleProfileDetails frame={frame} />
+          <RenderHingesDetails frame={frame} />
+        </div>
         {/* ******************** */}
         <div className="[writing-mode:vertical-lr] text-center">
           {frame.orientation === "Desna vrata" && (
