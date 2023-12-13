@@ -10,7 +10,6 @@ import { messages } from "../localization/messages";
 import { Config } from "../../config";
 
 export default function Login({ locale }) {
-  // console.log(messages);
   // const {
   //   title,
   //   usernameLabel,
