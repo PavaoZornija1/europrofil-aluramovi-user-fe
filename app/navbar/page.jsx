@@ -16,8 +16,6 @@ export default function Navbar() {
   const { user, logout, token } = useAuth();
   const router = useRouter();
   const dispatch = useDispatch();
-  const qty = useSelector((state) => state.data.qtyTotal);
-  console.log("user ", user);
 
   const handleDefaultValues = () => {
     dispatch(setReset());
