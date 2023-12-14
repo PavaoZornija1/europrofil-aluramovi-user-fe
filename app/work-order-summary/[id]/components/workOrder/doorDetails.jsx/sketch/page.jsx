@@ -23,11 +23,19 @@ const SketchDetails = ({ frame }) => {
           )}
         </div>
         {/* MAIN CONTAINER */}
-        <div className="h-56 w-52 border-slate-400 border-2 bg-green-400 relative">
-          <RenderHandleProfileDetails frame={frame} />
-          <RenderHingesDetails frame={frame} />
+        <div>
+          {frame.orientation === "Kip vrata" && (
+            <div className=" bg-gray-300 text-center uppercase tracking-wider text-white">
+              Strana sa šarkama
+            </div>
+          )}
+          <div className="h-56 w-52 border-slate-400 border-2 bg-green-400 relative">
+            <RenderHandleProfileDetails frame={frame} />
+            <RenderHingesDetails frame={frame} />
+          </div>
         </div>
         {/* ******************** */}
+
         <div className="[writing-mode:vertical-lr] text-center">
           {frame.orientation === "Desna vrata" && (
             <div className="[writing-mode:vertical-lr] bg-gray-300 text-center uppercase tracking-wider text-white">
@@ -40,11 +48,6 @@ const SketchDetails = ({ frame }) => {
               {Number(frame.dimensions.height).toFixed(2)}
             </div>
           )}
-          {/* {frame.orientation === "Kip vrata" && (
-            <div className="[writing-mode:vertical-lr] bg-gray-300 text-center uppercase tracking-wider text-white">
-              Strana sa šarkama
-            </div>
-          )} */}
         </div>
       </div>
       <div>{Number(frame.dimensions.width).toFixed(2)}</div>
