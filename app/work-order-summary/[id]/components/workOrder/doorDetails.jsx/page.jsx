@@ -30,7 +30,7 @@ const DoorDetails = ({ activeFrame }) => {
   return (
     <div className="grid md:grid-cols-2 gap-2 ">
       {frames.map((frame, index) => (
-        <div key={index} className="border border-slate-500">
+        <div key={index}>
           <h2 className="text-xl font-semibold uppercase">
             Front {index + 1} - {frame.orientation}, komada{" "}
             {frame.dimensions.numberOfPieces}
