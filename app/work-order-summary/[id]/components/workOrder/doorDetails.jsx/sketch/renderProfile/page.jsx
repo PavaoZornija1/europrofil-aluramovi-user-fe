@@ -64,12 +64,15 @@ const RenderHandleProfileDetails = ({ frame }) => {
         frame.handles?.handleProfile?.id &&
         frame.handles.profilePositionOption === 3 &&
         frame.handles.profileLengthOption === 1 && (
-          <div className="h-full w-2 relative flex items-center ml-auto">
-            <div
-              className="absolute right-0 bg-red-500 w-2"
-              style={{ height: `${top}%` }}
-            ></div>
-          </div>
+          <div
+            className="absolute z-10 right-0 bg-red-500 w-2"
+            style={{
+              height: `${top}%`,
+              top: "50%",
+              right: 0,
+              transform: "translateY(-50%)",
+            }}
+          ></div>
         )}
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
