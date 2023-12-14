@@ -262,77 +262,82 @@ function Hinges(props) {
                 </select>
               </div>
             )}
-            <div>
-              <label htmlFor="numOfStandardHinges" className="text-lg mr-8">
-                Ukupan broj šarki:
-              </label>
-              <select
-                type="number"
-                id="numOfStandardHinges"
-                className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                value={frontsData[activeFrontId].hinges.numberOfHinges}
-                onChange={(e) => {
-                  updateNumberOfHinges(activeFrontId, e.target.value);
-                }}
-              >
-                <option value={null}>-Izaberi-</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-              </select>
-            </div>
-            <div>
-              <p className="text-lg mt-4">
-                Pozicija svih šarki se uzima od
-                {frontsData[activeFrontId].orientation === "Kip vrata"
-                  ? " leve "
-                  : " donje "}
-                spoljne ivice.
-              </p>
-              <div className="flex flex-col gap-2 mt-4">
-                {frontsData[activeFrontId].hinges.centerDistanceOfHoles.map(
-                  (hole, id) => {
-                    return (
-                      <div
-                        key={id}
-                        className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row"
-                      >
-                        <label
-                          htmlFor={`hole-${id}`}
-                          className="text-lg mb-2 2xl:mb-0"
-                        >
-                          Centar {id + 1}. rupe od{" "}
-                          {frontsData[activeFrontId].orientation === "Kip vrata"
-                            ? "leve"
-                            : "donje"}{" "}
-                          spoljne ivice (mm)
-                        </label>
-                        <input
-                          type="text"
-                          id={`hole-${id}`}
-                          value={
-                            individualFronts[activeFrontId].hinges
-                              .centerDistanceOfHoles[id]
-                          }
-                          onChange={(e) => {
-                            updateCenterDistanceOfHole(
-                              activeFrontId,
-                              id,
-                              e.target.value
-                            );
-                          }}
-                          className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
-                        />
-                      </div>
-                    );
-                  }
-                )}
-              </div>
-            </div>
+            {individualFronts[activeFrontId].hinges?.hinge?.id ? (
+              <>
+                <div>
+                  <label htmlFor="numOfStandardHinges" className="text-lg mr-8">
+                    Ukupan broj šarki:
+                  </label>
+                  <select
+                    type="number"
+                    id="numOfStandardHinges"
+                    className="border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
+                    value={frontsData[activeFrontId].hinges.numberOfHinges}
+                    onChange={(e) => {
+                      updateNumberOfHinges(activeFrontId, e.target.value);
+                    }}
+                  >
+                    <option value={null}>-Izaberi-</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                  </select>
+                </div>
+                <div>
+                  <p className="text-lg mt-4">
+                    Pozicija svih šarki se uzima od
+                    {frontsData[activeFrontId].orientation === "Kip vrata"
+                      ? " leve "
+                      : " donje "}
+                    spoljne ivice.
+                  </p>
+                  <div className="flex flex-col gap-2 mt-4">
+                    {frontsData[activeFrontId].hinges.centerDistanceOfHoles.map(
+                      (hole, id) => {
+                        return (
+                          <div
+                            key={id}
+                            className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row"
+                          >
+                            <label
+                              htmlFor={`hole-${id}`}
+                              className="text-lg mb-2 2xl:mb-0"
+                            >
+                              Centar {id + 1}. rupe od{" "}
+                              {frontsData[activeFrontId].orientation ===
+                              "Kip vrata"
+                                ? "leve"
+                                : "donje"}{" "}
+                              spoljne ivice (mm)
+                            </label>
+                            <input
+                              type="text"
+                              id={`hole-${id}`}
+                              value={
+                                individualFronts[activeFrontId].hinges
+                                  .centerDistanceOfHoles[id]
+                              }
+                              onChange={(e) => {
+                                updateCenterDistanceOfHole(
+                                  activeFrontId,
+                                  id,
+                                  e.target.value
+                                );
+                              }}
+                              className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
+                            />
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
+                </div>
+              </>
+            ) : null}
           </div>
         )}
       </div>
