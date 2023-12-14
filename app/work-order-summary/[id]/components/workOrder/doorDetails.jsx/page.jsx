@@ -28,7 +28,7 @@ const DoorDetails = ({ activeFrame }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-2 ">
+    <div className="grid md:grid-cols-2 gap-2 ">
       {frames.map((frame, index) => (
         <div key={index} className="border border-slate-500">
           <h2 className="text-xl font-semibold uppercase">
