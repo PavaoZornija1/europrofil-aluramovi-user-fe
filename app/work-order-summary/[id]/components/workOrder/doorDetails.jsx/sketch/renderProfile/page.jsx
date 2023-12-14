@@ -16,13 +16,21 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className="absolute right-0 h-2 bg-red-500"
             style={{ width: `${left}%` }}
-          ></div>
+          >
+            <div className="mt-1 text-center w-full">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
         frame.handles.profilePositionOption === 0 &&
         frame.handles.profileLengthOption === 0 && (
-          <div className="absolute right-0 w-2 bg-red-500 h-full"></div>
+          <div className="absolute right-0 w-2 bg-red-500 h-full">
+            <div className="text-center w-full [writing-mode:vertical-lr] -ml-5 m-auto h-full">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* ******************* */}
       {/* OPTION #2 */}
@@ -33,13 +41,21 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className={`absolute bottom-0 right-0 h-2 bg-red-500 `}
             style={{ width: `${right}%` }}
-          ></div>
+          >
+            <div className=" text-center w-full">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
         frame.handles.profileLengthOption === 0 &&
         frame.handles.profilePositionOption === 1 && (
-          <div className="absolute top-0 w-full h-2 bg-red-500"></div>
+          <div className="absolute top-0 w-full h-2 bg-red-500">
+            <div className="text-center w-full mt-1">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* ******************************** */}
       {/* OPTION #3 */}
@@ -50,14 +66,23 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className="absolute right-0 bg-red-500 w-2"
             style={{ height: `${top}%` }}
-          ></div>
+          >
+            <div className="text-center w-full [writing-mode:vertical-lr] ml-1 mt-1">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
 
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
         frame.handles.profileLengthOption === 0 &&
         frame.handles.profilePositionOption === 2 && (
-          <div className="absolute bottom-0 w-full h-2 bg-red-500"></div>
+          <div className="absolute bottom-0 w-full h-2 bg-red-500">
+            {" "}
+            <div className="text-center w-full -mt-5">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* ******************************** */}
       {frame.orientation === "Leva vrata" &&
@@ -72,7 +97,12 @@ const RenderHandleProfileDetails = ({ frame }) => {
               right: 0,
               transform: "translateY(-50%)",
             }}
-          ></div>
+          >
+            {" "}
+            <div className="text-center w-full [writing-mode:vertical-lr] -ml-5 mt-1">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
@@ -81,7 +111,11 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className="absolute bottom-0 right-0 bg-red-500 w-2"
             style={{ height: `${bottom}%` }}
-          ></div>
+          >
+            <div className="text-center w-full [writing-mode:vertical-lr] -ml-5 mt-1">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* ************ */}
 
