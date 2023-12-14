@@ -23,7 +23,7 @@ const SketchDetails = ({ frame }) => {
           )}
         </div>
         {/* MAIN CONTAINER */}
-        <div>
+        <>
           {frame.orientation === "Kip vrata" && (
             <div className=" bg-gray-300 text-center uppercase tracking-wider text-white">
               Strana sa šarkama
@@ -33,7 +33,7 @@ const SketchDetails = ({ frame }) => {
             <RenderHandleProfileDetails frame={frame} />
             <RenderHingesDetails frame={frame} />
           </div>
-        </div>
+        </>
         {/* ******************** */}
 
         <div className="[writing-mode:vertical-lr] text-center">
