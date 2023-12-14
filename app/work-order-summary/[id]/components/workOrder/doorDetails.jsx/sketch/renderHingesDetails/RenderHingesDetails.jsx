@@ -12,7 +12,7 @@ const RenderHingesDetails = ({ frame }) => {
   return (
     <div className={`absolute ${position}`}>
       {frame.hinges?.centerDistanceOfHoles?.map((hole, index) => (
-        <>
+        <React.Fragment key={`hole-${index - hole}`}>
           <div
             key={index}
             className={`border rounded-full w-4 h-4 bg-white absolute`}
@@ -34,7 +34,7 @@ const RenderHingesDetails = ({ frame }) => {
           >
             {hole}
           </div>
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

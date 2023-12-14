@@ -41,12 +41,12 @@ function Sketch(props) {
                   individualFronts[activeFrontId].orientation === "Kip vrata"
                     ? "palevioletred"
                     : "",
-                width:
-                  100 *
-                    (dimensions.w / dimensions.h > 1
-                      ? 1
-                      : dimensions.w / dimensions.h) +
-                  "%",
+                // width:
+                //   100 *
+                //     (dimensions.w / dimensions.h > 1
+                //       ? 1
+                //       : dimensions.w / dimensions.h) +
+                //   "%",
               }}
               className="col-[2/3] flex justify-center items-center px-2"
             >
