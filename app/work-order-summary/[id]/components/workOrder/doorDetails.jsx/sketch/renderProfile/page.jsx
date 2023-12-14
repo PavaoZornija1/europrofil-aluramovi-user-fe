@@ -20,7 +20,8 @@ const RenderHandleProfileDetails = ({ frame }) => {
         )}
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
-        frame.handles.profilePositionOption === 0 && (
+        frame.handles.profilePositionOption === 0 &&
+        frame.handles.profileLengthOption === 0 && (
           <div className="absolute right-0 w-2 bg-red-500 h-full"></div>
         )}
       {/* ******************* */}
@@ -36,6 +37,7 @@ const RenderHandleProfileDetails = ({ frame }) => {
         )}
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
+        frame.handles.profileLengthOption === 0 &&
         frame.handles.profilePositionOption === 1 && (
           <div className="absolute top-0 w-full h-2 bg-red-500"></div>
         )}
@@ -53,6 +55,7 @@ const RenderHandleProfileDetails = ({ frame }) => {
 
       {frame.orientation === "Leva vrata" &&
         frame.handles?.handleProfile?.id &&
+        frame.handles.profileLengthOption === 0 &&
         frame.handles.profilePositionOption === 2 && (
           <div className="absolute bottom-0 w-full h-2 bg-red-500"></div>
         )}
