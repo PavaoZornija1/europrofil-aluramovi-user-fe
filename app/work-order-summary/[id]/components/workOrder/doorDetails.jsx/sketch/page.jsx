@@ -11,7 +11,7 @@ const SketchDetails = ({ frame }) => {
       <div className="w-full flex justify-center">
         <div className="[writing-mode:vertical-lr] text-center">
           {frame.orientation === "Leva vrata" && (
-            <div className="[writing-mode:vertical-lr] bg-gray-300 text-center uppercase tracking-wider text-white">
+            <div className="[writing-mode:vertical-lr] bg-gray-300 text-center uppercase tracking-wider text-black">
               Strana sa šarkama
             </div>
           )}
@@ -25,11 +25,11 @@ const SketchDetails = ({ frame }) => {
         {/* MAIN CONTAINER */}
         <div>
           {frame.orientation === "Kip vrata" && (
-            <div className=" bg-gray-300 text-center uppercase tracking-wider text-white">
+            <div className=" bg-gray-300 text-center uppercase tracking-wider text-black">
               Strana sa šarkama
             </div>
           )}
-          <div className="h-56 w-52 border-slate-400 border-2 bg-green-400 relative">
+          <div className="h-80 w-80 border-slate-400 border-2 bg-green-400 relative">
             <RenderHandleProfileDetails frame={frame} />
             <RenderHingesDetails frame={frame} />
           </div>
@@ -38,7 +38,7 @@ const SketchDetails = ({ frame }) => {
 
         <div className="[writing-mode:vertical-lr] text-center">
           {frame.orientation === "Desna vrata" && (
-            <div className="[writing-mode:vertical-lr] bg-gray-300 text-center uppercase tracking-wider text-white">
+            <div className="[writing-mode:vertical-lr] bg-gray-300 text-center uppercase tracking-wider text-black">
               Strana sa šarkama
             </div>
           )}
