@@ -37,7 +37,6 @@ function Accordion(props) {
   const additionalFillTreatment = useSelector(
     (state) => state.data.additionalFillTreatment
   );
-  console.log(store.getState());
 
   const handleChooseSandblasting = (e) => {
     let addition;
