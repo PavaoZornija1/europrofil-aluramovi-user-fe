@@ -1,12 +1,5 @@
 "use client";
-import {
-  setHeight,
-  setIndividualFronts,
-  setQty,
-  setQtyTotal,
-  setWidth,
-} from "@/app/features/ram/ramData";
-import React, { useState } from "react";
+import { setIndividualFronts } from "@/app/features/ram/ramData";
 import { useDispatch, useSelector } from "react-redux";
 
 function Dimensions(props) {
