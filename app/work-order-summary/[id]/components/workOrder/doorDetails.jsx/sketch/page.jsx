@@ -5,7 +5,6 @@ import RightSupport from "./liftSupport/RightSupport";
 import RenderHingesDetails from "./renderHingesDetails/RenderHingesDetails";
 
 const SketchDetails = ({ frame }) => {
-  console.log(frame);
   return (
     <div className="flex items-center my-4 flex-col font-mono">
       <div className="w-full flex justify-center">

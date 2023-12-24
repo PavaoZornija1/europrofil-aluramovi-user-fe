@@ -1,13 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import Link from "next/link";
-import WorkOrder from "./components/workOrder/page";
-import PurchaseOrder from "./components/purchaseOrder/page";
 import Navbar from "@/app/navbar/page";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import createWorkOrderPdf from "./components/pdf/pdf";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import store from "@/app/store/store";
+import createWorkOrderPdf from "./components/pdf/pdf";
+import PurchaseOrder from "./components/purchaseOrder/page";
+import WorkOrder from "./components/workOrder/page";
 
 function WorkOrderMain(props) {
   const [workOrderActive, setWorkOrderActive] = useState(true);
@@ -22,7 +21,6 @@ function WorkOrderMain(props) {
     (state) => state.data.additionalFillTreatment.name
   );
 
-  console.log("STORE: ", store.getState());
   return (
     <div>
       <Navbar />
