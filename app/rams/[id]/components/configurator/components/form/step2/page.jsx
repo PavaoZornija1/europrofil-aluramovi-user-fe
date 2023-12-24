@@ -1,27 +1,23 @@
 "use client";
-import React, { useState } from "react";
-import FrontsPreview from "./components/frontsPreview/page";
-import Orientations from "./components/orientations/page";
-import Dimensions from "./components/dimensions/page";
-import Hinges from "./components/hinges/page";
-import Handles from "./components/handles/page";
-import Sketch from "./components/sketch/page";
-import Locks from "./components/locks/page";
-import LiftingSystem from "./components/lifting -system/page";
+import { setIndividualFronts } from "@/app/features/ram/ramData";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setIndividualFronts,
-  setOrientation,
-} from "@/app/features/ram/ramData";
-import store from "@/app/store/store";
+import Dimensions from "./components/dimensions/page";
+import FrontsPreview from "./components/frontsPreview/page";
+import Handles from "./components/handles/page";
+import Hinges from "./components/hinges/page";
+import LiftingSystem from "./components/lifting -system/page";
+import Locks from "./components/locks/page";
+import Orientations from "./components/orientations/page";
+import Sketch from "./components/sketch/page";
 
 function Step2(props) {
   const [frontsData, setFrontsData] = useState([
     {
       orientation: "Leva vrata",
       dimensions: {
-        width: "1000",
-        height: "1000",
+        width: 1000,
+        height: 1000,
         numberOfPieces: "1",
       },
       hinges: {
@@ -43,7 +39,7 @@ function Step2(props) {
         profileOption: 0,
         profileLengthOption: 0,
         profilePositionOption: 0,
-        profileLength: "250",
+        profileLength: 1000,
         profileDistance: "0",
       },
       locks: {
@@ -58,9 +54,7 @@ function Step2(props) {
       },
     },
   ]);
-  console.log(store.getState());
   const individualFronts = useSelector((state) => state.data.individualFronts);
-  console.log(individualFronts);
 
   const [activeFrontId, setActiveFrontId] = useState(0);
   const [activeOrientation, setActiveOrientation] = useState(0);
@@ -105,8 +99,8 @@ function Step2(props) {
         {
           orientation: "Leva vrata",
           dimensions: {
-            width: "1000",
-            height: "1000",
+            width: 1000,
+            height: 1000,
             numberOfPieces: "1",
           },
           hinges: {
@@ -127,7 +121,7 @@ function Step2(props) {
             handleProfile: {},
             profileLengthOption: 0,
             profilePositionOption: 0,
-            profileLength: "250",
+            profileLength: 1000,
             profileDistance: "0",
           },
           locks: {
@@ -149,8 +143,8 @@ function Step2(props) {
         {
           orientation: "Leva vrata",
           dimensions: {
-            width: "1000",
-            height: "1000",
+            width: 1000,
+            height: 1000,
             numberOfPieces: "1",
           },
           hinges: {
@@ -170,7 +164,7 @@ function Step2(props) {
             profileOption: 0,
             profileLengthOption: 0,
             profilePositionOption: 0,
-            profileLength: "250",
+            profileLength: 250,
             profileDistance: "0",
           },
           locks: {
