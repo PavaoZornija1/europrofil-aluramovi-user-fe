@@ -3,6 +3,7 @@ import {
   calculateAdditionalFillTreatment,
   calculateAluFrameFillSurfaces,
   calculateAluFrameSurfaces,
+  calculateHandleProfileSurfaces,
   calculateMetalCornersQuantity,
 } from "@/app/utils/calculations";
 import React, { useEffect } from "react";
@@ -95,9 +96,9 @@ export default function DetailedPrice() {
               ).toFixed(2)}
             </td>
           </tr>
-          {individualFronts?.map((front) =>
+          {individualFronts?.map((front, index) =>
             front?.handles?.handleProfile?.id ? (
-              <tr className={"border-b"}>
+              <tr className={"border-b"} key={index}>
                 <td
                   scope="row"
                   className="whitespace-nowrap px-6 py-4 text-lg font-medium"
@@ -108,16 +109,29 @@ export default function DetailedPrice() {
                   {front?.handles?.handleProfile?.name}
                 </td>
                 <td className="px-6 py-4 text-center text-lg">
-                  {front?.handles?.handleProfile?.pricePerMeter}
+                  {Number(front?.handles?.handleProfile?.pricePerMeter).toFixed(
+                    2
+                  )}
                 </td>
                 <td className="px-6 py-4 text-center text-lg">
-                  {/* kolicina */}
+                  {calculateHandleProfileSurfaces(front).toFixed(2)}
                 </td>
                 <td className="px-6 py-4 text-center text-lg">m</td>
-                <td className="px-6 py-4 text-center text-lg">{/* cena */}</td>
-                <td className="px-6 py-4 text-center text-lg">0%</td>
+                <td className="px-6 py-4 text-center text-lg">
+                  {(
+                    calculateHandleProfileSurfaces(front) *
+                    front?.handles?.handleProfile?.pricePerMeter
+                  ).toFixed(2)}
+                </td>
+                <td className="px-6 py-4 text-center text-lg">{`${user?.discountHardware}%`}</td>
                 <td className="px-6 py-4 text-end text-lg">
-                  {/* bez popusta */}
+                  {(
+                    calculateHandleProfileSurfaces(front) *
+                      front?.handles?.handleProfile?.pricePerMeter -
+                    calculateHandleProfileSurfaces(front) *
+                      front?.handles?.handleProfile?.pricePerMeter *
+                      (user?.discountHardware / 100)
+                  ).toFixed(2)}
                 </td>
               </tr>
             ) : null
