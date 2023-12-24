@@ -1,8 +1,10 @@
 "use client";
 import React from "react";
+import { useSelector } from "react-redux";
 
 function HingesRenderer(props) {
   const { frontsData, activeFrontId, dimensions } = props;
+  const individualFronts = useSelector((state) => state.data.individualFronts);
 
   return (
     <div
@@ -10,35 +12,35 @@ function HingesRenderer(props) {
         position: "absolute",
         top: "0",
         left:
-          frontsData[activeFrontId].orientation === "Desna vrata"
-            ? `calc(100% - ${(1000 / dimensions.h) * 3.5 + "%"})`
+          individualFronts[activeFrontId].orientation === "Desna vrata"
+            ? `calc(100% - ${(1000 / dimensions.h) * 2.8 + "%"})`
             : "0px",
         height: "100%",
         width:
-          frontsData[activeFrontId].orientation === "Kip vrata"
+          individualFronts[activeFrontId].orientation === "Kip vrata"
             ? "100%"
             : "auto",
       }}
     >
-      {frontsData[activeFrontId].hinges.centerDistanceOfHoles.map(
+      {individualFronts[activeFrontId].hinges.centerDistanceOfHoles.map(
         (holeDistance) => (
           <div
             key={Math.random()}
             style={{
               position: "absolute",
               bottom:
-                frontsData[activeFrontId].orientation === "Kip vrata"
+                individualFronts[activeFrontId].orientation === "Kip vrata"
                   ? "auto"
                   : `calc(${(100 / dimensions.h) * holeDistance + "%"} - ${
-                      ((1000 / dimensions.h) * 3.5) / 2 + "%"
+                      ((1000 / dimensions.h) * 2.8) / 2 + "%"
                     })`,
               left:
-                frontsData[activeFrontId].orientation === "Kip vrata"
+                individualFronts[activeFrontId].orientation === "Kip vrata"
                   ? `calc(${(100 / dimensions.h) * holeDistance + "%"} - ${
-                      ((1000 / dimensions.h) * 3.5) / 2 + "%"
+                      ((1000 / dimensions.h) * 2.8) / 2 + "%"
                     })`
                   : "auto",
-              height: (1000 / dimensions.h) * 3.5 + "%",
+              height: (1000 / dimensions.h) * 2.8 + "%",
             }}
             className="border border-gray-800 aspect-square rounded-full bg-white"
           ></div>
