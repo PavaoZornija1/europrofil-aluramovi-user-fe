@@ -10,6 +10,7 @@ import { useAuth } from "../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setReset } from "../features/ram/ramData";
+import store from "../store/store";
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
@@ -25,6 +26,8 @@ export default function Navbar() {
   const handleLogout = async () => {
     await logout();
   };
+
+  console.log(store.getState());
 
   return (
     <>
