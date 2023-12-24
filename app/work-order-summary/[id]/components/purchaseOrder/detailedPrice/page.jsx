@@ -1,4 +1,10 @@
 "use client";
+import {
+  calculateAdditionalFillTreatment,
+  calculateAluFrameFillSurfaces,
+  calculateAluFrameSurfaces,
+  calculateMetalCornersQuantity,
+} from "@/app/utils/calculations";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -6,7 +12,6 @@ export default function DetailedPrice() {
   const aluProfile = useSelector((state) => state.data.frameType);
   const treatment = useSelector((state) => state.data.treatment);
   const fill = useSelector((state) => state.data.fill);
-  const subfill = useSelector((state) => state.data.subFill);
   const qtyTotal = useSelector((state) => state.data.qtyTotal);
   const additionalFillTreatment = useSelector(
     (state) => state.data.additionalFillTreatment
@@ -16,36 +21,8 @@ export default function DetailedPrice() {
   const hinge = useSelector((state) => state.data.hinges);
   const lock = useSelector((state) => state.data.lockHole);
   const liftSupport = useSelector((state) => state.data.liftingSystem);
-
-  let totalPrice =
-    (aluProfile?.pricePerMeter ? Number(aluProfile?.pricePerMeter * 4.4) : 0) +
-    (subfill?.pricePerSquareMeter
-      ? Number(subfill?.pricePerSquareMeter * 4)
-      : Number(fill?.pricePerSquareMeter * 4)) +
-    (aluProfile?.corverCoverPrice
-      ? Number(aluProfile?.corverCoverPrice * qtyTotal * 4)
-      : 0) +
-    (additionalFillTreatment?.price
-      ? Number(additionalFillTreatment?.price * qtyTotal * 4)
-      : 0) +
-    (handleHole?.handleHolePrice
-      ? Number(handleHole?.handleHolePrice * handleHole?.handleHoleQty)
-      : 0) +
-    (hingeHole?.withMountPrice
-      ? Number(hingeHole?.withMountPrice * hingeHole?.hingeHoleQty)
-      : 0) +
-    (handleHole?.handleHolePrice
-      ? Number(handleHole?.handleHolePrice * handleHole?.handleHoleQty)
-      : 0);
-  hinge?.price
-    ? Number(hinge?.price * hingeHole?.hingeHoleQty)
-    : 0 + (lock?.lockPrice ? Number(lock?.lockPrice * lock?.lockAmount) : 0);
-  (liftSupport?.pricePerUnit
-    ? Number(liftSupport?.pricePerUnit * qtyTotal)
-    : 0
-  ).toFixed(2);
-
-  let pdv = ((20 / 100) * totalPrice).toFixed(2);
+  const individualFronts = useSelector((state) => state.data.individualFronts);
+  const user = useSelector((state) => state.data.user);
 
   return (
     <div className="w-full ">
@@ -91,55 +68,144 @@ export default function DetailedPrice() {
               ALU profil {aluProfile.name}, {treatment.name}
             </td>
             <td className="px-6 py-4 text-center text-lg">
-              {Number(aluProfile.pricePerMeter).toFixed(2)}
+              {Number(treatment?.pricePerMeter).toFixed(2)}
             </td>
-            {/* SKONTATI KAKO SE DOBIJE KOLICINA */}
-            <td className="px-6 py-4 text-center text-lg">4.40</td>
+            <td className="px-6 py-4 text-center text-lg">
+              {Number(
+                calculateAluFrameSurfaces(individualFronts, treatment)
+              ).toFixed(2)}
+            </td>
             <td className="px-6 py-4 text-center text-lg">m</td>
             <td className="px-6 py-4 text-center text-lg">
-              {Number(aluProfile.pricePerMeter).toFixed(2)}
+              {(
+                calculateAluFrameSurfaces(individualFronts, treatment) *
+                treatment?.pricePerMeter
+              ).toFixed(2)}
             </td>
             {/* DODATI POPUST */}
-            <td className="px-6 py-4 text-center text-lg">0%</td>
+            <td className="px-6 py-4 text-center text-lg">{`${user?.discountHardware}%`}</td>
             <td className="px-6 py-4 text-end text-lg">
-              {(Number(aluProfile.pricePerMeter) * 4.4).toFixed(2)}
+              {(
+                calculateAluFrameSurfaces(individualFronts, treatment) *
+                  treatment?.pricePerMeter -
+                (calculateAluFrameSurfaces(individualFronts, treatment) *
+                  treatment?.pricePerMeter *
+                  user?.discountHardware) /
+                  100
+              ).toFixed(2)}
             </td>
           </tr>
-          {(subfill.name || fill.name) && (
+          {individualFronts?.map((front) =>
+            front?.handles?.handleProfile?.id ? (
+              <tr className={"border-b"}>
+                <td
+                  scope="row"
+                  className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+                >
+                  {front?.handles?.handleProfile?.productCode}
+                </td>
+                <td className="px-6 py-4 text-center text-lg">
+                  {front?.handles?.handleProfile?.name}
+                </td>
+                <td className="px-6 py-4 text-center text-lg">
+                  {front?.handles?.handleProfile?.pricePerMeter}
+                </td>
+                <td className="px-6 py-4 text-center text-lg">
+                  {/* kolicina */}
+                </td>
+                <td className="px-6 py-4 text-center text-lg">m</td>
+                <td className="px-6 py-4 text-center text-lg">{/* cena */}</td>
+                <td className="px-6 py-4 text-center text-lg">0%</td>
+                <td className="px-6 py-4 text-end text-lg">
+                  {/* bez popusta */}
+                </td>
+              </tr>
+            ) : null
+          )}
+
+          {(fill?.subfill?.name || fill.name) && (
             <tr className={"border-b"}>
               <td
                 scope="row"
                 className="whitespace-nowrap px-6 py-4 text-lg font-medium"
               >
-                {subfill.productCode || fill.productCode}
+                {fill?.subfill?.productCode || fill.productCode}
               </td>
               <td className="px-6 py-4 text-center text-lg">
-                {subfill.name || fill.name}
+                {fill?.subfill?.name || fill.name}
               </td>
               <td className="px-6 py-4 text-center text-lg">
-                {subfill?.pricePerSquareMeter
-                  ? Number(subfill?.pricePerSquareMeter).toFixed(2)
+                {fill?.subfill?.pricePerSquareMeter
+                  ? Number(fill?.subfill?.pricePerSquareMeter).toFixed(2)
                   : Number(fill?.pricePerSquareMeter).toFixed(2)}
               </td>
-              <td className="px-6 py-4 text-center text-lg">4.0</td>
+              <td className="px-6 py-4 text-center text-lg">
+                {calculateAluFrameFillSurfaces(
+                  aluProfile,
+                  individualFronts,
+                  fill
+                ).toFixed(2)}
+              </td>
               <td className="px-6 py-4 text-center text-lg">
                 m<sup>2</sup>
               </td>
               <td className="px-6 py-4 text-center text-lg">
-                {subfill?.pricePerSquareMeter
-                  ? Number(subfill?.pricePerSquareMeter).toFixed(2)
-                  : Number(fill?.pricePerSquareMeter).toFixed(2)}
+                {fill?.subfill?.pricePerSquareMeter
+                  ? (
+                      fill?.subfill?.pricePerSquareMeter *
+                      calculateAluFrameFillSurfaces(
+                        aluProfile,
+                        individualFronts,
+                        fill
+                      )
+                    ).toFixed(2)
+                  : (
+                      fill?.pricePerSquareMeter *
+                      calculateAluFrameFillSurfaces(
+                        aluProfile,
+                        individualFronts,
+                        fill
+                      )
+                    ).toFixed(2)}
               </td>
-              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-center text-lg">{`${user?.discountFillings}%`}</td>
               <td className="px-6 py-4 text-end text-lg">
-                {subfill?.pricePerSquareMeter
-                  ? Number(subfill?.pricePerSquareMeter * 4).toFixed(2)
-                  : Number(fill?.pricePerSquareMeter * 4).toFixed(2)}
+                {fill?.subfill?.pricePerSquareMeter
+                  ? (
+                      fill?.subfill?.pricePerSquareMeter *
+                        calculateAluFrameFillSurfaces(
+                          aluProfile,
+                          individualFronts,
+                          fill
+                        ) -
+                      fill?.subfill?.pricePerSquareMeter *
+                        calculateAluFrameFillSurfaces(
+                          aluProfile,
+                          individualFronts,
+                          fill
+                        ) *
+                        (user?.discountFillings / 100)
+                    ).toFixed(2)
+                  : (
+                      fill?.pricePerSquareMeter *
+                        calculateAluFrameFillSurfaces(
+                          aluProfile,
+                          individualFronts,
+                          fill
+                        ) -
+                      fill?.pricePerSquareMeter *
+                        calculateAluFrameFillSurfaces(
+                          aluProfile,
+                          individualFronts,
+                          fill
+                        ) *
+                        (user?.discountFillings / 100)
+                    ).toFixed(2)}
               </td>
             </tr>
           )}
 
-          {aluProfile.name && (
+          {aluProfile.id && (
             <tr className={"border-b"}>
               <td
                 scope="row"
@@ -149,19 +215,27 @@ export default function DetailedPrice() {
               </td>
               <td className="px-6 py-4 text-center text-lg">Metalni uglovi</td>
               <td className="px-6 py-4 text-center text-lg">
-                {Number(aluProfile.corverCoverPrice).toFixed(2)}
+                {Number(aluProfile?.corverCoverPrice).toFixed(2)}
               </td>
               <td className="px-6 py-4 text-center text-lg">
-                {Number(qtyTotal * 4)}
+                {calculateMetalCornersQuantity(individualFronts)}
               </td>
               <td className="px-6 py-4 text-center text-lg">kom</td>
               <td className="px-6 py-4 text-center text-lg">
-                {Number(aluProfile.corverCoverPrice * qtyTotal * 4).toFixed(2)}
+                {(
+                  calculateMetalCornersQuantity(individualFronts) *
+                  aluProfile?.corverCoverPrice
+                ).toFixed(2)}
               </td>
-              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-center text-lg">{`${user?.discountHardware}%`}</td>
               <td className="px-6 py-4 text-end text-lg">
-                {" "}
-                {Number(aluProfile.corverCoverPrice * qtyTotal * 4).toFixed(2)}
+                {(
+                  calculateMetalCornersQuantity(individualFronts) *
+                    aluProfile?.corverCoverPrice -
+                  calculateMetalCornersQuantity(individualFronts) *
+                    aluProfile?.corverCoverPrice *
+                    (user?.discountHardware / 100)
+                ).toFixed(2)}
               </td>
             </tr>
           )}
@@ -181,24 +255,44 @@ export default function DetailedPrice() {
                 {Number(additionalFillTreatment?.price).toFixed(2)}
               </td>
               <td className="px-6 py-4 text-center text-lg">
-                {Number(qtyTotal * 4).toFixed(2)}
+                {calculateAdditionalFillTreatment(
+                  aluProfile,
+                  individualFronts,
+                  fill
+                ).toFixed(2)}
               </td>
               <td className="px-6 py-4 text-center text-lg">m</td>
               <td className="px-6 py-4 text-center text-lg">
-                {Number(additionalFillTreatment.price * qtyTotal * 4).toFixed(
-                  2
-                )}
+                {(
+                  calculateAdditionalFillTreatment(
+                    aluProfile,
+                    individualFronts,
+                    fill
+                  ) * additionalFillTreatment?.price
+                ).toFixed(2)}
               </td>
-              <td className="px-6 py-4 text-center text-lg">0%</td>
+              <td className="px-6 py-4 text-center text-lg">{`${user?.discountFillings}%`}</td>
               <td className="px-6 py-4 text-end text-lg">
-                {Number(additionalFillTreatment.price * qtyTotal * 4).toFixed(
-                  2
-                )}
+                {(
+                  calculateAdditionalFillTreatment(
+                    aluProfile,
+                    individualFronts,
+                    fill
+                  ) *
+                    additionalFillTreatment?.price -
+                  calculateAdditionalFillTreatment(
+                    aluProfile,
+                    individualFronts,
+                    fill
+                  ) *
+                    additionalFillTreatment?.price *
+                    (user?.discountFillings / 100)
+                ).toFixed(2)}
               </td>
             </tr>
           )}
 
-          {handleHole?.handleHoleQty !== 0 && (
+          {handleHole?.handleHoleQty > 0 && (
             <tr className={"border-b"}>
               <td
                 scope="row"
@@ -376,16 +470,16 @@ export default function DetailedPrice() {
         <div className="flex w-1/2 flex-col gap-4">
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">UKUPNO</h3>
-            <p> {totalPrice} RSD</p>
+            {/* <p> {totalPrice} RSD</p> */}
           </div>
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">PDV (20.00%)</h3>
-            <p>{pdv} RSD</p>
+            {/* <p>{pdv} RSD</p> */}
           </div>
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">UKUPNO SA PDV-om</h3>
             <p className="text-lg font-semibold">
-              {(Number(pdv) + Number(totalPrice)).toFixed(2)} RSD
+              {/* {(Number(pdv) + Number(totalPrice)).toFixed(2)} RSD */}
             </p>
           </div>
         </div>
