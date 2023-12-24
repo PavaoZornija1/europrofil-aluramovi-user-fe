@@ -26,6 +26,15 @@ export const calculateAluFrameSurfaces = (fronts, treatment) => {
 
   return result / 1000;
 };
+export const calculateHandleProfileSurfaces = (front) => {
+  return (
+    ((front.handles.profileLength +
+      (front.handles.profileLength / 100) *
+        front.handles.handleProfile.priceIncrease) *
+      front.dimensions.numberOfPieces) /
+    1000
+  );
+};
 
 export const calculateFillHeight = (frontHeight, frame) => {
   return frontHeight - 2 * frame.fillingHeightReduction * 10;
