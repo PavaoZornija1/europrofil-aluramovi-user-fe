@@ -1,9 +1,19 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { setReset, setUser } from "@/app/features/ram/ramData";
+import { useDispatch } from "react-redux";
+import { useAuth } from "@/app/context/AuthContext";
 
 function RamItem(props) {
   const { ram } = props;
+  const { user } = useAuth();
+  const dispatch = useDispatch();
+  const handleReset = () => {
+    dispatch(setReset());
+    dispatch(setUser(user));
+  };
   return (
     <div
       key={ram?.id}
@@ -16,7 +26,7 @@ function RamItem(props) {
       >
         detaljnije
       </a>
-      <Link href={`/rams/${ram?.id}?step=1`}>
+      <Link href={`/rams/${ram?.id}?step=1`} onClick={() => handleReset()}>
         <Image
           src={`/images/${ram?.name?.replace("/", "q")} app.jpeg`}
           alt="ram"
