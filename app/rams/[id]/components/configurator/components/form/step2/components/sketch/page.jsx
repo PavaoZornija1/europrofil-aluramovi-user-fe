@@ -151,9 +151,7 @@ function Sketch(props) {
                     activeFrontId={activeFrontId}
                     dimensions={dimensions}
                   />
-                ) : (
-                  console.log("fronts: ", individualFronts)
-                )}
+                ) : null}
                 {/* // )} */}
                 {frontsData[activeFrontId].locks.activeOption === 1 &&
                   (frontsData[activeFrontId].orientation === "Leva vrata" ||
