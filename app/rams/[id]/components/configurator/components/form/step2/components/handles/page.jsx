@@ -656,7 +656,9 @@ function Handles(props) {
               </label>
               <select
                 id="profiless"
-                value={chosenHandle}
+                value={
+                  individualFronts[activeFrontId].handles?.handleProfile?.id
+                }
                 onChange={(e) => handleChooseHandleProfile(activeFrontId, e)}
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
               >
