@@ -55,7 +55,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("userData", JSON.stringify(response.data));
       dispatch({ type: "login", payload: response.data });
       dispatchLoggedUser(setUser(response.data));
-      console.log(response.data);
     }
     router.push("/rams");
   };
