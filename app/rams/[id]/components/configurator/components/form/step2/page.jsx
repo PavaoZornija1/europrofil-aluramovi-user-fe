@@ -164,7 +164,7 @@ function Step2(props) {
             profileOption: 0,
             profileLengthOption: 0,
             profilePositionOption: 0,
-            profileLength: 250,
+            profileLength: 1000,
             profileDistance: "0",
           },
           locks: {
