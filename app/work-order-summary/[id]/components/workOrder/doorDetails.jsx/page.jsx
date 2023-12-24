@@ -8,8 +8,6 @@ const DoorDetails = ({ activeFrame }) => {
   const additionalFillTreatment = useSelector(
     (state) => state.data.additionalFillTreatment
   );
-  // console.log(store.getState());
-  // console.log(frames);
 
   // Calculate fill width
   const calculateFillWidth = (front, frame) => {
