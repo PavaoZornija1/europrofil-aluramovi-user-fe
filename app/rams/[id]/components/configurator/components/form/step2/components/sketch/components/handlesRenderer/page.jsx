@@ -42,7 +42,9 @@ function HandlesRenderer(props) {
         setTop(
           `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
             (100 / dimensions.h) *
-              individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
+              Number(
+                individualFronts[activeFrontId].handles.centerDistanceOfHole[1]
+              ) +
             "%"
           })`
         );
@@ -60,14 +62,19 @@ function HandlesRenderer(props) {
         setTop(
           `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
             (100 / dimensions.h) *
+              wheelBasesArr[frontsData[activeFrontId].handles.wheelbaseOption] +
+            "%"
+          } - ${
+            (100 / dimensions.h) *
               Number(
                 individualFronts[activeFrontId].handles.centerDistanceOfHole[1]
               ) +
             "%"
           }
-          
-           + 1px)`
+         
+          )`
         );
+
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
           setTop(
             `calc(100% - ${1000 / dimensions.h + "%"} - ${
@@ -76,6 +83,7 @@ function HandlesRenderer(props) {
           );
         }
       }
+
       if (individualFronts[activeFrontId].handles.positionOption === 2) {
         setTop(
           `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
@@ -100,26 +108,27 @@ function HandlesRenderer(props) {
       }
     }
     if (individualFronts[activeFrontId].orientation === "Kip vrata") {
-      setTop(
-        `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-          (100 / dimensions.h) *
-            individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
-          "%"
-        } + 1px)`
-      );
-
-      if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
-        if (individualFronts[activeFrontId].handles.positionOption === 1) {
-          setTop(
-            `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-              (100 / dimensions.h) *
-                individualFronts[activeFrontId].handles
-                  .centerDistanceOfHole[0] +
-              "%"
-            } + 1px)`
-          );
-        }
+      if (individualFronts[activeFrontId].handles.positionOption === 1) {
+        setTop(
+          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
+            (100 / dimensions.h) *
+              individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
+            "%"
+          } + 1px)`
+        );
+      } else {
+        setTop(
+          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
+            (100 / dimensions.h) *
+              individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
+            "%"
+          } + 1px)`
+        );
       }
+
+      // if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
+
+      // }
     }
   };
 
