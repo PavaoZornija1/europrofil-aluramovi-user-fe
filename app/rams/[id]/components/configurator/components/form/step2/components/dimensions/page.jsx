@@ -44,8 +44,15 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
+
+    if (fronts[activeFront].handles.profileLengthOption === 0) {
+      fronts[activeFront].handles.profileLength =
+        updatedFrontsData[activeFront].dimensions.width;
+    }
+
     fronts[activeFront].dimensions.width =
       updatedFrontsData[activeFront].dimensions.width;
+
     dispatch(setIndividualFronts(fronts));
   };
 
