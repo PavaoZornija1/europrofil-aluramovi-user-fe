@@ -13,11 +13,11 @@ const WorkOrder = ({ activeFrame, individualFronts }) => {
       <div className="w-full">
         <CustomerData />
         <Specifications />
-        <PersonsInCharge />
         <DoorDetails
           activeFrame={activeFrame}
           individualFronts={individualFronts}
         />
+        <PersonsInCharge />
         {/* <Rails /> */}
         {/* <SchemaView /> */}
       </div>
