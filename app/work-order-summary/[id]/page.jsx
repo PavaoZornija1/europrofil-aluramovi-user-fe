@@ -7,6 +7,7 @@ import Navbar from "@/app/navbar/page";
 import { usePathname } from "next/navigation";
 import createWorkOrderPdf from "./components/pdf/pdf";
 import { useSelector } from "react-redux";
+import store from "@/app/store/store";
 
 function WorkOrderMain(props) {
   const [workOrderActive, setWorkOrderActive] = useState(true);
@@ -20,6 +21,8 @@ function WorkOrderMain(props) {
   const additionalTreatment = useSelector(
     (state) => state.data.additionalFillTreatment.name
   );
+
+  console.log("STORE: ", store.getState());
   return (
     <div>
       <Navbar />
