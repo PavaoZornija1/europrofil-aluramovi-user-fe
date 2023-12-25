@@ -3,11 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AiFillEyeInvisible } from "react-icons/ai";
-import { AiFillEye } from "react-icons/ai";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useAuth } from "../context/AuthContext";
-import { messages } from "../localization/messages";
-import { Config } from "../../config";
 
 export default function Login({ locale }) {
   // const {
@@ -60,7 +57,7 @@ export default function Login({ locale }) {
   };
 
   return (
-    <div className="m-auto my-10 h-full w-5/6 rounded-lg bg-gradient-to-tl from-[#11698E] to-slate-800 text-black shadow shadow-gray-500 sm:w-96">
+    <div className="m-auto my-10 h-full w-5/6 rounded-lg bg-gradient-to-tr from-sky-500 to-sky-600 text-black shadow shadow-gray-500 sm:w-96">
       <form onSubmit={handleSubmit}>
         <div className="w-full p-6 text-center">
           <h2 className="cursor-default text-3xl font-semibold tracking-widest text-white underline sm:text-4xl">
