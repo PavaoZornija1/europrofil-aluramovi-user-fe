@@ -1,8 +1,10 @@
 import React from "react";
 import Notes from "./notes/page";
+import { useSelector } from "react-redux";
 // import OrderNumber from "../orderNumber/page";
 
 function CustomerData() {
+  const userInfo = useSelector((state) => state.data.user);
   return (
     <div className="flex w-full flex-col border-t py-2 text-black">
       {/* <div className="w-full ">
@@ -14,23 +16,23 @@ function CustomerData() {
           <tbody>
             <tr>
               <th className="py-2">Ime:</th>
-              <td>Nikola Manage IT</td>
+              <td>{userInfo?.username}</td>
             </tr>
             <tr>
               <th className="py-2">Telefon:</th>
-              <td>+387 65 323 477</td>
+              <td>{userInfo?.phone}</td>
             </tr>
             <tr>
               <th className="py-2">Email:</th>
-              <td>nikola.ceric@manage-it.tech</td>
+              <td>{userInfo?.email}</td>
             </tr>
             <tr>
               <th className="py-2">Adresa:</th>
-              <td>Živojina Mišića 4, 74450 Brod RS, BiH</td>
+              <td>{userInfo?.address}</td>
             </tr>
             <tr>
               <th className="py-2">Adresa za dostavu:</th>
-              <td>Živojina Mišića 4, 74450 Brod RS, BiH</td>
+              <td>{userInfo?.deliveryAddress}</td>
             </tr>
             <tr>
               <th className="py-2">Željeni datum isporuke: </th>
