@@ -9,6 +9,14 @@ const RenderHingesDetails = ({ frame }) => {
   } else if (frame.orientation === "Kip vrata") {
     position = `top-0 w-full h-5 flex`;
   }
+  let setTextPosition;
+  if (frame.orientation === "Leva vrata") {
+    setTextPosition = `left-5`;
+  } else if (frame.orientation === "Desna vrata") {
+    setTextPosition = `right-6`;
+  } else if (frame.orientation === "Kip vrata") {
+    setTextPosition = `top-4`;
+  }
   return (
     <div className={`absolute ${position}`}>
       {frame.hinges?.centerDistanceOfHoles?.map((hole, index) => (
@@ -24,7 +32,7 @@ const RenderHingesDetails = ({ frame }) => {
             }}
           ></div>
           <div
-            className="text-sm absolute"
+            className={`${setTextPosition} text-sm absolute`}
             style={{
               [frame.orientation === "Leva vrata" ||
               frame.orientation === "Desna vrata"
@@ -32,7 +40,7 @@ const RenderHingesDetails = ({ frame }) => {
                 : "left"]: `${hole / 10 - 2.5}%`,
             }}
           >
-            {hole}
+            {Number(hole).toFixed()}
           </div>
         </React.Fragment>
       ))}
