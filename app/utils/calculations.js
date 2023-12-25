@@ -4,26 +4,32 @@ export const calculateAluFrameSurfaces = (fronts, treatment) => {
 
   for (let i = 0; i < fronts.length; ++i) {
     let loopResult = 0;
+    let integratedProfile = fronts[i].handles?.handleProfile?.isIntegrated
+      ? calculateHandleProfileSurfaces(fronts[i]) * 1000
+      : 0;
+    console.log(integratedProfile);
+
     if (fronts[i].dimensions?.height !== fronts[i].dimensions?.width) {
       loopResult =
         fronts[i].dimensions?.numberOfPieces *
-        (2 *
-          (Number(fronts[i].dimensions?.width) +
-            Number(fronts[i].dimensions?.height)) +
-          2 *
+          (2 *
             (Number(fronts[i].dimensions?.width) +
-              Number(fronts[i].dimensions?.height)) *
-            percentage);
+              Number(fronts[i].dimensions?.height)) +
+            2 *
+              (Number(fronts[i].dimensions?.width) +
+                Number(fronts[i].dimensions?.height)) *
+              percentage) -
+        integratedProfile;
     } else {
       loopResult =
         fronts[i].dimensions?.numberOfPieces *
-        (4 * fronts[i].dimensions?.width +
-          4 * fronts[i].dimensions?.width * percentage);
+          (4 * fronts[i].dimensions?.width +
+            4 * fronts[i].dimensions?.width * percentage) -
+        integratedProfile;
     }
 
     result += loopResult;
   }
-
   return result / 1000;
 };
 export const calculateHandleProfileSurfaces = (front) => {
