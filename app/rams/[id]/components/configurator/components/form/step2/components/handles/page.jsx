@@ -55,6 +55,8 @@ function Handles(props) {
   ];
 
   const handleRadioClick = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -69,6 +71,14 @@ function Handles(props) {
       }
       return obj;
     });
+
+    fronts[activeFront].handles = {
+      ...fronts[activeFront].handles,
+      activeOption: value,
+      shouldDrillHoles: value === 1 ? true : false,
+      shouldMountProfile: value === 2 ? true : false,
+    };
+    dispatch(setIndividualFronts(fronts));
 
     setFrontsData(updatedFrontsData);
   };
@@ -441,7 +451,9 @@ function Handles(props) {
               name="handles"
               id="first"
               className="mr-2 cursor-pointer"
-              checked={frontsData[activeFrontId].handles.activeOption === 0}
+              checked={
+                individualFronts[activeFrontId].handles.activeOption === 0
+              }
               onChange={() => {
                 handleRadioClick(activeFrontId, 0);
               }}
@@ -465,7 +477,9 @@ function Handles(props) {
               id="second"
               className="mr-2 cursor-pointer"
               value={1}
-              checked={frontsData[activeFrontId].handles.activeOption === 1}
+              checked={
+                individualFronts[activeFrontId].handles.activeOption === 1
+              }
               onChange={() => {
                 handleRadioClick(activeFrontId, 1);
               }}
@@ -489,7 +503,9 @@ function Handles(props) {
               id="third"
               className="mr-2 cursor-pointer"
               value={2}
-              checked={frontsData[activeFrontId].handles.activeOption === 2}
+              checked={
+                individualFronts[activeFrontId].handles.activeOption === 2
+              }
               onChange={() => {
                 handleRadioClick(activeFrontId, 2);
               }}
@@ -499,10 +515,10 @@ function Handles(props) {
             </label>
           </div>
         </div>
-        {frontsData[activeFrontId].handles.shouldDrillHoles && (
+        {individualFronts[activeFrontId].handles.shouldDrillHoles && (
           <div className="ml-6 my-2">
-            {frontsData[activeFrontId].orientation === "Leva vrata" ||
-            frontsData[activeFrontId].orientation === "Desna vrata" ? (
+            {individualFronts[activeFrontId].orientation === "Leva vrata" ||
+            individualFronts[activeFrontId].orientation === "Desna vrata" ? (
               <div className="mb-4">
                 <label htmlFor="numOfStandardHinges" className="text-lg mr-8">
                   Polozaj
@@ -511,7 +527,7 @@ function Handles(props) {
                   type="number"
                   id="numOfStandardHinges"
                   className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={frontsData[activeFrontId].handles.positionOption}
+                  value={individualFronts[activeFrontId].handles.positionOption}
                   onChange={(e) => {
                     updatePosition(
                       activeFrontId,
@@ -536,7 +552,7 @@ function Handles(props) {
                   type="number"
                   id="numOfStandardHinges"
                   className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={frontsData[activeFrontId].handles.positionOption}
+                  value={individualFronts[activeFrontId].handles.positionOption}
                   onChange={(e) => {
                     updatePosition(activeFrontId, e.target.value);
                   }}
@@ -556,7 +572,7 @@ function Handles(props) {
                 type="number"
                 id="numOfStandardHinges"
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                value={frontsData[activeFrontId].handles.wheelbaseOption}
+                value={individualFronts[activeFrontId].handles.wheelbaseOption}
                 onChange={(e) => {
                   updateWheelbaseOption(
                     activeFrontId,
@@ -601,7 +617,8 @@ function Handles(props) {
                 type="text"
                 id={`firstHole`}
                 value={
-                  frontsData[activeFrontId].handles.centerDistanceOfHole[0]
+                  individualFronts[activeFrontId].handles
+                    .centerDistanceOfHole[0]
                 }
                 onChange={(e) => {
                   updateCenterDistanceOfHole(activeFrontId, e.target.value, 0);
@@ -624,7 +641,8 @@ function Handles(props) {
                   type="text"
                   id={`secondHole`}
                   value={
-                    frontsData[activeFrontId].handles.centerDistanceOfHole[1]
+                    individualFronts[activeFrontId].handles
+                      .centerDistanceOfHole[1]
                   }
                   onChange={(e) => {
                     updateCenterDistanceOfHole(
@@ -639,7 +657,7 @@ function Handles(props) {
             ) : null}
           </div>
         )}
-        {frontsData[activeFrontId].handles.shouldMountProfile && (
+        {individualFronts[activeFrontId].handles.shouldMountProfile && (
           <div className="ml-6 my-2">
             <div className="mb-4">
               <label htmlFor="profiless" className="text-lg mr-8">
@@ -672,7 +690,9 @@ function Handles(props) {
                 <select
                   id="duzina"
                   className="border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={frontsData[activeFrontId].handles.profileLengthOption}
+                  value={
+                    individualFronts[activeFrontId].handles.profileLengthOption
+                  }
                   onChange={(e) => {
                     updateProfileLengthOption(activeFrontId, e.target.value);
                   }}
