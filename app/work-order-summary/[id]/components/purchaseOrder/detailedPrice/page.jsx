@@ -51,30 +51,42 @@ export default function DetailedPrice() {
   // #2 - Handle Profiles
   let priceHandleProfiles = individualFronts
     ?.map((front) => {
-      return (
-        calculateHandleProfileSurfaces(front) *
-          front?.handles?.handleProfile?.pricePerMeter -
-        calculateHandleProfileSurfaces(front) *
-          front?.handles?.handleProfile?.pricePerMeter *
-          (user?.discountHardware / 100)
-      );
+      if (front?.handles?.handleProfile?.id) {
+        return (
+          calculateHandleProfileSurfaces(front) *
+            front?.handles?.handleProfile?.pricePerMeter -
+          calculateHandleProfileSurfaces(front) *
+            front?.handles?.handleProfile?.pricePerMeter *
+            (user?.discountHardware / 100)
+        );
+      } else {
+        return 0;
+      }
     })
     .reduce((acc, curr) => acc + curr, 0);
 
   //  #3 - Fills/Subfills
-  let priceForFillsAndSubfills = fill?.subfill?.pricePerSquareMeter
-    ? (
+  let priceForFillsAndSubfills = () => {
+    if (fill?.subfill?.pricePerSquareMeter) {
+      return (
         Number(fill?.subfill?.pricePerSquareMeter) *
           calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) -
         Number(fill?.subfill?.pricePerSquareMeter) *
           calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) *
           (Number(user?.discountFillings) / 100)
-      ).toFixed(2)
-    : Number(fill?.pricePerSquareMeter) *
-        calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) -
-      Number(fill?.pricePerSquareMeter) *
-        calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) *
-        (Number(user?.discountFillings) / 100);
+      ).toFixed(2);
+    } else if (fill?.subfill?.pricePerSquareMeter) {
+      return (
+        Number(fill?.pricePerSquareMeter) *
+          calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) -
+        Number(fill?.pricePerSquareMeter) *
+          calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) *
+          (Number(user?.discountFillings) / 100)
+      );
+    } else {
+      return 0;
+    }
+  };
 
   //  #4 - Metal Corners
   let priceMetalCorners =
@@ -100,12 +112,13 @@ export default function DetailedPrice() {
     .reduce((acc, curr) => acc + curr, 0);
 
   //  #6 - Additional Fill Treatments
-  let priceAdditionalFillTreatments =
-    calculateAdditionalFillTreatment(aluProfile, individualFronts, fill) *
-      additionalFillTreatment?.price -
-    calculateAdditionalFillTreatment(aluProfile, individualFronts, fill) *
-      additionalFillTreatment?.price *
-      (user?.discountFillings / 100);
+  let priceAdditionalFillTreatments = additionalFillTreatment?.id
+    ? calculateAdditionalFillTreatment(aluProfile, individualFronts, fill) *
+        additionalFillTreatment?.price -
+      calculateAdditionalFillTreatment(aluProfile, individualFronts, fill) *
+        additionalFillTreatment?.price *
+        (user?.discountFillings / 100)
+    : 0;
   // #7 - Locks
   let priceForLocks = Number(
     pricesFromSettings[0]?.lockHolePrice *
@@ -136,7 +149,7 @@ export default function DetailedPrice() {
   priceTotalCost =
     +priceAluProfile +
     +priceHandleProfiles +
-    +priceForFillsAndSubfills +
+    +priceForFillsAndSubfills() +
     +priceMetalCorners +
     +priceForHinges +
     +priceAdditionalFillTreatments +
