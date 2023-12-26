@@ -17,13 +17,13 @@ const RenderHingesDetails = ({ frame }) => {
   } else if (frame.orientation === "Kip vrata") {
     setTextPosition = `top-4`;
   }
-  return (
+  return frame.hinges?.hasHinge ? (
     <div className={`absolute ${position}`}>
       {frame.hinges?.centerDistanceOfHoles?.map((hole, index) => (
         <React.Fragment key={`hole-${index - hole}`}>
           <div
             key={index}
-            className={`border rounded-full w-4 h-4 bg-white absolute`}
+            className={`border-slate-500 border rounded-full w-4 h-4 bg-white absolute`}
             style={{
               [frame.orientation === "Leva vrata" ||
               frame.orientation === "Desna vrata"
@@ -45,7 +45,7 @@ const RenderHingesDetails = ({ frame }) => {
         </React.Fragment>
       ))}
     </div>
-  );
+  ) : null;
 };
 
 export default RenderHingesDetails;
