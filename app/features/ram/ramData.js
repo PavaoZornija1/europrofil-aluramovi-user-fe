@@ -16,12 +16,12 @@ const initialState = {
         numberOfPieces: "1",
       },
       hinges: {
-        hasHinge: false,
-        shouldMount: false,
-        activeOption: 0,
-        hinge: {},
-        numberOfHinges: 2,
-        centerDistanceOfHoles: ["100", "900"],
+        // hasHinge: false,
+        // shouldMount: false,
+        // activeOption: 0,
+        // hinge: {},
+        // numberOfHinges: 2,
+        // centerDistanceOfHoles: ["100", "900"],
       },
       handles: {
         shouldDrillHoles: false,
