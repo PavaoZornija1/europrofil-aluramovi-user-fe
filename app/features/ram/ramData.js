@@ -6,25 +6,7 @@ const initialState = {
   treatment: {},
   ralCode: "",
   fill: {},
-  subFill: {},
   additionalFillTreatment: {},
-  hinges: {},
-  hingesQty: 0,
-  liftingSystem: {},
-  handleProfile: {},
-  handleHole: {
-    handleHolePrice: 55,
-    handleHoleQty: 0,
-  },
-  hingeHole: {
-    hingeHolePrice: 50,
-    hingeHoleQty: 0,
-    withMountPrice: 330,
-  },
-  lockHole: {
-    lockPrice: 165,
-    lockAmount: 0,
-  },
   individualFronts: [
     {
       orientation: "Leva vrata",
@@ -59,6 +41,7 @@ const initialState = {
         profileDistance: "0",
       },
       locks: {
+        productCode: "HLCK",
         activeOption: 0,
         holeDiameter: "250",
         centerDistanceOfHole: ["200", "24"],
@@ -71,11 +54,6 @@ const initialState = {
       },
     },
   ],
-  qty: 0,
-  qtyTotal: 0,
-  width: 1000,
-  height: 1000,
-  orientation: "",
 };
 export const ramData = createSlice({
   name: "data",
