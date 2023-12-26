@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  setHandleHole,
-  setHandleHoleQty,
-  setHandleProfile,
-  setIndividualFronts,
-} from "@/app/features/ram/ramData";
-import React, { useEffect, useState } from "react";
+import { setIndividualFronts } from "@/app/features/ram/ramData";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Handles(props) {
@@ -199,11 +194,7 @@ function Handles(props) {
 
     setFrontsData(updatedFrontsData);
     fronts[activeFront].handles.profileLengthOption = Number(value);
-    if (Number(value) === 1) {
-      setShowPartialProfileLengthOptions(true);
-    } else {
-      setShowPartialProfileLengthOptions(false);
-    }
+
     dispatch(setIndividualFronts(fronts));
   };
 
