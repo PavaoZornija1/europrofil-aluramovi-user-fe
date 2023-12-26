@@ -837,44 +837,50 @@ function Handles(props) {
               ""
             )}
 
-            {showPartialProfileLengthOptions && showProfilePositionStart && (
-              <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
-                <label htmlFor={`startEdge`} className="text-lg mb-2 2xl:mb-0">
-                  Pocetak u odnosu na {profileDistanceStartPosition} spoljnu
-                  ivicu
-                </label>
-                <input
-                  type="text"
-                  id={`startEdge`}
-                  value={
-                    individualFronts[activeFrontId].handles.profileDistance
-                  }
-                  onChange={(e) => {
-                    updateProfileDistance(activeFrontId, e.target.value);
-                  }}
-                  className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
-                />
-              </div>
-            )}
-            {showPartialProfileLengthOptions && (
-              <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
-                <label
-                  htmlFor={`lengthOfProfile`}
-                  className="text-lg mb-2 2xl:mb-0"
-                >
-                  Duzina profila rucice
-                </label>
-                <input
-                  type="text"
-                  id={`lengthOfProfile`}
-                  value={individualFronts[activeFrontId].handles.profileLength}
-                  onChange={(e) => {
-                    updateProfileLength(activeFrontId, e.target.value);
-                  }}
-                  className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
-                />
-              </div>
-            )}
+            {individualFronts[activeFrontId].handles.profileLengthOption ===
+            1 ? (
+              <>
+                <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+                  <label
+                    htmlFor={`startEdge`}
+                    className="text-lg mb-2 2xl:mb-0"
+                  >
+                    Pocetak u odnosu na {profileDistanceStartPosition} spoljnu
+                    ivicu
+                  </label>
+                  <input
+                    type="text"
+                    id={`startEdge`}
+                    value={
+                      individualFronts[activeFrontId].handles.profileDistance
+                    }
+                    onChange={(e) => {
+                      updateProfileDistance(activeFrontId, e.target.value);
+                    }}
+                    className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
+                  />
+                </div>
+                <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
+                  <label
+                    htmlFor={`lengthOfProfile`}
+                    className="text-lg mb-2 2xl:mb-0"
+                  >
+                    Duzina profila rucice
+                  </label>
+                  <input
+                    type="text"
+                    id={`lengthOfProfile`}
+                    value={
+                      individualFronts[activeFrontId].handles.profileLength
+                    }
+                    onChange={(e) => {
+                      updateProfileLength(activeFrontId, e.target.value);
+                    }}
+                    className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
+                  />
+                </div>
+              </>
+            ) : null}
           </div>
         )}
       </div>
