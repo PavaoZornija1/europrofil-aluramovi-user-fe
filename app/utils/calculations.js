@@ -36,7 +36,7 @@ export const calculateHandleProfileSurfaces = (front) => {
   return (
     ((front.handles.profileLength +
       (front.handles.profileLength / 100) *
-        front.handles.handleProfile.priceIncrease) *
+        front.handles.handleProfile?.priceIncrease) *
       front.dimensions.numberOfPieces) /
     1000
   );
