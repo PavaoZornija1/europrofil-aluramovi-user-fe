@@ -7,7 +7,6 @@ export const calculateAluFrameSurfaces = (fronts, treatment) => {
     let integratedProfile = fronts[i].handles?.handleProfile?.isIntegrated
       ? calculateHandleProfileSurfaces(fronts[i]) * 1000
       : 0;
-    console.log(integratedProfile);
 
     if (fronts[i].dimensions?.height !== fronts[i].dimensions?.width) {
       loopResult =
@@ -85,6 +84,12 @@ export const calculateMetalCornersQuantity = (fronts) => {
   return totalCorners * 4;
 };
 
-// export const calculateHandleProfileLength = (front) => {
-//     return front.handles
-// }
+export const calculateNumberOfLocks = (fronts) => {
+  let totalNumberOfLocks = 0;
+  for (let front of fronts) {
+    if (front.locks.activeOption === 1) {
+      totalNumberOfLocks += 1 * front.dimensions.numberOfPieces;
+    }
+  }
+  return totalNumberOfLocks;
+};
