@@ -80,7 +80,7 @@ function Sketch(props) {
               }}
               className="col-[1/2] flex justify-center items-center py-2"
             >
-              {frontsData[activeFrontId].orientation === "Leva vrata" && (
+              {individualFronts[activeFrontId].orientation === "Leva vrata" && (
                 <p
                   style={{ writingMode: "vertical-lr" }}
                   className="inline-block overflow-hidden overflow-ellipsis whitespace-nowrap text-white font-semibold"
@@ -114,8 +114,8 @@ function Sketch(props) {
                     ? "column"
                     : "row",
                 justifyContent:
-                  frontsData[activeFrontId].orientation === "Desna vrata" &&
-                  Number(dimensions.h) > Number(dimensions.w)
+                  individualFronts[activeFrontId].orientation ===
+                    "Desna vrata" && Number(dimensions.h) > Number(dimensions.w)
                     ? "flex-end"
                     : "flex-start",
               }}
@@ -130,14 +130,14 @@ function Sketch(props) {
                 }}
                 className={`bg-green-200 border-gray-800 border relative w-full`}
               >
-                {frontsData[activeFrontId].hinges.activeOption > 0 && (
+                {individualFronts[activeFrontId].hinges.hasHinge && (
                   <HingesRenderer
                     frontsData={frontsData}
                     activeFrontId={activeFrontId}
                     dimensions={dimensions}
                   />
                 )}
-                {frontsData[activeFrontId].handles.activeOption === 1 && (
+                {individualFronts[activeFrontId].handles.activeOption === 1 && (
                   <HandlesRenderer
                     frontsData={frontsData}
                     activeFrontId={activeFrontId}
@@ -153,9 +153,10 @@ function Sketch(props) {
                   />
                 ) : null}
                 {/* // )} */}
-                {frontsData[activeFrontId].locks.activeOption === 1 &&
-                  (frontsData[activeFrontId].orientation === "Leva vrata" ||
-                    frontsData[activeFrontId].orientation ===
+                {individualFronts[activeFrontId].locks.activeOption === 1 &&
+                  (individualFronts[activeFrontId].orientation ===
+                    "Leva vrata" ||
+                    individualFronts[activeFrontId].orientation ===
                       "Desna vrata") && (
                     <LocksRenderer
                       frontsData={frontsData}
@@ -168,7 +169,7 @@ function Sketch(props) {
             <div
               style={{
                 backgroundColor:
-                  frontsData[activeFrontId].orientation === "Desna vrata"
+                  individualFronts[activeFrontId].orientation === "Desna vrata"
                     ? "palevioletred"
                     : individualFronts[activeFrontId].orientation ===
                         "Kip vrata" &&
