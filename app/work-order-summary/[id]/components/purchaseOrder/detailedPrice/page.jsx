@@ -5,8 +5,11 @@ import {
   calculateAluFrameSurfaces,
   calculateHandleProfileSurfaces,
   calculateMetalCornersQuantity,
+  calculateNumberOfLocks,
 } from "@/app/utils/calculations";
-import React, { useEffect } from "react";
+import { Config } from "@/config";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function DetailedPrice() {
@@ -17,13 +20,26 @@ export default function DetailedPrice() {
   const additionalFillTreatment = useSelector(
     (state) => state.data.additionalFillTreatment
   );
-  const handleHole = useSelector((state) => state.data.handleHole);
-  const hingeHole = useSelector((state) => state.data.hingeHole);
-  const hinge = useSelector((state) => state.data.hinges);
-  const lock = useSelector((state) => state.data.lockHole);
   const liftSupport = useSelector((state) => state.data.liftingSystem);
   const individualFronts = useSelector((state) => state.data.individualFronts);
   const user = useSelector((state) => state.data.user);
+  const [pricesFromSettings, setPricesFromSettings] = useState([]);
+
+  const getPricesFromSettings = async () => {
+    try {
+      let response = await axios(`${Config.baseURL}/api/alu-settings`);
+      if (response.data) {
+        setPricesFromSettings(response.data);
+        console.log("Data: ", response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getPricesFromSettings();
+  }, []);
 
   return (
     <div className="w-full ">
@@ -83,7 +99,6 @@ export default function DetailedPrice() {
                 treatment?.pricePerMeter
               ).toFixed(2)}
             </td>
-            {/* DODATI POPUST */}
             <td className="px-6 py-4 text-center text-lg">{`${user?.discountHardware}%`}</td>
             <td className="px-6 py-4 text-end text-lg">
               {(
@@ -345,31 +360,40 @@ export default function DetailedPrice() {
             ) : null
           )}
 
-          {lock?.lockAmount !== 0 && (
-            <tr className={"border-b"}>
-              <td
-                scope="row"
-                className="whitespace-nowrap px-6 py-4 text-lg font-medium"
-              >
-                HLCK
-              </td>
-              <td className="px-6 py-4 text-center text-lg">Rupa za bravicu</td>
-              <td className="px-6 py-4 text-center text-lg">
-                {Number(lock.lockPrice).toFixed(2)}
-              </td>
-              <td className="px-6 py-4 text-center text-lg">
-                {lock?.lockAmount}
-              </td>
-              <td className="px-6 py-4 text-center text-lg">kom</td>
-              <td className="px-6 py-4 text-center text-lg">
-                {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
-              </td>
-              <td className="px-6 py-4 text-center text-lg">0%</td>
-              <td className="px-6 py-4 text-end text-lg">
-                {Number(lock?.lockPrice * lock?.lockAmount).toFixed(2)}
-              </td>
-            </tr>
-          )}
+          <tr className={"border-b"}>
+            <td
+              scope="row"
+              className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+            >
+              HLCK
+            </td>
+            <td className="px-6 py-4 text-center text-lg">Rupa za bravicu</td>
+            <td className="px-6 py-4 text-center text-lg">
+              {Number(pricesFromSettings[0]?.lockHolePrice).toFixed(2)}
+            </td>
+            <td className="px-6 py-4 text-center text-lg">
+              {calculateNumberOfLocks(individualFronts)}
+            </td>
+            <td className="px-6 py-4 text-center text-lg">kom</td>
+            <td className="px-6 py-4 text-center text-lg">
+              {Number(
+                pricesFromSettings[0]?.lockHolePrice *
+                  calculateNumberOfLocks(individualFronts)
+              ).toFixed(2)}
+            </td>
+            <td className="px-6 py-4 text-center text-lg">{`${user?.discountHardware}%`}</td>
+            <td className="px-6 py-4 text-end text-lg">
+              {Number(
+                pricesFromSettings[0]?.lockHolePrice *
+                  calculateNumberOfLocks(individualFronts) -
+                  Number(
+                    pricesFromSettings[0]?.lockHolePrice *
+                      calculateNumberOfLocks(individualFronts)
+                  ) *
+                    (Number(user?.discountHardware) / 100)
+              ).toFixed(2)}
+            </td>
+          </tr>
 
           {liftSupport?.name && (
             <tr className={"border-b"}>
@@ -409,8 +433,10 @@ export default function DetailedPrice() {
             {/* <p> {totalPrice} RSD</p> */}
           </div>
           <div className="flex w-full justify-between">
-            <h3 className="text-lg font-semibold">PDV (20.00%)</h3>
-            {/* <p>{pdv} RSD</p> */}
+            <h3 className="text-lg font-semibold">
+              PDV ({Number(pricesFromSettings[0]?.vat)}%)
+            </h3>
+            <p>{pricesFromSettings[0]?.currency} </p>
           </div>
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">UKUPNO SA PDV-om</h3>
