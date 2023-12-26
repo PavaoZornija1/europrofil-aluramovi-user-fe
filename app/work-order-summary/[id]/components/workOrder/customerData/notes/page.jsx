@@ -1,18 +1,15 @@
 "use client";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Notes = () => {
+  const userInfo = useSelector((state) => state.data.user);
+
   return (
     <div className="mt-4 text-black">
       <h3 className="text-xl font-semibold">Dodatna napomena:</h3>
       <div className="w-full">
-        <p className="italic">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-          distinctio exercitationem ab quos quasi consequuntur maxime eius,
-          sequi neque earum sed nostrum debitis enim dolorum beatae iure unde
-          sint reiciendis delectus. Ipsum cumque officia iure animi doloremque
-          quasi hic aspernatur.
-        </p>
+        <p className="italic">{userInfo?.note}</p>
       </div>
     </div>
   );
