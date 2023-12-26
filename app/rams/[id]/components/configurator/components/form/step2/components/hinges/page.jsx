@@ -47,6 +47,8 @@ function Hinges(props) {
   }, [individualFronts[activeFrontId].dimensions.height]);
 
   const handleRadioClick = (activeFront, value) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+
     const updatedFrontsData = frontsData.map((obj, id) => {
       if (id === activeFront) {
         return {
@@ -61,8 +63,14 @@ function Hinges(props) {
       }
       return obj;
     });
-
+    fronts[activeFront].hinges = {
+      ...fronts[activeFront].hinges,
+      activeOption: value,
+      hasHinge: Boolean(value),
+      shouldMount: value === 2 ? true : false,
+    };
     setFrontsData(updatedFrontsData);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const handleResetHinges = (activeFront) => {
@@ -170,7 +178,9 @@ function Hinges(props) {
               id="noHinges"
               className="mr-2 cursor-pointer"
               value={0}
-              checked={frontsData[activeFrontId].hinges.activeOption === 0}
+              checked={
+                individualFronts[activeFrontId].hinges.activeOption === 0
+              }
               onChange={() => {
                 handleRadioClick(activeFrontId, 0);
                 handleResetHinges(activeFrontId);
@@ -195,7 +205,9 @@ function Hinges(props) {
               id="standardHinge"
               className="mr-2 cursor-pointer"
               value={1}
-              checked={frontsData[activeFrontId].hinges.activeOption === 1}
+              checked={
+                individualFronts[activeFrontId].hinges.activeOption === 1
+              }
               onChange={() => {
                 handleRadioClick(activeFrontId, 1);
               }}
@@ -239,7 +251,7 @@ function Hinges(props) {
         </div>
         {individualFronts[activeFrontId].hinges.hasHinge && (
           <div className="ml-6 my-2">
-            {frontsData[activeFrontId].hinges.shouldMount && (
+            {individualFronts[activeFrontId].hinges.shouldMount && (
               <div className="mb-4">
                 <label htmlFor="montingHinges" className="text-lg mr-8">
                   Šarke za montazu
@@ -272,7 +284,9 @@ function Hinges(props) {
                     type="number"
                     id="numOfStandardHinges"
                     className="border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                    value={frontsData[activeFrontId].hinges.numberOfHinges}
+                    value={
+                      individualFronts[activeFrontId].hinges.numberOfHinges
+                    }
                     onChange={(e) => {
                       updateNumberOfHinges(activeFrontId, e.target.value);
                     }}
