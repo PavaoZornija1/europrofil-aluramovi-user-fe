@@ -14,14 +14,18 @@ const DoorDetails = ({ activeFrame }) => {
     const surface =
       Number(front?.dimensions?.width) -
       Number(frame.fillingWidthReduction * 10 * 2);
+    // -
+    // Number(front.handles?.handleProfile?.frameLengthReduction * 10);
     return surface;
   };
 
   // Calculate fill height
   const calculateFillHeight = (front, frame) => {
     const surface =
-      Number(front?.dimensions?.width) -
+      Number(front?.dimensions?.height) -
       Number(frame.fillingHeightReduction * 10 * 2);
+    // -
+    // Number(front.handles?.handleProfile?.frameLengthReduction * 10);
     return surface;
   };
 
