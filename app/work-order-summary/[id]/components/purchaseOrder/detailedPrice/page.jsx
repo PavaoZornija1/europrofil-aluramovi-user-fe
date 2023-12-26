@@ -40,6 +40,121 @@ export default function DetailedPrice() {
     getPricesFromSettings();
   }, []);
 
+  // CALCULATE PRICES
+  // #1 - Alu Profile
+  let priceAluProfile =
+    calculateAluFrameSurfaces(individualFronts, treatment) *
+      treatment?.pricePerMeter -
+    (calculateAluFrameSurfaces(individualFronts, treatment) *
+      treatment?.pricePerMeter *
+      user?.discountHardware) /
+      100;
+  // #2 - Handle Profiles
+  let priceHandleProfiles = individualFronts
+    ?.map((front) => {
+      return (
+        calculateHandleProfileSurfaces(front) *
+          front?.handles?.handleProfile?.pricePerMeter -
+        calculateHandleProfileSurfaces(front) *
+          front?.handles?.handleProfile?.pricePerMeter *
+          (user?.discountHardware / 100)
+      );
+    })
+    .reduce((acc, curr) => acc + curr, 0);
+  //  #3 - Fills/Subfills
+  let priceForFillsAndSubfills = fill?.subfill?.pricePerSquareMeter
+    ? (
+        fill?.subfill?.pricePerSquareMeter *
+          calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) -
+        fill?.subfill?.pricePerSquareMeter *
+          calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) *
+          (user?.discountFillings / 100)
+      ).toFixed(2)
+    : fill?.pricePerSquareMeter *
+        calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) -
+      fill?.pricePerSquareMeter *
+        calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) *
+        (user?.discountFillings / 100);
+  //  #4 - Metal Corners
+  let priceMetalCorners =
+    calculateMetalCornersQuantity(individualFronts) *
+      aluProfile?.corverCoverPrice -
+    calculateMetalCornersQuantity(individualFronts) *
+      aluProfile?.corverCoverPrice *
+      (user?.discountHardware / 100);
+  // #5 - Hinges
+  let priceForHinges = individualFronts
+    ?.map((front) => {
+      return Number(
+        front.hinges?.hinge?.price * front.hinges?.numberOfHinges -
+          Number(
+            front.hinges?.hinge?.price *
+              front.hinges?.numberOfHinges *
+              (user?.discountHardware / 100)
+          )
+      );
+    })
+    .reduce((acc, curr) => acc + curr, 0);
+  //  #6 - Additional Fill Treatments
+  let priceAdditionalFillTreatments =
+    calculateAdditionalFillTreatment(aluProfile, individualFronts, fill) *
+      additionalFillTreatment?.price -
+    calculateAdditionalFillTreatment(aluProfile, individualFronts, fill) *
+      additionalFillTreatment?.price *
+      (user?.discountFillings / 100);
+  // #7 - Locks
+  let priceForLocks = Number(
+    pricesFromSettings[0]?.lockHolePrice *
+      calculateNumberOfLocks(individualFronts) -
+      Number(
+        pricesFromSettings[0]?.lockHolePrice *
+          calculateNumberOfLocks(individualFronts)
+      ) *
+        (Number(user?.discountHardware) / 100)
+  );
+  // #8 - Service Cost
+  let priceForService =
+    calculateServiceCost(
+      individualFronts,
+      pricesFromSettings[0]?.serviceCostPerFrame,
+      pricesFromSettings[0]?.serviceCostPerMeter
+    ) -
+    calculateServiceCost(
+      individualFronts,
+      pricesFromSettings[0]?.serviceCostPerFrame,
+      pricesFromSettings[0]?.serviceCostPerMeter
+    ) *
+      (Number(user?.discountHardware) / 100);
+
+  // #9 - Total Cost
+  let priceTotalCost = 0;
+  priceTotalCost =
+    priceAluProfile +
+    priceHandleProfiles +
+    priceForFillsAndSubfills +
+    priceMetalCorners +
+    priceForHinges +
+    priceAdditionalFillTreatments +
+    priceForLocks +
+    priceForService;
+
+  let pdv = priceTotalCost * Number(pricesFromSettings[0]?.vat / 100);
+  let priceTotalCostWidthPDV = priceTotalCost + pdv;
+
+  let convertedPriceTotalCost = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: `${pricesFromSettings[0]?.currency}`,
+  }).format(priceTotalCost);
+
+  let convertedPDV = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: `${pricesFromSettings[0]?.currency}`,
+  }).format(pdv);
+
+  let convertedPriceTotalCostWithPDV = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: `${pricesFromSettings[0]?.currency}`,
+  }).format(priceTotalCostWidthPDV);
   return (
     <div className="w-full ">
       <h3 className="pb-8 text-2xl font-semibold ">Detaljni obračun cene</h3>
@@ -469,18 +584,18 @@ export default function DetailedPrice() {
         <div className="flex w-1/2 flex-col gap-4">
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">UKUPNO</h3>
-            {/* <p> {totalPrice} RSD</p> */}
+            {convertedPriceTotalCost}
           </div>
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">
               PDV ({Number(pricesFromSettings[0]?.vat)}%)
             </h3>
-            <p>{pricesFromSettings[0]?.currency} </p>
+            <p>{convertedPDV}</p>
           </div>
           <div className="flex w-full justify-between">
             <h3 className="text-lg font-semibold">UKUPNO SA PDV-om</h3>
             <p className="text-lg font-semibold">
-              {/* {(Number(pdv) + Number(totalPrice)).toFixed(2)} RSD */}
+              {convertedPriceTotalCostWithPDV}
             </p>
           </div>
         </div>
