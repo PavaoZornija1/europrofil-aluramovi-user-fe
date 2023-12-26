@@ -80,7 +80,7 @@ export const calculateMetalCornersQuantity = (fronts) => {
   let totalCorners = 0;
 
   for (let i = 0; i < fronts.length; ++i) {
-    totalCorners += fronts[i].dimensions?.numberOfPieces;
+    totalCorners += Number(fronts[i].dimensions?.numberOfPieces);
   }
   return totalCorners * 4;
 };
