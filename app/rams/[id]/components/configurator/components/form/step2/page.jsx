@@ -104,11 +104,11 @@ function Step2(props) {
             numberOfPieces: "1",
           },
           hinges: {
-            hasHinge: false,
-            shouldMount: false,
-            activeOption: 0,
-            numberOfHinges: 2,
-            centerDistanceOfHoles: ["100", "900"],
+            // hasHinge: false,
+            // shouldMount: false,
+            // activeOption: 0,
+            // numberOfHinges: 2,
+            // centerDistanceOfHoles: ["100", "900"],
           },
           handles: {
             shouldDrillHoles: false,
@@ -148,11 +148,11 @@ function Step2(props) {
             numberOfPieces: "1",
           },
           hinges: {
-            hasHinge: false,
-            shouldMount: false,
-            activeOption: 0,
-            numberOfHinges: 2,
-            centerDistanceOfHoles: ["100", "900"],
+            // hasHinge: false,
+            // shouldMount: false,
+            // activeOption: 0,
+            // numberOfHinges: 2,
+            // centerDistanceOfHoles: ["100", "900"],
           },
           handles: {
             shouldDrillHoles: false,
@@ -304,7 +304,7 @@ function Step2(props) {
 
     for (let i = 0; i < Number(numOfItems); i++) {
       let a = 100 + ((Number(height) - 200) / Number(numOfItems - 1)) * i;
-      newDistancesArray.push(roundToTwoDecimals(a));
+      newDistancesArray.push(Number(a).toFixed());
     }
     return newDistancesArray;
   };
@@ -359,8 +359,8 @@ function Step2(props) {
             activeFrontId={activeFrontId}
             ram={props.ram}
           />
-          {frontsData[activeFrontId].orientation === "Leva vrata" ||
-          frontsData[activeFrontId].orientation === "Desna vrata" ? (
+          {individualFronts[activeFrontId].orientation === "Leva vrata" ||
+          individualFronts[activeFrontId].orientation === "Desna vrata" ? (
             <Locks
               frontsData={frontsData}
               setFrontsData={setFrontsData}
