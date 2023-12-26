@@ -29,7 +29,6 @@ export default function DetailedPrice() {
       let response = await axios(`${Config.baseURL}/api/alu-settings`);
       if (response.data) {
         setPricesFromSettings(response.data);
-        console.log("Data: ", response.data);
       }
     } catch (error) {
       console.error(error);
@@ -61,20 +60,22 @@ export default function DetailedPrice() {
       );
     })
     .reduce((acc, curr) => acc + curr, 0);
+
   //  #3 - Fills/Subfills
   let priceForFillsAndSubfills = fill?.subfill?.pricePerSquareMeter
     ? (
-        fill?.subfill?.pricePerSquareMeter *
+        Number(fill?.subfill?.pricePerSquareMeter) *
           calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) -
-        fill?.subfill?.pricePerSquareMeter *
+        Number(fill?.subfill?.pricePerSquareMeter) *
           calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) *
-          (user?.discountFillings / 100)
+          (Number(user?.discountFillings) / 100)
       ).toFixed(2)
-    : fill?.pricePerSquareMeter *
+    : Number(fill?.pricePerSquareMeter) *
         calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) -
-      fill?.pricePerSquareMeter *
+      Number(fill?.pricePerSquareMeter) *
         calculateAluFrameFillSurfaces(aluProfile, individualFronts, fill) *
-        (user?.discountFillings / 100);
+        (Number(user?.discountFillings) / 100);
+
   //  #4 - Metal Corners
   let priceMetalCorners =
     calculateMetalCornersQuantity(individualFronts) *
@@ -85,16 +86,19 @@ export default function DetailedPrice() {
   // #5 - Hinges
   let priceForHinges = individualFronts
     ?.map((front) => {
-      return Number(
-        front.hinges?.hinge?.price * front.hinges?.numberOfHinges -
-          Number(
-            front.hinges?.hinge?.price *
-              front.hinges?.numberOfHinges *
-              (user?.discountHardware / 100)
+      return front.hinges?.hinge?.id
+        ? Number(
+            front.hinges?.hinge?.price * front.hinges?.numberOfHinges -
+              Number(
+                front.hinges?.hinge?.price *
+                  front.hinges?.numberOfHinges *
+                  (user?.discountHardware / 100)
+              )
           )
-      );
+        : 0;
     })
     .reduce((acc, curr) => acc + curr, 0);
+
   //  #6 - Additional Fill Treatments
   let priceAdditionalFillTreatments =
     calculateAdditionalFillTreatment(aluProfile, individualFronts, fill) *
@@ -112,6 +116,7 @@ export default function DetailedPrice() {
       ) *
         (Number(user?.discountHardware) / 100)
   );
+
   // #8 - Service Cost
   let priceForService =
     calculateServiceCost(
@@ -129,32 +134,34 @@ export default function DetailedPrice() {
   // #9 - Total Cost
   let priceTotalCost = 0;
   priceTotalCost =
-    priceAluProfile +
-    priceHandleProfiles +
-    priceForFillsAndSubfills +
-    priceMetalCorners +
-    priceForHinges +
-    priceAdditionalFillTreatments +
-    priceForLocks +
-    priceForService;
+    +priceAluProfile +
+    +priceHandleProfiles +
+    +priceForFillsAndSubfills +
+    +priceMetalCorners +
+    +priceForHinges +
+    +priceAdditionalFillTreatments +
+    +priceForLocks +
+    +priceForService;
 
-  let pdv = priceTotalCost * Number(pricesFromSettings[0]?.vat / 100);
-  let priceTotalCostWidthPDV = priceTotalCost + pdv;
+  let pdv = +priceTotalCost * Number(pricesFromSettings[0]?.vat / 100);
+  let priceTotalCostWidthPDV = +priceTotalCost + +pdv;
 
-  let convertedPriceTotalCost = new Intl.NumberFormat("de-DE", {
-    style: "currency",
-    currency: `${pricesFromSettings[0]?.currency}`,
-  }).format(priceTotalCost);
+  function formatCurrency(value, currencyCode = "EUR") {
+    return new Intl.NumberFormat("de-DE", {
+      style: "currency",
+      currency: currencyCode,
+    }).format(value);
+  }
 
-  let convertedPDV = new Intl.NumberFormat("de-DE", {
-    style: "currency",
-    currency: `${pricesFromSettings[0]?.currency}`,
-  }).format(pdv);
-
-  let convertedPriceTotalCostWithPDV = new Intl.NumberFormat("de-DE", {
-    style: "currency",
-    currency: `${pricesFromSettings[0]?.currency}`,
-  }).format(priceTotalCostWidthPDV);
+  let convertedPriceTotalCost = formatCurrency(
+    priceTotalCost,
+    pricesFromSettings[0]?.currency
+  );
+  let convertedPDV = formatCurrency(pdv, pricesFromSettings[0]?.currency);
+  let convertedPriceTotalCostWithPDV = formatCurrency(
+    priceTotalCostWidthPDV,
+    pricesFromSettings[0]?.currency
+  );
   return (
     <div className="w-full ">
       <h3 className="pb-8 text-2xl font-semibold ">Detaljni obračun cene</h3>
