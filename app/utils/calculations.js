@@ -29,7 +29,8 @@ export const calculateAluFrameSurfaces = (fronts, treatment) => {
 
     result += loopResult;
   }
-  return result / 1000;
+  let convertToMilimiters = result / 1000;
+  return convertToMilimiters;
 };
 export const calculateHandleProfileSurfaces = (front) => {
   return (
@@ -92,4 +93,41 @@ export const calculateNumberOfLocks = (fronts) => {
     }
   }
   return totalNumberOfLocks;
+};
+
+export const calculateServiceCost = (fronts, costPerFrame, costPerMeter) => {
+  let result = 0;
+
+  // TOTAL SURFACE
+  for (let i = 0; i < fronts.length; ++i) {
+    let loopResult = 0;
+    let integratedProfile = fronts[i].handles?.handleProfile?.isIntegrated
+      ? calculateHandleProfileSurfaces(fronts[i]) * 1000
+      : 0;
+
+    if (fronts[i].dimensions?.height !== fronts[i].dimensions?.width) {
+      loopResult =
+        fronts[i].dimensions?.numberOfPieces *
+          (2 *
+            (Number(fronts[i].dimensions?.width) +
+              Number(fronts[i].dimensions?.height))) -
+        integratedProfile;
+    } else {
+      loopResult =
+        fronts[i].dimensions?.numberOfPieces *
+          (4 * fronts[i].dimensions?.width) -
+        integratedProfile;
+    }
+
+    result += loopResult;
+  }
+  // TOTAL NUMBER OF FRONTS
+  let totalNumberOfFronts = 0;
+  for (let i = 0; i < fronts.length; ++i) {
+    totalNumberOfFronts += Number(fronts[i].dimensions?.numberOfPieces);
+  }
+  let serviceCost =
+    costPerFrame * totalNumberOfFronts + costPerMeter * (result / 1000);
+
+  return serviceCost;
 };
