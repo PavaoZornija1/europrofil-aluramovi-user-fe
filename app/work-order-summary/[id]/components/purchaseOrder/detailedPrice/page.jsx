@@ -6,6 +6,7 @@ import {
   calculateHandleProfileSurfaces,
   calculateMetalCornersQuantity,
   calculateNumberOfLocks,
+  calculateServiceCost,
 } from "@/app/utils/calculations";
 import { Config } from "@/config";
 import axios from "axios";
@@ -16,11 +17,9 @@ export default function DetailedPrice() {
   const aluProfile = useSelector((state) => state.data.frameType);
   const treatment = useSelector((state) => state.data.treatment);
   const fill = useSelector((state) => state.data.fill);
-  const qtyTotal = useSelector((state) => state.data.qtyTotal);
   const additionalFillTreatment = useSelector(
     (state) => state.data.additionalFillTreatment
   );
-  const liftSupport = useSelector((state) => state.data.liftingSystem);
   const individualFronts = useSelector((state) => state.data.individualFronts);
   const user = useSelector((state) => state.data.user);
   const [pricesFromSettings, setPricesFromSettings] = useState([]);
@@ -395,7 +394,7 @@ export default function DetailedPrice() {
             </td>
           </tr>
 
-          {liftSupport?.name && (
+          {/* {liftSupport?.name && (
             <tr className={"border-b"}>
               <td
                 scope="row"
@@ -419,7 +418,47 @@ export default function DetailedPrice() {
                 {Number(liftSupport.pricePerUnit * qtyTotal).toFixed(2)}
               </td>
             </tr>
-          )}
+          )} */}
+
+          <tr className={"border-b"}>
+            <td
+              scope="row"
+              className="whitespace-nowrap px-6 py-4 text-lg font-medium"
+            ></td>
+            <td className="px-6 py-4 text-center text-lg">Usluga izrade</td>
+            <td className="px-6 py-4 text-center text-lg">
+              {calculateServiceCost(
+                individualFronts,
+                pricesFromSettings[0]?.serviceCostPerFrame,
+                pricesFromSettings[0]?.serviceCostPerMeter
+              ).toFixed(2)}
+            </td>
+            <td className="px-6 py-4 text-center text-lg">1</td>
+            <td className="px-6 py-4 text-center text-lg">kom</td>
+            <td className="px-6 py-4 text-center text-lg">
+              {calculateServiceCost(
+                individualFronts,
+                pricesFromSettings[0]?.serviceCostPerFrame,
+                pricesFromSettings[0]?.serviceCostPerMeter
+              ).toFixed(2)}
+            </td>
+            <td className="px-6 py-4 text-center text-lg">{`${user?.discountHardware}%`}</td>
+            <td className="px-6 py-4 text-end text-lg">
+              {(
+                calculateServiceCost(
+                  individualFronts,
+                  pricesFromSettings[0]?.serviceCostPerFrame,
+                  pricesFromSettings[0]?.serviceCostPerMeter
+                ) -
+                calculateServiceCost(
+                  individualFronts,
+                  pricesFromSettings[0]?.serviceCostPerFrame,
+                  pricesFromSettings[0]?.serviceCostPerMeter
+                ) *
+                  (Number(user?.discountHardware) / 100)
+              ).toFixed(2)}
+            </td>
+          </tr>
         </tbody>
       </table>
       <div className="flex w-full p-4">
