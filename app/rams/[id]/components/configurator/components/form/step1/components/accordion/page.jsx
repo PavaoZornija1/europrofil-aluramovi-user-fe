@@ -228,15 +228,8 @@ function Accordion(props) {
               <option value={null} key={`defaultOptionKey`}>
                 -Izaberite-
               </option>
-              <optgroup label="Peskarenje">
+              <optgroup label="Peskirenje">
                 {sandBlastingOptions?.map((options) => (
-                  <option key={options.id} value={options.id}>
-                    {options.name}
-                  </option>
-                ))}
-              </optgroup>
-              <optgroup label="Fazetiranje i lepljenje folija">
-                {bevelOptions?.map((options) => (
                   <option key={options.id} value={options.id}>
                     {options.name}
                   </option>
