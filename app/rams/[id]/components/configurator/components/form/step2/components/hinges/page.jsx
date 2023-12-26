@@ -237,7 +237,7 @@ function Hinges(props) {
             </label>
           </div>
         </div>
-        {frontsData[activeFrontId].hinges.hasHinge && (
+        {individualFronts[activeFrontId].hinges.hasHinge && (
           <div className="ml-6 my-2">
             {frontsData[activeFrontId].hinges.shouldMount && (
               <div className="mb-4">
@@ -290,50 +290,50 @@ function Hinges(props) {
                 <div>
                   <p className="text-lg mt-4">
                     Pozicija svih šarki se uzima od
-                    {frontsData[activeFrontId].orientation === "Kip vrata"
+                    {individualFronts[activeFrontId].orientation === "Kip vrata"
                       ? " leve "
                       : " donje "}
                     spoljne ivice.
                   </p>
                   <div className="flex flex-col gap-2 mt-4">
-                    {frontsData[activeFrontId].hinges.centerDistanceOfHoles.map(
-                      (hole, id) => {
-                        return (
-                          <div
-                            key={id}
-                            className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row"
+                    {individualFronts[
+                      activeFrontId
+                    ].hinges.centerDistanceOfHoles.map((hole, id) => {
+                      return (
+                        <div
+                          key={id}
+                          className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row"
+                        >
+                          <label
+                            htmlFor={`hole-${id}`}
+                            className="text-lg mb-2 2xl:mb-0"
                           >
-                            <label
-                              htmlFor={`hole-${id}`}
-                              className="text-lg mb-2 2xl:mb-0"
-                            >
-                              Centar {id + 1}. rupe od{" "}
-                              {frontsData[activeFrontId].orientation ===
-                              "Kip vrata"
-                                ? "leve"
-                                : "donje"}{" "}
-                              spoljne ivice (mm)
-                            </label>
-                            <input
-                              type="text"
-                              id={`hole-${id}`}
-                              value={
-                                individualFronts[activeFrontId].hinges
-                                  .centerDistanceOfHoles[id]
-                              }
-                              onChange={(e) => {
-                                updateCenterDistanceOfHole(
-                                  activeFrontId,
-                                  id,
-                                  e.target.value
-                                );
-                              }}
-                              className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
-                            />
-                          </div>
-                        );
-                      }
-                    )}
+                            Centar {id + 1}. rupe od{" "}
+                            {individualFronts[activeFrontId].orientation ===
+                            "Kip vrata"
+                              ? "leve"
+                              : "donje"}{" "}
+                            spoljne ivice (mm)
+                          </label>
+                          <input
+                            type="text"
+                            id={`hole-${id}`}
+                            value={
+                              individualFronts[activeFrontId].hinges
+                                .centerDistanceOfHoles[id]
+                            }
+                            onChange={(e) => {
+                              updateCenterDistanceOfHole(
+                                activeFrontId,
+                                id,
+                                e.target.value
+                              );
+                            }}
+                            className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </>
