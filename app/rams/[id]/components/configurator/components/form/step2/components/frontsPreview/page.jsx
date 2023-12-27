@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
 import Button from "@/app/UI/button/page";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 function FrontsPreview(props) {
   const {
@@ -15,6 +15,7 @@ function FrontsPreview(props) {
     setActiveOrientation,
   } = props;
 
+  const individualFronts = useSelector((state) => state.data.individualFronts);
   return (
     <div>
       <div className="flex justify-center gap-4 mb-4 flex-wrap md:gap-8">
@@ -45,7 +46,7 @@ function FrontsPreview(props) {
       </div>
 
       <div className="flex justify-center gap-4 flex-wrap md:gap-8">
-        {frontsData?.map((front, id) => {
+        {individualFronts?.map((front, id) => {
           return (
             <Button
               key={`frontBtn-${id}`}
@@ -59,7 +60,7 @@ function FrontsPreview(props) {
                 setActiveOrientation(() =>
                   orientationData.indexOf(
                     orientationData.find(
-                      (item) => item.name === frontsData[id]?.orientation
+                      (item) => item.name === individualFronts[id]?.orientation
                     )
                   )
                 );
