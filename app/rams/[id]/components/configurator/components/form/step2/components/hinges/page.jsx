@@ -26,7 +26,7 @@ function Hinges(props) {
           ...obj,
           hinges: {
             ...obj.hinges,
-            centerDistanceOfHoles: obj.hinges.centerDistanceOfHoles.map(
+            centerDistanceOfHoles: obj?.hinges?.centerDistanceOfHoles?.map(
               (hole, index) => {
                 let a =
                   100 +
@@ -239,7 +239,9 @@ function Hinges(props) {
               id="montingHinge"
               className="mr-2 cursor-pointer"
               value={2}
-              checked={frontsData[activeFrontId].hinges.activeOption === 2}
+              checked={
+                individualFronts[activeFrontId].hinges.activeOption === 2
+              }
               onChange={() => {
                 handleRadioClick(activeFrontId, 2);
               }}
@@ -312,7 +314,7 @@ function Hinges(props) {
                   <div className="flex flex-col gap-2 mt-4">
                     {individualFronts[
                       activeFrontId
-                    ].hinges.centerDistanceOfHoles.map((hole, id) => {
+                    ].hinges?.centerDistanceOfHoles?.map((hole, id) => {
                       return (
                         <div
                           key={id}
@@ -334,7 +336,7 @@ function Hinges(props) {
                             id={`hole-${id}`}
                             value={
                               individualFronts[activeFrontId].hinges
-                                .centerDistanceOfHoles[id]
+                                ?.centerDistanceOfHoles[id]
                             }
                             onChange={(e) => {
                               updateCenterDistanceOfHole(
