@@ -14,17 +14,7 @@ function Dimensions(props) {
 
   const updateNumberOfPieces = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
-    const updatedFrontsData = frontsData.map((obj, id) => {
-      if (id === activeFront) {
-        return {
-          ...obj,
-          dimensions: { ...obj.dimensions, numberOfPieces: value },
-        };
-      }
-      return obj;
-    });
 
-    setFrontsData(updatedFrontsData);
     fronts[activeFront].dimensions.numberOfPieces = Number(value);
 
     dispatch(setIndividualFronts(fronts));
@@ -33,25 +23,11 @@ function Dimensions(props) {
   const updateWidth = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
-      if (id === activeFront) {
-        return {
-          ...obj,
-          dimensions: { ...obj.dimensions, width: value },
-        };
-      }
-      return obj;
-    });
-
-    setFrontsData(updatedFrontsData);
-
     if (fronts[activeFront].handles.profileLengthOption === 0) {
-      fronts[activeFront].handles.profileLength =
-        updatedFrontsData[activeFront].dimensions.width;
+      fronts[activeFront].handles.profileLength = Number(value);
     }
 
-    fronts[activeFront].dimensions.width =
-      updatedFrontsData[activeFront].dimensions.width;
+    fronts[activeFront].dimensions.width = Number(value);
 
     dispatch(setIndividualFronts(fronts));
   };
@@ -59,25 +35,8 @@ function Dimensions(props) {
   const updateHeight = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
-      if (id === activeFront) {
-        return {
-          ...obj,
-          dimensions: { ...obj.dimensions, height: value },
-          hinges: {
-            ...obj.hinges,
-            centerDistanceOfHoles: createCenterDistanceOfHolesArr(
-              value,
-              frontsData[activeFront].hinges.numberOfHinges
-            ),
-          },
-        };
-      }
-      return obj;
-    });
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].dimensions.height =
-      updatedFrontsData[activeFront].dimensions.height;
+    fronts[activeFront].dimensions.height = Number(value);
+
     dispatch(setIndividualFronts(fronts));
   };
 
