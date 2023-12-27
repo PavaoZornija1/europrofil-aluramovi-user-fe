@@ -97,7 +97,7 @@ function Locks(props) {
               name="bravica"
               id="noBravica"
               className="mr-2 cursor-pointer"
-              checked={frontsData[activeFrontId].locks.activeOption === 0}
+              checked={individualFronts[activeFrontId].locks.activeOption === 0}
               onChange={() => {
                 handleRadioClick(activeFrontId, 0);
               }}
@@ -119,7 +119,7 @@ function Locks(props) {
               name="bravica"
               id="yesBravica"
               className="mr-2 cursor-pointer"
-              checked={frontsData[activeFrontId].locks.activeOption === 1}
+              checked={individualFronts[activeFrontId].locks.activeOption === 1}
               onChange={() => {
                 handleRadioClick(activeFrontId, 1);
               }}
@@ -129,7 +129,7 @@ function Locks(props) {
             </label>
           </div>
         </div>
-        {frontsData[activeFrontId].locks.activeOption === 1 && (
+        {individualFronts[activeFrontId].locks.activeOption === 1 && (
           <div className="ml-6 my-2">
             <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
               <label htmlFor={`precnikRupe`} className="text-lg mb-2 2xl:mb-0">
@@ -138,7 +138,7 @@ function Locks(props) {
               <input
                 type="text"
                 id={`precnikRupe`}
-                value={frontsData[activeFrontId].locks.holeDiameter}
+                value={individualFronts[activeFrontId].locks.holeDiameter}
                 onChange={(e) => {
                   updateHoleDiameter(activeFrontId, e.target.value);
                 }}
@@ -153,7 +153,9 @@ function Locks(props) {
               <input
                 type="text"
                 id={`crodsi`}
-                value={frontsData[activeFrontId].locks.centerDistanceOfHole[0]}
+                value={
+                  individualFronts[activeFrontId].locks.centerDistanceOfHole[0]
+                }
                 onChange={(e) => {
                   updateCenterDistanceOfHole(activeFrontId, e.target.value, 0);
                 }}
@@ -168,7 +170,9 @@ function Locks(props) {
               <input
                 type="text"
                 id={`croddsi`}
-                value={frontsData[activeFrontId].locks.centerDistanceOfHole[1]}
+                value={
+                  individualFronts[activeFrontId].locks.centerDistanceOfHole[1]
+                }
                 onChange={(e) => {
                   updateCenterDistanceOfHole(activeFrontId, e.target.value, 1);
                 }}
@@ -180,7 +184,7 @@ function Locks(props) {
               onClick={() => {
                 updateCenterDistanceOfHole(
                   activeFrontId,
-                  Number(frontsData[activeFrontId].dimensions.height) / 2,
+                  Number(individualFronts[activeFrontId].dimensions.height) / 2,
                   0
                 );
               }}
