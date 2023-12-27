@@ -4,14 +4,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Locks(props) {
-  const { frontsData, setFrontsData, activeFrontId } = props;
+  const { activeFrontId } = props;
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const dispatch = useDispatch();
 
   const handleRadioClick = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -24,15 +24,13 @@ function Locks(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].locks.activeOption = Number(value);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updateHoleDiameter = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -45,15 +43,13 @@ function Locks(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].locks.holeDiameter = Number(value);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updateCenterDistanceOfHole = (activeFront, value, index) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         const updatedDistanceArray = obj.locks.centerDistanceOfHole.map(
           (hole, id) => {
@@ -74,9 +70,7 @@ function Locks(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].locks.centerDistanceOfHole[index] = Number(value);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   return (
