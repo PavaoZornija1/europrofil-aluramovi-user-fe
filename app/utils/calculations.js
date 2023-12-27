@@ -34,10 +34,10 @@ export const calculateAluFrameSurfaces = (fronts, treatment) => {
 };
 export const calculateHandleProfileSurfaces = (front) => {
   return (
-    ((front.handles.profileLength +
-      (front.handles.profileLength / 100) *
-        front.handles.handleProfile?.priceIncrease) *
-      front.dimensions.numberOfPieces) /
+    ((Number(front.handles.profileLength) +
+      (Number(front.handles.profileLength) / 100) *
+        Number(front.handles.handleProfile?.priceIncrease)) *
+      Number(front.dimensions.numberOfPieces)) /
     1000
   );
 };
