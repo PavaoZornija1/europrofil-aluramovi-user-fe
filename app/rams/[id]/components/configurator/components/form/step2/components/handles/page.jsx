@@ -5,14 +5,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Handles(props) {
-  const { frontsData, setFrontsData, activeFrontId } = props;
-  const [handle, setHandle] = useState({});
-  const [chosenHandle, setChosenHandle] = useState("");
+  const { activeFrontId } = props;
+
   const [profileDistanceStartPosition, setProfileDistanceStartPosition] =
     useState("");
-  const [showProfilePositionStart, setShowProfilePositionStart] =
-    useState(true);
-  const [isSingleHole, setIsSingleHole] = useState(false);
+
   const [isManualInput, setIsManualInput] = useState(false);
   const [
     handlesHorizontalPositionOptionText,
@@ -22,8 +19,6 @@ function Handles(props) {
     handlesVerticalPositionOptionText,
     setHandlesVerticalPositionOptionText,
   ] = useState("");
-  const [showPartialProfileLengthOptions, setShowPartialProfileLengthOptions] =
-    useState(false);
 
   const dispatch = useDispatch();
   const individualFronts = useSelector((state) => state.data.individualFronts);
@@ -57,7 +52,7 @@ function Handles(props) {
   const handleRadioClick = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -72,73 +67,62 @@ function Handles(props) {
       return obj;
     });
 
-    fronts[activeFront].handles = {
-      ...fronts[activeFront].handles,
-      activeOption: value,
-      shouldDrillHoles: value === 1 ? true : false,
-      shouldMountProfile: value === 2 ? true : false,
-    };
+    // fronts[activeFront].handles = {
+    //   ...fronts[activeFront].handles,
+    //   activeOption: value,
+    //   shouldDrillHoles: value === 1 ? true : false,
+    //   shouldMountProfile: value === 2 ? true : false,
+    // };
 
-    setFrontsData(updatedFrontsData);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updatePosition = (activeFront, value, positionName) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
           handles: {
             ...obj.handles,
             positionOption: Number(value),
+            positionName: positionName,
           },
         };
       }
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].handles.positionName = positionName;
-    fronts[activeFront].handles.positionOption = Number(value);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updateWheelbaseOption = (activeFront, value, holeValue) => {
-    const fronts = JSON.parse(JSON.stringify(individualFronts));
-    setIsSingleHole(false);
-    setIsManualInput(false);
-
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
           handles: {
             ...obj.handles,
             wheelbaseOption: Number(value),
+            holeDistanceValue:
+              typeof holeValue === "number" ? `${holeValue} mm` : holeValue,
           },
         };
       }
       return obj;
     });
 
-    if (holeValue === "Samo jedna rupa (dugme rucica)") {
-      setIsSingleHole(true);
-    }
-    if (holeValue === "Rucni unos osnovnog rastojanja") {
+    if (updatedFrontsData[activeFront].handles.wheelbaseOption === 16) {
       setIsManualInput(true);
+    } else {
+      setIsManualInput(false);
     }
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].handles.holeDistanceValue =
-      typeof holeValue === "number" ? `${holeValue} mm` : holeValue;
-    fronts[activeFront].handles.wheelbaseOption = Number(value);
-    dispatch(setIndividualFronts(fronts));
+
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updateCenterDistanceOfHole = (activeFront, value, index) => {
-    const fronts = JSON.parse(JSON.stringify(individualFronts));
-
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         const updatedDistanceArray = obj.handles.centerDistanceOfHole.map(
           (hole, id) => {
@@ -159,15 +143,11 @@ function Handles(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].handles.centerDistanceOfHole[index] = value;
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updateProfilePositionOption = (activeFront, value) => {
-    const fronts = JSON.parse(JSON.stringify(individualFronts));
-
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -180,16 +160,12 @@ function Handles(props) {
 
       return obj;
     });
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].handles.profilePositionOption = Number(value);
 
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updateProfileLengthOption = (activeFront, value) => {
-    const fronts = JSON.parse(JSON.stringify(individualFronts));
-
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -202,16 +178,11 @@ function Handles(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].handles.profileLengthOption = Number(value);
-
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updateProfileDistance = (activeFront, value) => {
-    const fronts = JSON.parse(JSON.stringify(individualFronts));
-
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -224,15 +195,11 @@ function Handles(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].handles.profileDistance = Number(value);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const updateProfileLength = (activeFront, value) => {
-    const fronts = JSON.parse(JSON.stringify(individualFronts));
-
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -245,9 +212,7 @@ function Handles(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].handles.profileLength = Number(value);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const handleChooseHandleProfile = (activeFront, e) => {
@@ -258,8 +223,6 @@ function Handles(props) {
         profileType = props.ram?.cmsAluHandleProfiles[i];
       }
     }
-    setChosenHandle(e.target.value);
-    setHandle(profileType);
 
     fronts[activeFront].handles = {
       ...fronts[activeFront].handles,
@@ -275,21 +238,15 @@ function Handles(props) {
           case 0:
           case 1:
             setProfileDistanceStartPosition("desnu");
-            setShowProfilePositionStart(true);
             break;
           case 2:
             setProfileDistanceStartPosition("gornju");
-            setShowProfilePositionStart(true);
             break;
-          case 3:
-            setShowProfilePositionStart(false);
-            break;
+
           case 4:
             setProfileDistanceStartPosition("donju");
-            setShowProfilePositionStart(true);
             break;
           default:
-            setShowProfilePositionStart(true);
             break;
         }
         break;
@@ -298,21 +255,16 @@ function Handles(props) {
           case 0:
           case 1:
             setProfileDistanceStartPosition("levu");
-            setShowProfilePositionStart(true);
             break;
           case 2:
             setProfileDistanceStartPosition("gornju");
-            setShowProfilePositionStart(true);
             break;
           case 3:
-            setShowProfilePositionStart(false);
             break;
           case 4:
             setProfileDistanceStartPosition("donju");
-            setShowProfilePositionStart(true);
             break;
           default:
-            setShowProfilePositionStart(true);
             break;
         }
         break;
@@ -320,17 +272,13 @@ function Handles(props) {
         switch (individualFronts[activeFrontId].handles.profilePositionOption) {
           case 0:
             setProfileDistanceStartPosition("levu");
-            setShowProfilePositionStart(true);
             break;
           case 1:
-            setShowProfilePositionStart(false);
             break;
           case 2:
             setProfileDistanceStartPosition("desnu");
-            setShowProfilePositionStart(true);
             break;
           default:
-            setShowProfilePositionStart(true);
             break;
         }
         break;
