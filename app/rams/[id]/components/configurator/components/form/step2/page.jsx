@@ -94,92 +94,50 @@ function Step2(props) {
     if (individualFronts.length >= 8) {
       alert("Maksimalan broj frontova u porudzbenici je 8");
     } else {
-      setFrontsData((prev) => [
-        ...prev,
-        {
-          orientation: "Leva vrata",
-          dimensions: {
-            width: 1000,
-            height: 1000,
-            numberOfPieces: "1",
+      dispatch(
+        setIndividualFronts([
+          ...individualFronts,
+          {
+            orientation: "Leva vrata",
+            dimensions: {
+              width: 1000,
+              height: 1000,
+              numberOfPieces: "1",
+            },
+            hinges: {
+              hasHinge: false,
+              shouldMount: false,
+              activeOption: 0,
+              numberOfHinges: 2,
+              centerDistanceOfHoles: ["100", "900"],
+            },
+            handles: {
+              shouldDrillHoles: false,
+              shouldMountProfile: false,
+              activeOption: 0,
+              positionOption: 0,
+              wheelbaseOption: 0,
+              centerDistanceOfHole: ["38", "38"],
+              profileOption: 0,
+              profileLengthOption: 0,
+              profilePositionOption: 0,
+              profileLength: 1000,
+              profileDistance: "0",
+            },
+            locks: {
+              activeOption: 0,
+              holeDiameter: "250",
+              centerDistanceOfHole: ["200", "24"],
+            },
+            liftingSystem: {
+              activeOption: 0,
+              activePositionOption: 0,
+              activeMechanismOption: 0,
+            },
           },
-          hinges: {
-            // hasHinge: false,
-            // shouldMount: false,
-            // activeOption: 0,
-            // numberOfHinges: 2,
-            // centerDistanceOfHoles: ["100", "900"],
-          },
-          handles: {
-            shouldDrillHoles: false,
-            shouldMountProfile: false,
-            activeOption: 0,
-            positionOption: 0,
-            wheelbaseOption: 0,
-            centerDistanceOfHole: ["38", "38"],
-            profileOption: 0,
-            handleProfile: {},
-            profileLengthOption: 0,
-            profilePositionOption: 0,
-            profileLength: 1000,
-            profileDistance: "0",
-          },
-          locks: {
-            activeOption: 0,
-            holeDiameter: "250",
-            centerDistanceOfHole: ["200", "24"],
-          },
-          liftingSystem: {
-            activeOption: 0,
-            activePositionOption: 0,
-            activeMechanismOption: 0,
-          },
-        },
-      ]);
+        ])
+      );
     }
-    dispatch(
-      setIndividualFronts([
-        ...individualFronts,
-        {
-          orientation: "Leva vrata",
-          dimensions: {
-            width: 1000,
-            height: 1000,
-            numberOfPieces: "1",
-          },
-          hinges: {
-            // hasHinge: false,
-            // shouldMount: false,
-            // activeOption: 0,
-            // numberOfHinges: 2,
-            // centerDistanceOfHoles: ["100", "900"],
-          },
-          handles: {
-            shouldDrillHoles: false,
-            shouldMountProfile: false,
-            activeOption: 0,
-            positionOption: 0,
-            wheelbaseOption: 0,
-            centerDistanceOfHole: ["38", "38"],
-            profileOption: 0,
-            profileLengthOption: 0,
-            profilePositionOption: 0,
-            profileLength: 1000,
-            profileDistance: "0",
-          },
-          locks: {
-            activeOption: 0,
-            holeDiameter: "250",
-            centerDistanceOfHole: ["200", "24"],
-          },
-          liftingSystem: {
-            activeOption: 0,
-            activePositionOption: 0,
-            activeMechanismOption: 0,
-          },
-        },
-      ])
-    );
   };
 
   const copyFront = (activeFront) => {
@@ -226,79 +184,6 @@ function Step2(props) {
     }
   };
 
-  const roundToTwoDecimals = (num) => {
-    if (String(num).includes(".")) {
-      let stringNum = String(num).split(".");
-
-      let decimal = stringNum[1][2];
-
-      let finish;
-      if (decimal < 5) {
-        finish = stringNum[0] + "." + stringNum[1][0] + stringNum[1][1];
-      }
-      if (decimal > 5) {
-        let f_ = String(Number(stringNum[1][1]) + 1);
-        if (f_ == 10) {
-          let f__ = String(Number(stringNum[1][0]) + 1);
-          if (f__ == 10) {
-            let f___ = String(Number(stringNum[0]) + 1);
-            finish = f___ + "." + "00";
-          } else {
-            finish = stringNum[0] + "." + f__ + "0";
-          }
-        } else {
-          finish = stringNum[0] + "." + stringNum[1][0] + f_;
-        }
-      }
-      let check = false;
-      for (let i = 3; i < stringNum[1].length; i++) {
-        if (stringNum[1][i] > 0) {
-          check = true;
-        }
-      }
-      if (decimal == 5 && check) {
-        for (let i = 3; i < stringNum[1].length; i++) {
-          if (stringNum[1][i] > 0) {
-            let f_ = String(Number(stringNum[1][1]) + 1);
-            if (f_ == 10) {
-              let f__ = String(Number(stringNum[1][0]) + 1);
-              if (f__ == 10) {
-                let f___ = String(Number(stringNum[0]) + 1);
-                finish = f___ + "." + "00";
-              } else {
-                finish = stringNum[0] + "." + f__ + "0";
-              }
-            } else {
-              finish = stringNum[0] + "." + stringNum[1][0] + f_;
-            }
-            break;
-          }
-        }
-      }
-      if (decimal == 5 && stringNum[1].length == 3) {
-        if (Number(stringNum[1][1] % 2 == 0)) {
-          finish = stringNum[0] + "." + stringNum[1][0] + stringNum[1][1];
-        } else {
-          let f_ = String(Number(stringNum[1][1]) + 1);
-          if (f_ == 10) {
-            let f__ = String(Number(stringNum[1][0]) + 1);
-            if (f__ == 10) {
-              let f___ = String(Number(stringNum[0]) + 1);
-              finish = f___ + "." + "00";
-            } else {
-              finish = stringNum[0] + "." + f__ + "0";
-            }
-          } else {
-            finish = stringNum[0] + "." + stringNum[1][0] + f_;
-          }
-        }
-      }
-      return finish;
-    } else {
-      return `${num}`;
-    }
-  };
-
   const createCenterDistanceOfHolesArr = (height, numOfItems) => {
     const newDistancesArray = [];
 
@@ -312,7 +197,6 @@ function Step2(props) {
   return (
     <div className="gap-8 w-full">
       <FrontsPreview
-        frontsData={frontsData}
         activeFrontId={activeFrontId}
         addNewFront={addNewFront}
         copyFront={copyFront}
@@ -336,8 +220,6 @@ function Step2(props) {
             updateOrientation={updateOrientation}
           />
           <Dimensions
-            frontsData={frontsData}
-            setFrontsData={setFrontsData}
             activeFrontId={activeFrontId}
             createCenterDistanceOfHolesArr={createCenterDistanceOfHolesArr}
           />
@@ -347,32 +229,16 @@ function Step2(props) {
       <div className="grid grid-cols-1 lg:grid-cols-2 mt-12 gap-16">
         <div className="flex flex-col gap-4">
           <Hinges
-            frontsData={frontsData}
-            setFrontsData={setFrontsData}
             activeFrontId={activeFrontId}
             createCenterDistanceOfHolesArr={createCenterDistanceOfHolesArr}
             ram={props.ram}
           />
-          <Handles
-            frontsData={frontsData}
-            setFrontsData={setFrontsData}
-            activeFrontId={activeFrontId}
-            ram={props.ram}
-          />
+          <Handles activeFrontId={activeFrontId} ram={props.ram} />
           {individualFronts[activeFrontId].orientation === "Leva vrata" ||
           individualFronts[activeFrontId].orientation === "Desna vrata" ? (
-            <Locks
-              frontsData={frontsData}
-              setFrontsData={setFrontsData}
-              activeFrontId={activeFrontId}
-            />
+            <Locks activeFrontId={activeFrontId} />
           ) : (
-            <LiftingSystem
-              frontsData={frontsData}
-              setFrontsData={setFrontsData}
-              activeFrontId={activeFrontId}
-              ram={props.ram}
-            />
+            <LiftingSystem activeFrontId={activeFrontId} ram={props.ram} />
           )}
         </div>
         <Sketch frontsData={frontsData} activeFrontId={activeFrontId} />

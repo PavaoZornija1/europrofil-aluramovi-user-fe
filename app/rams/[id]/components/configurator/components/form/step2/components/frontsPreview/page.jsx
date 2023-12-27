@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 function FrontsPreview(props) {
   const {
-    frontsData,
     activeFrontId,
     addNewFront,
     copyFront,

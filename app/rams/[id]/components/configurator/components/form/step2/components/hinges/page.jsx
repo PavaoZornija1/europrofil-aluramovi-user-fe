@@ -5,13 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Hinges(props) {
-  const {
-    frontsData,
-    setFrontsData,
-    activeFrontId,
-    createCenterDistanceOfHolesArr,
-    ram,
-  } = props;
+  const { activeFrontId, createCenterDistanceOfHolesArr, ram } = props;
 
   const [hinge, setHinge] = useState({});
   const [chosenHinge, setChosenHinge] = useState("");
@@ -20,7 +14,8 @@ function Hinges(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const fronts = JSON.parse(JSON.stringify(individualFronts));
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFrontId) {
         return {
           ...obj,
@@ -49,7 +44,7 @@ function Hinges(props) {
   const handleRadioClick = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -69,7 +64,6 @@ function Hinges(props) {
       hasHinge: Boolean(value),
       shouldMount: value === 2 ? true : false,
     };
-    setFrontsData(updatedFrontsData);
     dispatch(setIndividualFronts(fronts));
   };
 
@@ -90,7 +84,7 @@ function Hinges(props) {
   const updateCenterDistanceOfHole = (activeFront, holeId, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -105,7 +99,6 @@ function Hinges(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
     fronts[activeFront].hinges.centerDistanceOfHoles[holeId] = value;
 
     dispatch(setIndividualFronts(fronts));
@@ -114,7 +107,7 @@ function Hinges(props) {
   const updateNumberOfHinges = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -122,7 +115,7 @@ function Hinges(props) {
             ...obj.hinges,
             numberOfHinges: Number(value),
             centerDistanceOfHoles: createCenterDistanceOfHolesArr(
-              frontsData[activeFront].dimensions.height,
+              individualFronts[activeFront].dimensions.height,
               value
             ),
           },
@@ -130,15 +123,7 @@ function Hinges(props) {
       }
       return obj;
     });
-
-    setFrontsData(updatedFrontsData);
-    fronts[activeFront].hinges.numberOfHinges = Number(value);
-    fronts[activeFront].hinges.centerDistanceOfHoles =
-      createCenterDistanceOfHolesArr(
-        fronts[activeFront].dimensions.height,
-        Number(value)
-      );
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const handleChooseHingeType = (e, activeFront) => {
