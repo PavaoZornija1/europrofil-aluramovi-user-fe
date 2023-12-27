@@ -91,7 +91,7 @@ function Step2(props) {
   };
 
   const addNewFront = () => {
-    if (frontsData.length >= 8) {
+    if (individualFronts.length >= 8) {
       alert("Maksimalan broj frontova u porudzbenici je 8");
     } else {
       setFrontsData((prev) => [
@@ -183,7 +183,7 @@ function Step2(props) {
   };
 
   const copyFront = (activeFront) => {
-    if (frontsData.length >= 8) {
+    if (individualFronts.length >= 8) {
       alert("Maksimalan broj frontova u porudzbenici je 8");
     } else {
       setFrontsData((prev) => [...prev, prev[activeFront]]);
@@ -191,7 +191,7 @@ function Step2(props) {
   };
 
   const deleteFront = (activeFront) => {
-    if (frontsData.length === 1) {
+    if (individualFronts.length === 1) {
       alert("Minimalan broj frontova u porudzbenici je 1");
     } else {
       setFrontsData((prev) => {
