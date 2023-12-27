@@ -30,10 +30,10 @@ function LiftingSystem(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    if (value === 0) {
-      fronts[activeFront].liftingSystem.liftSupport = {};
-      dispatch(setIndividualFronts(fronts));
-    }
+    // if (value === 0) {
+    // }
+    fronts[activeFront].liftingSystem.activeOption = Number(value);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const handlePositionOption = (activeFront, value) => {
@@ -107,7 +107,7 @@ function LiftingSystem(props) {
               id="noLiftingSystem"
               className="mr-2 cursor-pointer"
               checked={
-                frontsData[activeFrontId].liftingSystem.activeOption === 0
+                individualFronts[activeFrontId].liftingSystem.activeOption === 0
               }
               onChange={() => {
                 handleRadioClick(activeFrontId, 0);
@@ -131,7 +131,7 @@ function LiftingSystem(props) {
               id="yesLiftingSystem"
               className="mr-2 cursor-pointer"
               checked={
-                frontsData[activeFrontId].liftingSystem.activeOption === 1
+                individualFronts[activeFrontId].liftingSystem.activeOption === 1
               }
               onChange={() => {
                 handleRadioClick(activeFrontId, 1);
@@ -145,7 +145,7 @@ function LiftingSystem(props) {
             </label>
           </div>
         </div>
-        {frontsData[activeFrontId].liftingSystem.activeOption === 1 && (
+        {individualFronts[activeFrontId].liftingSystem.activeOption === 1 && (
           <div className="ml-6 my-2">
             <div className="mb-4">
               <label htmlFor="numOfStandardHinges" className="text-lg mr-8">
@@ -156,7 +156,8 @@ function LiftingSystem(props) {
                 id="numOfStandardHinges"
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                 value={
-                  frontsData[activeFrontId].liftingSystem.activePositionOption
+                  individualFronts[activeFrontId].liftingSystem
+                    .activePositionOption
                 }
                 onChange={(e) => {
                   handlePositionOption(activeFrontId, Number(e.target.value));
