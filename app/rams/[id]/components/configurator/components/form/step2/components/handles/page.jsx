@@ -78,9 +78,9 @@ function Handles(props) {
       shouldDrillHoles: value === 1 ? true : false,
       shouldMountProfile: value === 2 ? true : false,
     };
-    dispatch(setIndividualFronts(fronts));
 
     setFrontsData(updatedFrontsData);
+    dispatch(setIndividualFronts(fronts));
   };
 
   const updatePosition = (activeFront, value, positionName) => {
