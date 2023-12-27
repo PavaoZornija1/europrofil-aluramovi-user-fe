@@ -3,12 +3,7 @@ import { setIndividualFronts } from "@/app/features/ram/ramData";
 import { useDispatch, useSelector } from "react-redux";
 
 function Dimensions(props) {
-  const {
-    frontsData,
-    setFrontsData,
-    activeFrontId,
-    createCenterDistanceOfHolesArr,
-  } = props;
+  const { activeFrontId } = props;
   const dispatch = useDispatch();
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
