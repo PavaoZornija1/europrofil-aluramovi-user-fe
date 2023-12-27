@@ -22,7 +22,7 @@ function HingesRenderer(props) {
             : "auto",
       }}
     >
-      {individualFronts[activeFrontId].hinges.centerDistanceOfHoles.map(
+      {individualFronts[activeFrontId].hinges?.centerDistanceOfHoles?.map(
         (holeDistance) => (
           <div
             key={Math.random()}
