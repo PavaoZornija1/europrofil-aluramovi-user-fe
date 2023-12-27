@@ -16,7 +16,7 @@ function LiftingSystem(props) {
   const handleRadioClick = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -29,17 +29,13 @@ function LiftingSystem(props) {
       return obj;
     });
 
-    setFrontsData(updatedFrontsData);
-    // if (value === 0) {
-    // }
-    fronts[activeFront].liftingSystem.activeOption = Number(value);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
   const handlePositionOption = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = frontsData.map((obj, id) => {
+    const updatedFrontsData = individualFronts.map((obj, id) => {
       if (id === activeFront) {
         return {
           ...obj,
@@ -52,27 +48,25 @@ function LiftingSystem(props) {
       return obj;
     });
 
-    fronts[activeFront].liftingSystem.activePositionOption = value;
-    setFrontsData(updatedFrontsData);
-    dispatch(setIndividualFronts(fronts));
+    dispatch(setIndividualFronts(updatedFrontsData));
   };
 
-  const handleMechanismOption = (activeFront, value) => {
-    const updatedFrontsData = frontsData.map((obj, id) => {
-      if (id === activeFront) {
-        return {
-          ...obj,
-          liftingSystem: {
-            ...obj.liftingSystem,
-            activeMechanismOption: value,
-          },
-        };
-      }
-      return obj;
-    });
+  // const  = (activeFront, value) => {
+  //   const updatedFrontsData = frontsData.map((obj, id) => {
+  //     if (id === activeFront) {
+  //       return {
+  //         ...obj,
+  //         liftingSystem: {
+  //           ...obj.liftingSystem,
+  //           activeMechanismOption: value,
+  //         },
+  //       };
+  //     }
+  //     return obj;
+  //   });
 
-    setFrontsData(updatedFrontsData);
-  };
+  //   setFrontsData(updatedFrontsData);
+  // };
 
   const handleChooseLiftSupport = (e, activeFront) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
@@ -181,7 +175,7 @@ function LiftingSystem(props) {
                     ?.id
                 }
                 onChange={(e) => {
-                  handleMechanismOption(activeFrontId, Number(e.target.value));
+                  activeFrontId, Number(e.target.value);
                   handleChooseLiftSupport(e, activeFrontId);
                 }}
               >
