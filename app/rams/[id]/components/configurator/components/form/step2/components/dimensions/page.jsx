@@ -25,8 +25,8 @@ function Dimensions(props) {
     });
 
     setFrontsData(updatedFrontsData);
-    fronts[activeFront].dimensions.numberOfPieces =
-      updatedFrontsData[activeFront].dimensions.numberOfPieces;
+    fronts[activeFront].dimensions.numberOfPieces = Number(value);
+
     dispatch(setIndividualFronts(fronts));
   };
 
@@ -94,7 +94,7 @@ function Dimensions(props) {
           <input
             type="number"
             id="numberOfPieces"
-            value={frontsData[activeFrontId].dimensions.numberOfPieces}
+            value={individualFronts[activeFrontId].dimensions.numberOfPieces}
             onChange={(e) =>
               updateNumberOfPieces(activeFrontId, +e.target.value)
             }
@@ -116,7 +116,7 @@ function Dimensions(props) {
           <input
             type="number"
             id="width"
-            value={frontsData[activeFrontId].dimensions.width}
+            value={individualFronts[activeFrontId].dimensions.width}
             onChange={(e) => updateWidth(activeFrontId, +e.target.value)}
             className="w-full border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
           />
@@ -136,7 +136,7 @@ function Dimensions(props) {
           <input
             type="number"
             id="height"
-            value={frontsData[activeFrontId].dimensions.height}
+            value={individualFronts[activeFrontId].dimensions.height}
             onChange={(e) => updateHeight(activeFrontId, +e.target.value)}
             className="w-full border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
           />
