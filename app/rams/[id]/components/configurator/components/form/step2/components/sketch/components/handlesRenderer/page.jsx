@@ -62,7 +62,9 @@ function HandlesRenderer(props) {
         setTop(
           `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
             (100 / dimensions.h) *
-              wheelBasesArr[frontsData[activeFrontId].handles.wheelbaseOption] +
+              wheelBasesArr[
+                individualFronts[activeFrontId].handles.wheelbaseOption
+              ] +
             "%"
           } - ${
             (100 / dimensions.h) *
@@ -222,7 +224,7 @@ function HandlesRenderer(props) {
           `calc(50% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
             ((100 / dimensions.h) *
               wheelBasesArr[
-                frontsData[activeFrontId].handles.wheelbaseOption
+                individualFronts[activeFrontId].handles.wheelbaseOption
               ]) /
               2 +
             "%"
@@ -235,7 +237,7 @@ function HandlesRenderer(props) {
             `calc(50% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
               ((100 / dimensions.h) *
                 wheelBasesArr[
-                  frontsData[activeFrontId].handles.wheelbaseOption
+                  individualFronts[activeFrontId].handles.wheelbaseOption
                 ]) /
                 2 +
               "%"
@@ -243,7 +245,7 @@ function HandlesRenderer(props) {
           );
         }
       }
-      if (frontsData[activeFrontId].handles.positionOption === 2) {
+      if (individualFronts[activeFrontId].handles.positionOption === 2) {
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
           setJustifyContentPosition("flex-end");
           setLeft(
@@ -255,11 +257,13 @@ function HandlesRenderer(props) {
         setLeft(
           `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
             (100 / dimensions.h) *
-              wheelBasesArr[frontsData[activeFrontId].handles.wheelbaseOption] +
+              wheelBasesArr[
+                individualFronts[activeFrontId].handles.wheelbaseOption
+              ] +
             "%"
           } - ${
             (100 / dimensions.h) *
-              frontsData[activeFrontId].handles.centerDistanceOfHole[0] +
+              individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
             "%"
           } )`
         );
@@ -269,12 +273,12 @@ function HandlesRenderer(props) {
 
   const generateOrientation = () => {
     if (
-      frontsData[activeFrontId].orientation === "Leva vrata" ||
-      frontsData[activeFrontId].orientation === "Desna vrata"
+      individualFronts[activeFrontId].orientation === "Leva vrata" ||
+      individualFronts[activeFrontId].orientation === "Desna vrata"
     ) {
       if (
-        frontsData[activeFrontId].handles.positionOption === 0 ||
-        frontsData[activeFrontId].handles.positionOption === 1
+        individualFronts[activeFrontId].handles.positionOption === 0 ||
+        individualFronts[activeFrontId].handles.positionOption === 1
       ) {
         setOrientation("row");
       } else {
