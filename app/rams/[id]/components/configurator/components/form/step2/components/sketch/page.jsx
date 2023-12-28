@@ -13,18 +13,18 @@ function Sketch(props) {
   const individualFronts = useSelector((state) => state.data.individualFronts);
 
   const [dimensions, setDimensions] = useState({
-    w: individualFronts[activeFrontId].dimensions.width,
-    h: individualFronts[activeFrontId].dimensions.height,
+    w: individualFronts[activeFrontId]?.dimensions?.width,
+    h: individualFronts[activeFrontId]?.dimensions?.height,
   });
 
   useEffect(() => {
     setDimensions({
-      w: individualFronts[activeFrontId].dimensions.width,
-      h: individualFronts[activeFrontId].dimensions.height,
+      w: individualFronts[activeFrontId]?.dimensions?.width,
+      h: individualFronts[activeFrontId]?.dimensions?.height,
     });
   }, [
-    individualFronts[activeFrontId].dimensions.width,
-    individualFronts[activeFrontId].dimensions.height,
+    individualFronts[activeFrontId]?.dimensions?.width,
+    individualFronts[activeFrontId]?.dimensions?.height,
   ]);
 
   return (
@@ -38,7 +38,7 @@ function Sketch(props) {
             <div
               style={{
                 backgroundColor:
-                  individualFronts[activeFrontId].orientation === "Kip vrata"
+                  individualFronts[activeFrontId]?.orientation === "Kip vrata"
                     ? "palevioletred"
                     : "",
                 // width:
@@ -50,7 +50,7 @@ function Sketch(props) {
               }}
               className="col-[2/3] flex justify-center items-center px-2"
             >
-              {individualFronts[activeFrontId].orientation === "Kip vrata" && (
+              {individualFronts[activeFrontId]?.orientation === "Kip vrata" && (
                 <p className="inline-block overflow-hidden overflow-ellipsis whitespace-nowrap text-white font-semibold">
                   STRANA SA SARKAMA
                 </p>
@@ -59,16 +59,16 @@ function Sketch(props) {
             <div
               style={{
                 backgroundColor:
-                  individualFronts[activeFrontId].orientation === "Leva vrata"
+                  individualFronts[activeFrontId]?.orientation === "Leva vrata"
                     ? "palevioletred"
-                    : individualFronts[activeFrontId].orientation ===
+                    : individualFronts[activeFrontId]?.orientation ===
                         "Kip vrata" &&
-                      individualFronts[activeFrontId].liftingSystem?.liftSupport
-                        ?.id &&
-                      (individualFronts[activeFrontId].liftingSystem
-                        .activePositionOption === 0 ||
-                        individualFronts[activeFrontId].liftingSystem
-                          .activePositionOption === 2)
+                      individualFronts[activeFrontId]?.liftingSystem
+                        ?.liftSupport?.id &&
+                      (individualFronts[activeFrontId]?.liftingSystem
+                        ?.activePositionOption === 0 ||
+                        individualFronts[activeFrontId]?.liftingSystem
+                          ?.activePositionOption === 2)
                     ? "#4682B4"
                     : "",
                 height:
@@ -80,7 +80,8 @@ function Sketch(props) {
               }}
               className="col-[1/2] flex justify-center items-center py-2"
             >
-              {individualFronts[activeFrontId].orientation === "Leva vrata" && (
+              {individualFronts[activeFrontId]?.orientation ===
+                "Leva vrata" && (
                 <p
                   style={{ writingMode: "vertical-lr" }}
                   className="inline-block overflow-hidden overflow-ellipsis whitespace-nowrap text-white font-semibold"
@@ -88,20 +89,20 @@ function Sketch(props) {
                   STRANA SA SARKAMA
                 </p>
               )}
-              {((individualFronts[activeFrontId].orientation === "Kip vrata" &&
-                individualFronts[activeFrontId].liftingSystem
+              {((individualFronts[activeFrontId]?.orientation === "Kip vrata" &&
+                individualFronts[activeFrontId]?.liftingSystem
                   ?.activePositionOption === 0) ||
-                individualFronts[activeFrontId].liftingSystem
+                individualFronts[activeFrontId]?.liftingSystem
                   ?.activePositionOption === 2) &&
-                individualFronts[activeFrontId].liftingSystem?.liftSupport
+                individualFronts[activeFrontId]?.liftingSystem?.liftSupport
                   ?.id && (
                   <p
                     style={{ writingMode: "vertical-lr" }}
                     className="inline-block overflow-hidden overflow-ellipsis whitespace-nowrap text-white font-semibold bg-[#4682B4] w-full py-2"
                   >
                     {
-                      individualFronts[activeFrontId].liftingSystem?.liftSupport
-                        ?.name
+                      individualFronts[activeFrontId]?.liftingSystem
+                        ?.liftSupport?.name
                     }
                   </p>
                 )}
@@ -114,7 +115,7 @@ function Sketch(props) {
                     ? "column"
                     : "row",
                 justifyContent:
-                  individualFronts[activeFrontId].orientation ===
+                  individualFronts[activeFrontId]?.orientation ===
                     "Desna vrata" && Number(dimensions.h) > Number(dimensions.w)
                     ? "flex-end"
                     : "flex-start",
@@ -130,14 +131,15 @@ function Sketch(props) {
                 }}
                 className={`bg-green-200 border-gray-800 border relative w-full`}
               >
-                {individualFronts[activeFrontId].hinges.hasHinge && (
+                {individualFronts[activeFrontId]?.hinges?.hasHinge && (
                   <HingesRenderer
                     frontsData={frontsData}
                     activeFrontId={activeFrontId}
                     dimensions={dimensions}
                   />
                 )}
-                {individualFronts[activeFrontId].handles.activeOption === 1 && (
+                {individualFronts[activeFrontId]?.handles?.activeOption ===
+                  1 && (
                   <HandlesRenderer
                     frontsData={frontsData}
                     activeFrontId={activeFrontId}
@@ -153,10 +155,10 @@ function Sketch(props) {
                   />
                 ) : null}
                 {/* // )} */}
-                {individualFronts[activeFrontId].locks.activeOption === 1 &&
-                  (individualFronts[activeFrontId].orientation ===
+                {individualFronts[activeFrontId]?.locks?.activeOption === 1 &&
+                  (individualFronts[activeFrontId]?.orientation ===
                     "Leva vrata" ||
-                    individualFronts[activeFrontId].orientation ===
+                    individualFronts[activeFrontId]?.orientation ===
                       "Desna vrata") && (
                     <LocksRenderer
                       frontsData={frontsData}
@@ -169,15 +171,15 @@ function Sketch(props) {
             <div
               style={{
                 backgroundColor:
-                  individualFronts[activeFrontId].orientation === "Desna vrata"
+                  individualFronts[activeFrontId]?.orientation === "Desna vrata"
                     ? "palevioletred"
-                    : individualFronts[activeFrontId].orientation ===
+                    : individualFronts[activeFrontId]?.orientation ===
                         "Kip vrata" &&
-                      individualFronts[activeFrontId].liftingSystem?.liftSupport
-                        ?.id &&
-                      (individualFronts[activeFrontId].liftingSystem
+                      individualFronts[activeFrontId]?.liftingSystem
+                        ?.liftSupport?.id &&
+                      (individualFronts[activeFrontId]?.liftingSystem
                         .activePositionOption === 1 ||
-                        individualFronts[activeFrontId].liftingSystem
+                        individualFronts[activeFrontId]?.liftingSystem
                           .activePositionOption === 2)
                     ? "#4682B4"
                     : "",
@@ -190,7 +192,7 @@ function Sketch(props) {
               }}
               className="col-[3/4] flex justify-center items-center py-2"
             >
-              {individualFronts[activeFrontId].orientation ===
+              {individualFronts[activeFrontId]?.orientation ===
                 "Desna vrata" && (
                 <p
                   style={{ writingMode: "vertical-lr" }}
@@ -207,20 +209,20 @@ function Sketch(props) {
                 individualFronts[activeFrontId].liftingSystem?.liftSupport
                   ?.id */}
 
-              {individualFronts[activeFrontId].orientation === "Kip vrata" &&
-                (individualFronts[activeFrontId].liftingSystem
+              {individualFronts[activeFrontId]?.orientation === "Kip vrata" &&
+                (individualFronts[activeFrontId]?.liftingSystem
                   ?.activePositionOption === 1 ||
-                  individualFronts[activeFrontId].liftingSystem
+                  individualFronts[activeFrontId]?.liftingSystem
                     ?.activePositionOption === 2) &&
-                individualFronts[activeFrontId].liftingSystem?.liftSupport
+                individualFronts[activeFrontId]?.liftingSystem?.liftSupport
                   ?.id && (
                   <p
                     style={{ writingMode: "vertical-lr" }}
                     className="inline-block overflow-hidden overflow-ellipsis whitespace-nowrap text-white font-semibold"
                   >
                     {
-                      individualFronts[activeFrontId].liftingSystem?.liftSupport
-                        ?.name
+                      individualFronts[activeFrontId]?.liftingSystem
+                        ?.liftSupport?.name
                     }
                   </p>
                 )}

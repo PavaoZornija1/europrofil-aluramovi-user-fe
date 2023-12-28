@@ -230,8 +230,8 @@ function Step2(props) {
             ram={props.ram}
           />
           <Handles activeFrontId={activeFrontId} ram={props.ram} />
-          {individualFronts[activeFrontId].orientation === "Leva vrata" ||
-          individualFronts[activeFrontId].orientation === "Desna vrata" ? (
+          {individualFronts[activeFrontId]?.orientation === "Leva vrata" ||
+          individualFronts[activeFrontId]?.orientation === "Desna vrata" ? (
             <Locks activeFrontId={activeFrontId} />
           ) : (
             <LiftingSystem activeFrontId={activeFrontId} ram={props.ram} />

@@ -39,7 +39,7 @@ function Hinges(props) {
     });
 
     dispatch(setIndividualFronts(updatedFrontsData));
-  }, [individualFronts[activeFrontId].dimensions.height]);
+  }, [individualFronts[activeFrontId]?.dimensions?.height]);
 
   const handleRadioClick = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
@@ -164,7 +164,7 @@ function Hinges(props) {
               className="mr-2 cursor-pointer"
               value={0}
               checked={
-                individualFronts[activeFrontId].hinges.activeOption === 0
+                individualFronts[activeFrontId]?.hinges?.activeOption === 0
               }
               onChange={() => {
                 handleRadioClick(activeFrontId, 0);
@@ -191,7 +191,7 @@ function Hinges(props) {
               className="mr-2 cursor-pointer"
               value={1}
               checked={
-                individualFronts[activeFrontId].hinges.activeOption === 1
+                individualFronts[activeFrontId]?.hinges?.activeOption === 1
               }
               onChange={() => {
                 handleRadioClick(activeFrontId, 1);
@@ -225,7 +225,7 @@ function Hinges(props) {
               className="mr-2 cursor-pointer"
               value={2}
               checked={
-                individualFronts[activeFrontId].hinges.activeOption === 2
+                individualFronts[activeFrontId]?.hinges?.activeOption === 2
               }
               onChange={() => {
                 handleRadioClick(activeFrontId, 2);
@@ -236,9 +236,9 @@ function Hinges(props) {
             </label>
           </div>
         </div>
-        {individualFronts[activeFrontId].hinges.hasHinge && (
+        {individualFronts[activeFrontId]?.hinges?.hasHinge && (
           <div className="ml-6 my-2">
-            {individualFronts[activeFrontId].hinges.shouldMount && (
+            {individualFronts[activeFrontId]?.hinges?.shouldMount && (
               <div className="mb-4">
                 <label htmlFor="montingHinges" className="text-lg mr-8">
                   Šarke za montazu
@@ -261,7 +261,7 @@ function Hinges(props) {
                 </select>
               </div>
             )}
-            {individualFronts[activeFrontId].hinges?.hinge?.id ? (
+            {individualFronts[activeFrontId]?.hinges?.hinge?.id ? (
               <>
                 <div>
                   <label htmlFor="numOfStandardHinges" className="text-lg mr-8">
@@ -272,7 +272,7 @@ function Hinges(props) {
                     id="numOfStandardHinges"
                     className="border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                     value={
-                      individualFronts[activeFrontId].hinges.numberOfHinges
+                      individualFronts[activeFrontId]?.hinges?.numberOfHinges
                     }
                     onChange={(e) => {
                       updateNumberOfHinges(activeFrontId, e.target.value);
@@ -291,7 +291,8 @@ function Hinges(props) {
                 <div>
                   <p className="text-lg mt-4">
                     Pozicija svih šarki se uzima od
-                    {individualFronts[activeFrontId].orientation === "Kip vrata"
+                    {individualFronts[activeFrontId]?.orientation ===
+                    "Kip vrata"
                       ? " leve "
                       : " donje "}
                     spoljne ivice.
@@ -310,7 +311,7 @@ function Hinges(props) {
                             className="text-lg mb-2 2xl:mb-0"
                           >
                             Centar {id + 1}. rupe od{" "}
-                            {individualFronts[activeFrontId].orientation ===
+                            {individualFronts[activeFrontId]?.orientation ===
                             "Kip vrata"
                               ? "leve"
                               : "donje"}{" "}
@@ -320,7 +321,7 @@ function Hinges(props) {
                             type="text"
                             id={`hole-${id}`}
                             value={
-                              individualFronts[activeFrontId].hinges
+                              individualFronts[activeFrontId]?.hinges
                                 ?.centerDistanceOfHoles[id]
                             }
                             onChange={(e) => {

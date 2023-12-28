@@ -232,9 +232,11 @@ function Handles(props) {
   };
 
   const handleProfilePositionText = () => {
-    switch (individualFronts[activeFrontId].orientation) {
+    switch (individualFronts[activeFrontId]?.orientation) {
       case "Leva vrata":
-        switch (individualFronts[activeFrontId].handles.profilePositionOption) {
+        switch (
+          individualFronts[activeFrontId]?.handles?.profilePositionOption
+        ) {
           case 0:
           case 1:
             setProfileDistanceStartPosition("desnu");
@@ -251,7 +253,9 @@ function Handles(props) {
         }
         break;
       case "Desna vrata":
-        switch (individualFronts[activeFrontId].handles.profilePositionOption) {
+        switch (
+          individualFronts[activeFrontId]?.handles?.profilePositionOption
+        ) {
           case 0:
           case 1:
             setProfileDistanceStartPosition("levu");
@@ -269,7 +273,9 @@ function Handles(props) {
         }
         break;
       case "Kip vrata":
-        switch (individualFronts[activeFrontId].handles.profilePositionOption) {
+        switch (
+          individualFronts[activeFrontId]?.handles?.profilePositionOption
+        ) {
           case 0:
             setProfileDistanceStartPosition("levu");
             break;
@@ -285,9 +291,9 @@ function Handles(props) {
     }
   };
   const handleHandlesPositionText = () => {
-    switch (individualFronts[activeFrontId].orientation) {
+    switch (individualFronts[activeFrontId]?.orientation) {
       case "Leva vrata":
-        switch (individualFronts[activeFrontId].handles.positionOption) {
+        switch (individualFronts[activeFrontId]?.handles?.positionOption) {
           case 0: {
             setHandlesHorizontalPositionOptionText("desne");
             setHandlesVerticalPositionOptionText("gornje");
@@ -315,7 +321,7 @@ function Handles(props) {
         }
         break;
       case "Desna vrata":
-        switch (individualFronts[activeFrontId].handles.positionOption) {
+        switch (individualFronts[activeFrontId]?.handles?.positionOption) {
           case 0: {
             setHandlesHorizontalPositionOptionText("leve");
             setHandlesVerticalPositionOptionText("gornje");
@@ -343,7 +349,7 @@ function Handles(props) {
         }
         break;
       case "Kip vrata":
-        switch (individualFronts[activeFrontId].handles.positionOption) {
+        switch (individualFronts[activeFrontId]?.handles?.positionOption) {
           case 0: {
             setHandlesHorizontalPositionOptionText("leve");
             setHandlesVerticalPositionOptionText("donje");
@@ -376,9 +382,9 @@ function Handles(props) {
     handleProfilePositionText();
     handleHandlesPositionText();
   }, [
-    individualFronts[activeFrontId].orientation,
-    individualFronts[activeFrontId].handles.profilePositionOption,
-    individualFronts[activeFrontId].handles.positionOption,
+    individualFronts[activeFrontId]?.orientation,
+    individualFronts[activeFrontId]?.handles?.profilePositionOption,
+    individualFronts[activeFrontId]?.handles?.positionOption,
   ]);
 
   return (
@@ -400,7 +406,7 @@ function Handles(props) {
               id="first"
               className="mr-2 cursor-pointer"
               checked={
-                individualFronts[activeFrontId].handles.activeOption === 0
+                individualFronts[activeFrontId]?.handles?.activeOption === 0
               }
               onChange={() => {
                 handleRadioClick(activeFrontId, 0);
@@ -426,7 +432,7 @@ function Handles(props) {
               className="mr-2 cursor-pointer"
               value={1}
               checked={
-                individualFronts[activeFrontId].handles.activeOption === 1
+                individualFronts[activeFrontId]?.handles?.activeOption === 1
               }
               onChange={() => {
                 handleRadioClick(activeFrontId, 1);
@@ -452,7 +458,7 @@ function Handles(props) {
               className="mr-2 cursor-pointer"
               value={2}
               checked={
-                individualFronts[activeFrontId].handles.activeOption === 2
+                individualFronts[activeFrontId]?.handles?.activeOption === 2
               }
               onChange={() => {
                 handleRadioClick(activeFrontId, 2);
@@ -463,10 +469,10 @@ function Handles(props) {
             </label>
           </div>
         </div>
-        {individualFronts[activeFrontId].handles.shouldDrillHoles && (
+        {individualFronts[activeFrontId]?.handles?.shouldDrillHoles && (
           <div className="ml-6 my-2">
-            {individualFronts[activeFrontId].orientation === "Leva vrata" ||
-            individualFronts[activeFrontId].orientation === "Desna vrata" ? (
+            {individualFronts[activeFrontId]?.orientation === "Leva vrata" ||
+            individualFronts[activeFrontId]?.orientation === "Desna vrata" ? (
               <div className="mb-4">
                 <label htmlFor="numOfStandardHinges" className="text-lg mr-8">
                   Polozaj
@@ -475,7 +481,9 @@ function Handles(props) {
                   type="number"
                   id="numOfStandardHinges"
                   className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={individualFronts[activeFrontId].handles.positionOption}
+                  value={
+                    individualFronts[activeFrontId]?.handles?.positionOption
+                  }
                   onChange={(e) => {
                     updatePosition(
                       activeFrontId,
@@ -500,7 +508,9 @@ function Handles(props) {
                   type="number"
                   id="numOfStandardHinges"
                   className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                  value={individualFronts[activeFrontId].handles.positionOption}
+                  value={
+                    individualFronts[activeFrontId]?.handles?.positionOption
+                  }
                   onChange={(e) => {
                     updatePosition(activeFrontId, e.target.value);
                   }}
@@ -520,7 +530,9 @@ function Handles(props) {
                 type="number"
                 id="numOfStandardHinges"
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
-                value={individualFronts[activeFrontId].handles.wheelbaseOption}
+                value={
+                  individualFronts[activeFrontId]?.handles?.wheelbaseOption
+                }
                 onChange={(e) => {
                   updateWheelbaseOption(
                     activeFrontId,
@@ -548,8 +560,8 @@ function Handles(props) {
                   type="text"
                   id={`firstHole`}
                   value={
-                    individualFronts[activeFrontId].handles
-                      .holeDistanceManualValue
+                    individualFronts[activeFrontId]?.handles
+                      ?.holeDistanceManualValue
                   }
                   onChange={(e) => handleManualHoleDistance(e, activeFrontId)}
                   className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
@@ -565,8 +577,8 @@ function Handles(props) {
                 type="text"
                 id={`firstHole`}
                 value={
-                  individualFronts[activeFrontId].handles
-                    .centerDistanceOfHole[0]
+                  individualFronts[activeFrontId]?.handles
+                    ?.centerDistanceOfHole[0]
                 }
                 onChange={(e) => {
                   updateCenterDistanceOfHole(activeFrontId, e.target.value, 0);
@@ -575,11 +587,12 @@ function Handles(props) {
               />
             </div>
 
-            {((individualFronts[activeFrontId].orientation === "Leva vrata" ||
-              individualFronts[activeFrontId].orientation === "Desna vrata") &&
-              individualFronts[activeFrontId].handles.positionOption !== 3) ||
-            (individualFronts[activeFrontId].orientation === "Kip vrata" &&
-              individualFronts[activeFrontId].handles.positionOption !== 1) ? (
+            {((individualFronts[activeFrontId]?.orientation === "Leva vrata" ||
+              individualFronts[activeFrontId]?.orientation === "Desna vrata") &&
+              individualFronts[activeFrontId]?.handles?.positionOption !== 3) ||
+            (individualFronts[activeFrontId]?.orientation === "Kip vrata" &&
+              individualFronts[activeFrontId]?.handles?.positionOption !==
+                1) ? (
               <div className="flex justify-between flex-col 2xl:flex-row lg:flex-col md:flex-row">
                 <label htmlFor={`secondHole`} className="text-lg mb-2 2xl:mb-0">
                   Centar prve rupe od {handlesVerticalPositionOptionText}{" "}
@@ -589,8 +602,8 @@ function Handles(props) {
                   type="text"
                   id={`secondHole`}
                   value={
-                    individualFronts[activeFrontId].handles
-                      .centerDistanceOfHole[1]
+                    individualFronts[activeFrontId]?.handles
+                      ?.centerDistanceOfHole[1]
                   }
                   onChange={(e) => {
                     updateCenterDistanceOfHole(
@@ -605,7 +618,7 @@ function Handles(props) {
             ) : null}
           </div>
         )}
-        {individualFronts[activeFrontId].handles.shouldMountProfile && (
+        {individualFronts[activeFrontId]?.handles?.shouldMountProfile && (
           <div className="ml-6 my-2">
             <div className="mb-4">
               <label htmlFor="profiless" className="text-lg mr-8">
@@ -614,7 +627,7 @@ function Handles(props) {
               <select
                 id="profiless"
                 value={
-                  individualFronts[activeFrontId].handles?.handleProfile?.id
+                  individualFronts[activeFrontId]?.handles?.handleProfile?.id
                 }
                 onChange={(e) => handleChooseHandleProfile(activeFrontId, e)}
                 className=" border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
@@ -630,7 +643,7 @@ function Handles(props) {
               </select>
             </div>
 
-            {individualFronts[activeFrontId].handles.handleProfile?.id ? (
+            {individualFronts[activeFrontId]?.handles?.handleProfile?.id ? (
               <div className="mb-4">
                 <label htmlFor="duzina" className="text-lg mr-8">
                   Duzina
@@ -639,7 +652,8 @@ function Handles(props) {
                   id="duzina"
                   className="border border-gray-500 bg-white px-1 text-lg text-gray-700 focus:outline-none"
                   value={
-                    individualFronts[activeFrontId].handles.profileLengthOption
+                    individualFronts[activeFrontId]?.handles
+                      ?.profileLengthOption
                   }
                   onChange={(e) => {
                     updateProfileLengthOption(activeFrontId, e.target.value);
@@ -651,13 +665,13 @@ function Handles(props) {
               </div>
             ) : null}
 
-            {individualFronts[activeFrontId].handles.handleProfile?.id ? (
-              individualFronts[activeFrontId].handles.profileLengthOption ===
+            {individualFronts[activeFrontId]?.handles?.handleProfile?.id ? (
+              individualFronts[activeFrontId]?.handles?.profileLengthOption ===
               0 ? (
-                individualFronts[activeFrontId].orientation === "Leva vrata" ||
-                individualFronts[activeFrontId].orientation ===
+                individualFronts[activeFrontId]?.orientation === "Leva vrata" ||
+                individualFronts[activeFrontId]?.orientation ===
                   "Desna vrata" ? (
-                  individualFronts[activeFrontId].orientation ===
+                  individualFronts[activeFrontId]?.orientation ===
                   "Leva vrata" ? (
                     <div className="mb-4">
                       <label htmlFor="polozaj" className="text-lg mr-8">
