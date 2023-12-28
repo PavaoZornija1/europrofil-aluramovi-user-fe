@@ -128,12 +128,21 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className="absolute top-0 left-0 h-2 bg-red-500"
             style={{ width: `${left}%` }}
-          ></div>
+          >
+            <div className="text-center w-full mt-1">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {frame.orientation === "Desna vrata" &&
         frame.handles?.handleProfile?.id &&
-        frame.handles.profilePositionOption === 0 && (
-          <div className="absolute left-0 w-2 bg-red-500 h-full"></div>
+        frame.handles.profilePositionOption === 0 &&
+        frame.handles.profileLengthOption === 0 && (
+          <div className="absolute left-0 w-2 bg-red-500 h-full">
+            <div className="text-center w-full [writing-mode:vertical-lr] h-full ml-2">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* **************** */}
       {/* OPTION #2 */}
@@ -144,12 +153,22 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className={`absolute bottom-0 left-0 right-0 h-2 bg-red-500 `}
             style={{ width: `${left}%` }}
-          ></div>
+          >
+            <div className="text-center w-full -mt-5">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {frame.orientation === "Desna vrata" &&
         frame.handles?.handleProfile?.id &&
-        frame.handles.profilePositionOption === 1 && (
-          <div className="absolute top-0 w-full bg-red-500 h-2"></div>
+        frame.handles.profilePositionOption === 1 &&
+        frame.handles.profileLengthOption === 0 && (
+          <div className="absolute top-0 w-full bg-red-500 h-2">
+            {" "}
+            <div className="text-center w-full mt-1">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* ********************* */}
       {/* OPTION #3 */}
@@ -160,12 +179,21 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className="absolute left-0 top-0 bg-red-500 w-2"
             style={{ height: `${top}%` }}
-          ></div>
+          >
+            <div className="text-center w-full [writing-mode:vertical-lr] h-full ml-2">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {frame.orientation === "Desna vrata" &&
         frame.handles?.handleProfile?.id &&
-        frame.handles.profilePositionOption === 2 && (
-          <div className="absolute bottom-0 w-full bg-red-500 h-2"></div>
+        frame.handles.profilePositionOption === 2 &&
+        frame.handles.profileLengthOption === 0 && (
+          <div className="absolute bottom-0 w-full bg-red-500 h-2">
+            <div className="text-center w-full -mt-5">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* ******************* */}
       {frame.orientation === "Desna vrata" &&
@@ -195,7 +223,11 @@ const RenderHandleProfileDetails = ({ frame }) => {
       {frame.orientation === "Kip vrata" &&
         frame.handles?.handleProfile?.id &&
         frame.handles.profileLengthOption === 0 && (
-          <div className="absolute bottom-0 w-full bg-red-500 h-2"></div>
+          <div className="absolute bottom-0 w-full bg-red-500 h-2">
+            <div className="text-center w-full -mt-5">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {frame.orientation === "Kip vrata" &&
         frame.handles?.handleProfile?.id &&
@@ -204,7 +236,11 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className="absolute bottom-0 left-0 bg-red-500 h-2"
             style={{ width: `${right}%` }}
-          ></div>
+          >
+            <div className="text-center w-full -mt-5">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* *********************** */}
       {/* OPTION #2 */}
@@ -213,7 +249,11 @@ const RenderHandleProfileDetails = ({ frame }) => {
         frame.handles.profilePositionOption === 1 &&
         frame.handles.profileLengthOption === 1 && (
           <div className="w-full absolute bottom-0 flex justify-center h-2">
-            <div className="bg-red-500 h-2" style={{ width: `${left}%` }}></div>
+            <div className="bg-red-500 h-2" style={{ width: `${left}%` }}>
+              <div className="text-center w-full -mt-5">
+                {frame.handles.profileLength}mm
+              </div>
+            </div>
           </div>
         )}
       {/* ******************** */}
@@ -226,7 +266,11 @@ const RenderHandleProfileDetails = ({ frame }) => {
           <div
             className="absolute bottom-0 right-0 bg-red-500 h-2"
             style={{ width: `${right}%` }}
-          ></div>
+          >
+            <div className="text-center w-full -mt-5">
+              {frame.handles.profileLength}mm
+            </div>
+          </div>
         )}
       {/* ************* */}
       {/* ***************************** */}
