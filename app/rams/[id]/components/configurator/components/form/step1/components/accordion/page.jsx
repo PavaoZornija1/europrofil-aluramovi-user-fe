@@ -3,16 +3,15 @@ import {
   setAdditionalFillTreatment,
   setFill,
 } from "@/app/features/ram/ramData";
-import store from "@/app/store/store";
 import { Config } from "@/config";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Accordion(props) {
   const { items, accordionFor } = props;
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [activeSubfillIndex, setActiveSubfillIndex] = useState(-1);
+  const [activeSubfillIndex, setActiveSubfillIndex] = useState();
   const [noFillChosen, setNoFillChosen] = useState(false);
   const [additionalTreatment, setAdditionalTreatment] = useState("");
   const [bevelOptions, setBevelOptions] = useState([]);
@@ -63,10 +62,11 @@ function Accordion(props) {
 
   const handleFillClick = (item) => {
     dispatch(setFill(item));
+    setActiveSubfillIndex(null);
   };
 
   const handleSubfillClick = (index, item) => {
-    setActiveSubfillIndex(index === activeSubfillIndex ? index : index);
+    setActiveSubfillIndex(index === activeSubfillIndex ? null : index);
     dispatch(setFill({ ...fill, subfill: item }));
   };
 
@@ -80,7 +80,7 @@ function Accordion(props) {
       {items?.cmsAluFills?.map(
         (item, index) =>
           !item.parentId && (
-            <div key={item.name} className="py-2">
+            <div key={item.id} className="py-2">
               <div className="flex items-center justify-between">
                 <div
                   className="flex items-center cursor-pointer"
@@ -95,10 +95,11 @@ function Accordion(props) {
                     name={accordionFor}
                     id={`${accordionFor}${index}`}
                     className="mr-2 cursor-pointer"
-                    onClick={() => {
+                    onChange={() => {
                       handleClick(index);
                       handleNoFillChosen(true);
                     }}
+                    checked={fill?.id === item?.id}
                   />
                   <label
                     htmlFor={`${accordionFor}${index}`}
@@ -112,7 +113,7 @@ function Accordion(props) {
                 ) : null}
               </div>
 
-              {item.customColorAvailable && index === activeIndex && (
+              {item.customColorAvailable && fill?.id === item?.id && (
                 <div className="ml-6 my-2">
                   <label
                     htmlFor={`ral${index}`}
@@ -129,63 +130,65 @@ function Accordion(props) {
                 </div>
               )}
 
-              {item?.children &&
-                index === activeIndex &&
-                item.children.map((option, optionId) => {
-                  return (
-                    <div key={optionId} className="py-1">
-                      <div className="flex items-center justify-between ml-6">
-                        <div
-                          className="flex items-center cursor-pointer"
-                          onClick={() => {
-                            handleSubfillClick(optionId, option);
-                          }}
-                        >
-                          <input
-                            type="radio"
-                            name={`${accordionFor}-subfills`}
-                            id={`${accordionFor}${optionId}-subfills`}
-                            className="mr-2 cursor-pointer"
+              {fill?.children && fill?.id === item?.id
+                ? fill.children.map((option, optionId) => {
+                    return (
+                      <div key={optionId} className="py-1">
+                        <div className="flex items-center justify-between ml-6">
+                          <div
+                            className="flex items-center cursor-pointer"
                             onClick={() => {
-                              handleSubfillClick(optionId);
+                              handleSubfillClick(optionId, option);
                             }}
-                          />
-                          <label
-                            htmlFor={`${accordionFor}${optionId}-subfills`}
-                            className="text-lg cursor-pointer"
                           >
-                            {option.name}
-                          </label>
+                            <input
+                              type="radio"
+                              name={`${accordionFor}-subfills`}
+                              id={`${accordionFor}${optionId}-subfills`}
+                              className="mr-2 cursor-pointer"
+                              onChange={() => {
+                                handleSubfillClick(optionId, _);
+                              }}
+                              checked={fill?.subfill?.id === option?.id}
+                            />
+                            <label
+                              htmlFor={`${accordionFor}${optionId}-subfills`}
+                              className="text-lg cursor-pointer"
+                            >
+                              {option.name}
+                              {console.log(fill?.subfill?.id, option?.id)}
+                            </label>
+                          </div>
+
+                          {option.gallery ? (
+                            <div className="hover:underline cursor-pointer">
+                              Gallery
+                            </div>
+                          ) : null}
                         </div>
 
-                        {option.gallery ? (
-                          <div className="hover:underline cursor-pointer">
-                            Gallery
-                          </div>
-                        ) : null}
+                        {option.inputRAL &&
+                          fill?.id === item?.id &&
+                          optionId === activeSubfillIndex && (
+                            <div className="ml-12 my-2">
+                              <label
+                                htmlFor={`ral${index}${optionId}`}
+                                className="mr-2 block md:inline"
+                              >
+                                RAL kod za boju:
+                              </label>
+                              <input
+                                type="text"
+                                name=""
+                                id={`ral${index}${optionId}`}
+                                className=" border-2 focus:outline-none focus:border-black"
+                              />
+                            </div>
+                          )}
                       </div>
-
-                      {option.inputRAL &&
-                        index === activeIndex &&
-                        optionId === activeSubfillIndex && (
-                          <div className="ml-12 my-2">
-                            <label
-                              htmlFor={`ral${index}${optionId}`}
-                              className="mr-2 block md:inline"
-                            >
-                              RAL kod za boju:
-                            </label>
-                            <input
-                              type="text"
-                              name=""
-                              id={`ral${index}${optionId}`}
-                              className=" border-2 focus:outline-none focus:border-black"
-                            />
-                          </div>
-                        )}
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                : null}
             </div>
           )
       )}
