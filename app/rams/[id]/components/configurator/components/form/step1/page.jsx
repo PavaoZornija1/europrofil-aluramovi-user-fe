@@ -1,9 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { lastFinishData, fills } from "./mockData";
 import Accordion from "./components/accordion/page";
-import axios from "axios";
-import { Config } from "@/config";
 import Treatments from "./components/treatments/page";
 
 export default function Step1(props) {

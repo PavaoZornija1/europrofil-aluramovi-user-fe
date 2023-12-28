@@ -9,6 +9,7 @@ function Treatments(props) {
   const [activeSubfillIndex, setActiveSubfillIndex] = useState(-1);
   const [noFillChosen, setNoFillChosen] = useState(false);
   const [ral, setRal] = useState("");
+  const treatment = useSelector((state) => state.data.treatment);
 
   const dispatch = useDispatch();
 
@@ -49,10 +50,11 @@ function Treatments(props) {
                     name={accordionFor}
                     id={`${accordionFor}${index}`}
                     className="mr-2 cursor-pointer"
-                    onClick={() => {
+                    onChange={() => {
                       handleClick(index);
                       handleNoFillChosen(true);
                     }}
+                    checked={treatment?.id === item?.id}
                   />
                   <label
                     htmlFor={`${accordionFor}${index}`}
