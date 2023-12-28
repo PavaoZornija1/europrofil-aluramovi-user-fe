@@ -1,6 +1,7 @@
 "use client";
 
 import { setIndividualFronts } from "@/app/features/ram/ramData";
+import store from "@/app/store/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -199,20 +200,22 @@ function Handles(props) {
   };
 
   const updateProfileLength = (activeFront, value) => {
-    const updatedFrontsData = individualFronts.map((obj, id) => {
-      if (id === activeFront) {
-        return {
-          ...obj,
-          handles: {
-            ...obj.handles,
-            profileLength: value,
-          },
-        };
-      }
-      return obj;
-    });
-
-    dispatch(setIndividualFronts(updatedFrontsData));
+    const front = JSON.parse(JSON.stringify(individualFronts));
+    // const updatedFrontsData = individualFronts.map((obj, id) => {
+    //   if (id === activeFront) {
+    //     return {
+    //       ...obj,
+    //       handles: {
+    //         ...obj.handles,
+    //         profileLength: Number(value),
+    //       },
+    //     };
+    //   }
+    //   return obj;
+    // });
+    console.log(+value);
+    front[activeFront].handles.profileLength = Number(value);
+    dispatch(setIndividualFronts(front));
   };
 
   const handleChooseHandleProfile = (activeFront, e) => {
