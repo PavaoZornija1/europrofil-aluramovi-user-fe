@@ -1,5 +1,6 @@
 "use client";
 import { setIndividualFronts } from "@/app/features/ram/ramData";
+import store from "@/app/store/store";
 import { useDispatch, useSelector } from "react-redux";
 
 function Dimensions(props) {
@@ -18,17 +19,50 @@ function Dimensions(props) {
   const updateWidth = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    if (fronts[activeFront].handles.profileLengthOption === 0) {
-      fronts[activeFront].handles.profileLength = Number(value);
+    // if (fronts[activeFront]?.handles?.profileLengthOption === 0) {
+    //   fronts[activeFront].handles.profileLength = Number(value);
+    // }
+    switch (fronts[activeFront]?.handles?.profileLengthOption) {
+      case 0:
+        switch (fronts[activeFront]?.handles?.profilePositionOption) {
+          case 1:
+          case 2:
+            fronts[activeFront].handles.profileLength = Number(value);
+            break;
+        }
+        break;
+      case 1:
+        switch (fronts[activeFront]?.handles?.profilePositionOption) {
+          case 0:
+          case 1:
+            fronts[activeFront].handles.profileLength = Number(value);
+            break;
+        }
     }
 
     fronts[activeFront].dimensions.width = Number(value);
-
     dispatch(setIndividualFronts(fronts));
   };
 
   const updateHeight = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
+    switch (fronts[activeFront]?.handles?.profileLengthOption) {
+      case 0:
+        switch (fronts[activeFront]?.handles?.profilePositionOption) {
+          case 0:
+            fronts[activeFront].handles.profileLength = Number(value);
+            break;
+        }
+        break;
+      case 1:
+        switch (fronts[activeFront]?.handles?.profilePositionOption) {
+          case 2:
+          case 3:
+          case 4:
+            fronts[activeFront].handles.profileLength = Number(value);
+            break;
+        }
+    }
 
     fronts[activeFront].dimensions.height = Number(value);
 

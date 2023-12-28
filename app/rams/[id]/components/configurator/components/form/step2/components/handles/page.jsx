@@ -162,6 +162,7 @@ function Handles(props) {
       return obj;
     });
 
+    console.log(store.getState());
     dispatch(setIndividualFronts(updatedFrontsData));
   };
 
@@ -201,22 +202,22 @@ function Handles(props) {
 
   const updateProfileLength = (activeFront, value) => {
     const front = JSON.parse(JSON.stringify(individualFronts));
-    // const updatedFrontsData = individualFronts.map((obj, id) => {
-    //   if (id === activeFront) {
-    //     return {
-    //       ...obj,
-    //       handles: {
-    //         ...obj.handles,
-    //         profileLength: Number(value),
-    //       },
-    //     };
-    //   }
-    //   return obj;
-    // });
+
     console.log(+value);
     front[activeFront].handles.profileLength = Number(value);
     dispatch(setIndividualFronts(front));
   };
+
+  useEffect(() => {
+    console.log(
+      "pl:",
+      individualFronts[activeFrontId].handles.profileLength,
+      "w:",
+      individualFronts[activeFrontId].dimensions.width,
+      "h:",
+      individualFronts[activeFrontId].dimensions.height
+    );
+  }, [individualFronts[activeFrontId].handles.profileLength]);
 
   const handleChooseHandleProfile = (activeFront, e) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
@@ -850,7 +851,7 @@ function Handles(props) {
                       individualFronts[activeFrontId].handles.profileLength
                     }
                     onChange={(e) => {
-                      updateProfileLength(activeFrontId, e.target.value);
+                      updateProfileLength(activeFrontId, +e.target.value);
                     }}
                     className="border border-gray-500 bg-white px-1 text-xl text-gray-700 focus:outline-none"
                   />
