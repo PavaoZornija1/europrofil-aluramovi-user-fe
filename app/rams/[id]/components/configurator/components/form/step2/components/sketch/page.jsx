@@ -41,12 +41,6 @@ function Sketch(props) {
                   individualFronts[activeFrontId]?.orientation === "Kip vrata"
                     ? "palevioletred"
                     : "",
-                // width:
-                //   100 *
-                //     (dimensions.w / dimensions.h > 1
-                //       ? 1
-                //       : dimensions.w / dimensions.h) +
-                //   "%",
               }}
               className="col-[2/3] flex justify-center items-center px-2"
             >
@@ -73,9 +67,12 @@ function Sketch(props) {
                     : "",
                 height:
                   100 *
-                    (dimensions.h / dimensions.w > 1
+                    (individualFronts[activeFrontId]?.dimensions?.height /
+                      individualFronts[activeFrontId]?.dimensions?.width >
+                    1
                       ? 1
-                      : dimensions.h / dimensions.w) +
+                      : individualFronts[activeFrontId]?.dimensions?.height /
+                        individualFronts[activeFrontId]?.dimensions?.width) +
                   "%",
               }}
               className="col-[1/2] flex justify-center items-center py-2"
@@ -111,12 +108,15 @@ function Sketch(props) {
               style={{
                 display: "flex",
                 flexDirection:
-                  Number(dimensions.w) > Number(dimensions.h)
+                  Number(individualFronts[activeFrontId]?.dimensions?.width) >
+                  Number(individualFronts[activeFrontId]?.dimensions?.height)
                     ? "column"
                     : "row",
                 justifyContent:
                   individualFronts[activeFrontId]?.orientation ===
-                    "Desna vrata" && Number(dimensions.h) > Number(dimensions.w)
+                    "Desna vrata" &&
+                  Number(individualFronts[activeFrontId]?.dimensions?.height) >
+                    Number(individualFronts[activeFrontId]?.dimensions?.width)
                     ? "flex-end"
                     : "flex-start",
               }}
@@ -125,8 +125,10 @@ function Sketch(props) {
               <div
                 ref={scheme}
                 style={{
-                  aspectRatio: `${Number(dimensions.w)}/${Number(
-                    dimensions.h
+                  aspectRatio: `${Number(
+                    individualFronts[activeFrontId]?.dimensions?.width
+                  )}/${Number(
+                    individualFronts[activeFrontId]?.dimensions?.height
                   )}`,
                 }}
                 className={`bg-green-200 border-gray-800 border relative w-full`}
@@ -185,9 +187,12 @@ function Sketch(props) {
                     : "",
                 height:
                   100 *
-                    (dimensions.h / dimensions.w > 1
+                    (individualFronts[activeFrontId]?.dimensions?.height /
+                      individualFronts[activeFrontId]?.dimensions?.width >
+                    1
                       ? 1
-                      : dimensions.h / dimensions.w) +
+                      : individualFronts[activeFrontId]?.dimensions?.height /
+                        individualFronts[activeFrontId]?.dimensions?.width) +
                   "%",
               }}
               className="col-[3/4] flex justify-center items-center py-2"

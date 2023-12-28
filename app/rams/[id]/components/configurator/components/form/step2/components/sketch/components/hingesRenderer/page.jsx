@@ -13,7 +13,11 @@ function HingesRenderer(props) {
         top: "0",
         left:
           individualFronts[activeFrontId].orientation === "Desna vrata"
-            ? `calc(100% - ${(1000 / dimensions.h) * 1.8 + "%"})`
+            ? `calc(100% - ${
+                (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                  1.8 +
+                "%"
+              })`
             : "0px",
         height: "100%",
         width:
@@ -31,16 +35,37 @@ function HingesRenderer(props) {
               bottom:
                 individualFronts[activeFrontId].orientation === "Kip vrata"
                   ? "auto"
-                  : `calc(${(100 / dimensions.h) * holeDistance + "%"} - ${
-                      ((1000 / dimensions.h) * 1.8) / 2 + "%"
+                  : `calc(${
+                      (100 /
+                        individualFronts[activeFrontId]?.dimensions?.height) *
+                        holeDistance +
+                      "%"
+                    } - ${
+                      ((1000 /
+                        individualFronts[activeFrontId]?.dimensions?.height) *
+                        1.8) /
+                        2 +
+                      "%"
                     })`,
               left:
                 individualFronts[activeFrontId].orientation === "Kip vrata"
-                  ? `calc(${(100 / dimensions.h) * holeDistance + "%"} - ${
-                      ((1000 / dimensions.h) * 1.8) / 2 + "%"
+                  ? `calc(${
+                      (100 /
+                        individualFronts[activeFrontId]?.dimensions?.height) *
+                        holeDistance +
+                      "%"
+                    } - ${
+                      ((1000 /
+                        individualFronts[activeFrontId]?.dimensions?.height) *
+                        1.8) /
+                        2 +
+                      "%"
                     })`
                   : "auto",
-              height: (1000 / dimensions.h) * 1.8 + "%",
+              height:
+                (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                  1.8 +
+                "%",
             }}
             className="border border-gray-800 aspect-square rounded-full bg-white"
           ></div>

@@ -10,41 +10,41 @@ function LocksRenderer(props) {
       style={{
         position: "absolute",
         top: `calc(100% - ${
-          ((100 / dimensions.h) *
+          ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
             (individualFronts[activeFrontId].locks.holeDiameter / 10)) /
             2 +
           "%"
         } - ${
-          (100 / dimensions.h) *
+          (100 / individualFronts[activeFrontId]?.dimensions?.height) *
             individualFronts[activeFrontId].locks.centerDistanceOfHole[0] +
           "%"
         })`,
         left:
           individualFronts[activeFrontId].orientation === "Leva vrata"
             ? `calc(100% - ${
-                ((100 / dimensions.h) *
+                ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
                   (individualFronts[activeFrontId].locks.holeDiameter / 10)) /
                   2 +
                 "%"
               } - ${
-                (100 / dimensions.h) *
+                (100 / individualFronts[activeFrontId]?.dimensions?.height) *
                   individualFronts[activeFrontId].locks
                     .centerDistanceOfHole[1] +
                 "%"
               })`
             : `calc(0% - ${
-                ((100 / dimensions.h) *
+                ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
                   (individualFronts[activeFrontId].locks.holeDiameter / 10)) /
                   2 +
                 "%"
               } +  ${
-                (100 / dimensions.h) *
+                (100 / individualFronts[activeFrontId]?.dimensions?.height) *
                   individualFronts[activeFrontId].locks
                     .centerDistanceOfHole[1] +
                 "%"
               })`,
         height:
-          (100 / dimensions.h) *
+          (100 / individualFronts[activeFrontId]?.dimensions?.height) *
             (individualFronts[activeFrontId].locks.holeDiameter / 10) +
           "%",
       }}

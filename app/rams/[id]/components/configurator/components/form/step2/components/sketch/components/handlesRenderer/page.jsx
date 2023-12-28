@@ -40,8 +40,13 @@ function HandlesRenderer(props) {
     ) {
       if (individualFronts[activeFrontId].handles.positionOption === 0) {
         setTop(
-          `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
-            (100 / dimensions.h) *
+          `calc(0% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } + ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               Number(
                 individualFronts[activeFrontId].handles.centerDistanceOfHole[1]
               ) +
@@ -52,22 +57,32 @@ function HandlesRenderer(props) {
 
       if (individualFronts[activeFrontId].handles.positionOption === 1) {
         setTop(
-          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-            (100 / dimensions.h) *
+          `calc(100% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } - ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
             "%"
           } + 1px)`
         );
       } else if (individualFronts[activeFrontId].handles.positionOption === 4) {
         setTop(
-          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-            (100 / dimensions.h) *
+          `calc(100% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } - ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               wheelBasesArr[
                 individualFronts[activeFrontId].handles.wheelbaseOption
               ] +
             "%"
           } - ${
-            (100 / dimensions.h) *
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               Number(
                 individualFronts[activeFrontId].handles.centerDistanceOfHole[1]
               ) +
@@ -79,8 +94,12 @@ function HandlesRenderer(props) {
 
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
           setTop(
-            `calc(100% - ${1000 / dimensions.h + "%"} - ${
-              (100 / dimensions.h) * Number(manualDistanceInput) + "%"
+            `calc(100% - ${
+              1000 / individualFronts[activeFrontId]?.dimensions?.height + "%"
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                Number(manualDistanceInput) +
+              "%"
             }) `
           );
         }
@@ -88,8 +107,13 @@ function HandlesRenderer(props) {
 
       if (individualFronts[activeFrontId].handles.positionOption === 2) {
         setTop(
-          `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
-            (100 / dimensions.h) *
+          `calc(0% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } + ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
             "%"
           })`
@@ -98,8 +122,13 @@ function HandlesRenderer(props) {
 
       if (individualFronts[activeFrontId].handles.positionOption === 3) {
         setTop(
-          `calc(50% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
-            ((100 / dimensions.h) *
+          `calc(50% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              1 +
+            "%"
+          } - ${
+            ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
               wheelBasesArr[
                 individualFronts[activeFrontId].handles.wheelbaseOption
               ]) /
@@ -112,16 +141,26 @@ function HandlesRenderer(props) {
     if (individualFronts[activeFrontId].orientation === "Kip vrata") {
       if (individualFronts[activeFrontId].handles.positionOption === 1) {
         setTop(
-          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-            (100 / dimensions.h) *
+          `calc(100% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } - ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
             "%"
           } + 1px)`
         );
       } else {
         setTop(
-          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-            (100 / dimensions.h) *
+          `calc(100% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } - ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               individualFronts[activeFrontId].handles.centerDistanceOfHole[1] +
             "%"
           } + 1px)`
@@ -137,8 +176,13 @@ function HandlesRenderer(props) {
   const generateLeft = () => {
     if (individualFronts[activeFrontId].orientation === "Desna vrata") {
       setLeft(
-        `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
-          (100 / dimensions.h) *
+        `calc(0% - ${
+          (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+            1.8 *
+            0.5 +
+          "%"
+        } + ${
+          (100 / individualFronts[activeFrontId]?.dimensions?.height) *
             individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
           "%"
         })`
@@ -151,23 +195,25 @@ function HandlesRenderer(props) {
       ) {
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 15) {
           // setLeft(
-          //   `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-          //     (100 / dimensions.h) *
+          //   `calc(100% - ${(1000 / individualFronts[activeFrontId]?.dimensions?.height) * 1.8 * 0.5 + "%"} - ${
+          //     (100 / individualFronts[activeFrontId]?.dimensions?.height) *
           //       Number(
           //         individualFronts[activeFrontId].handles
           //           .centerDistanceOfHole[0]
           //       ) +
           //     "%"
           //   } - ${
-          //     (100 / dimensions.h) *
+          //     (100 / individualFronts[activeFrontId]?.dimensions?.height) *
           //       individualFronts[activeFrontId].handles
           //         .centerDistanceOfHole[0] +
           //     "%"
           //   } + 1px)`
           // );
           setLeft(
-            `calc(100% - ${1000 / dimensions.h + "%"} - ${
-              (100 / dimensions.h) *
+            `calc(100% - ${
+              1000 / individualFronts[activeFrontId]?.dimensions?.height + "%"
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
                 Number(
                   individualFronts[activeFrontId].handles
                     .centerDistanceOfHole[0]
@@ -177,14 +223,19 @@ function HandlesRenderer(props) {
           );
         } else {
           setLeft(
-            `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-              (100 / dimensions.h) *
+            `calc(100% - ${
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                0.5 +
+              "%"
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
                 wheelBasesArr[
                   individualFronts[activeFrontId].handles.wheelbaseOption
                 ] +
               "%"
             } - ${
-              (100 / dimensions.h) *
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
                 individualFronts[activeFrontId].handles
                   .centerDistanceOfHole[0] +
               "%"
@@ -193,15 +244,24 @@ function HandlesRenderer(props) {
         }
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
           setLeft(
-            `calc(100% - ${1000 / dimensions.h + "%"} - ${
-              (100 / dimensions.h) * Number(manualDistanceInput) + "%"
+            `calc(100% - ${
+              1000 / individualFronts[activeFrontId]?.dimensions?.height + "%"
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                Number(manualDistanceInput) +
+              "%"
             } - 3px)`
           );
         }
       } else {
         setLeft(
-          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-            (100 / dimensions.h) *
+          `calc(100% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } - ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
             "%"
           } + 1px)`
@@ -212,8 +272,13 @@ function HandlesRenderer(props) {
       if (individualFronts[activeFrontId].handles.positionOption === 0) {
         setJustifyContentPosition("flex-start");
         setLeft(
-          `calc(0% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} + ${
-            (100 / dimensions.h) *
+          `calc(0% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } + ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
             "%"
           })`
@@ -221,8 +286,13 @@ function HandlesRenderer(props) {
       }
       if (individualFronts[activeFrontId].handles.positionOption === 1) {
         setLeft(
-          `calc(50% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
-            ((100 / dimensions.h) *
+          `calc(50% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              1 +
+            "%"
+          } - ${
+            ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
               wheelBasesArr[
                 individualFronts[activeFrontId].handles.wheelbaseOption
               ]) /
@@ -234,8 +304,13 @@ function HandlesRenderer(props) {
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
           setJustifyContentPosition("center");
           setLeft(
-            `calc(50% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
-              ((100 / dimensions.h) *
+            `calc(50% - ${
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                1 +
+              "%"
+            } - ${
+              ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
                 wheelBasesArr[
                   individualFronts[activeFrontId].handles.wheelbaseOption
                 ]) /
@@ -249,20 +324,33 @@ function HandlesRenderer(props) {
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
           setJustifyContentPosition("flex-end");
           setLeft(
-            `calc(0% - ${(1000 / dimensions.h) * 1.8 * 1 + "%"} - ${
-              ((100 / dimensions.h) * Number(manualDistanceInput)) / 2 + "%"
+            `calc(0% - ${
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                1 +
+              "%"
+            } - ${
+              ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                Number(manualDistanceInput)) /
+                2 +
+              "%"
             } )`
           );
         }
         setLeft(
-          `calc(100% - ${(1000 / dimensions.h) * 1.8 * 0.5 + "%"} - ${
-            (100 / dimensions.h) *
+          `calc(100% - ${
+            (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+              1.8 *
+              0.5 +
+            "%"
+          } - ${
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               wheelBasesArr[
                 individualFronts[activeFrontId].handles.wheelbaseOption
               ] +
             "%"
           } - ${
-            (100 / dimensions.h) *
+            (100 / individualFronts[activeFrontId]?.dimensions?.height) *
               individualFronts[activeFrontId].handles.centerDistanceOfHole[0] +
             "%"
           } )`
@@ -314,7 +402,7 @@ function HandlesRenderer(props) {
         alignItems: "flex-start",
 
         gap: `calc(${
-          (100 / dimensions.h) *
+          (100 / individualFronts[activeFrontId]?.dimensions?.height) *
             (individualFronts[activeFrontId].handles.wheelbaseOption === 16
               ? Number(
                   individualFronts[activeFrontId].handles
@@ -324,14 +412,22 @@ function HandlesRenderer(props) {
                   individualFronts[activeFrontId].handles.wheelbaseOption
                 ]) +
           "%"
-        } - ${(1000 / dimensions.h) * 1.8 * 1 + "%"})`,
+        } - ${
+          (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+            1.8 *
+            1 +
+          "%"
+        })`,
       }}
     >
       {individualFronts[activeFrontId].handles.wheelbaseOption === 15 ? (
         <div
           key={`singleHoleDistance`}
           style={{
-            height: (1000 / dimensions.h) * 1.8 + "%",
+            height:
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 +
+              "%",
           }}
           className="border border-gray-800 aspect-square rounded-full bg-white"
         ></div>
@@ -341,7 +437,10 @@ function HandlesRenderer(props) {
             <div
               key={`holeDistance - ${id}`}
               style={{
-                height: (1000 / dimensions.h) * 1.8 + "%",
+                height:
+                  (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                    1.8 +
+                  "%",
               }}
               className="border border-gray-800 aspect-square rounded-full bg-white"
             ></div>
