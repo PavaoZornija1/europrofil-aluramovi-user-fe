@@ -37,12 +37,12 @@ function HingesRenderer(props) {
                   ? "auto"
                   : `calc(${
                       (100 /
-                        individualFronts[activeFrontId]?.dimensions?.height) *
+                        individualFronts[activeFrontId]?.dimensions?.width) *
                         holeDistance +
                       "%"
                     } - ${
                       ((1000 /
-                        individualFronts[activeFrontId]?.dimensions?.height) *
+                        individualFronts[activeFrontId]?.dimensions?.width) *
                         1.8) /
                         2 +
                       "%"
@@ -51,12 +51,12 @@ function HingesRenderer(props) {
                 individualFronts[activeFrontId].orientation === "Kip vrata"
                   ? `calc(${
                       (100 /
-                        individualFronts[activeFrontId]?.dimensions?.height) *
+                        individualFronts[activeFrontId]?.dimensions?.width) *
                         holeDistance +
                       "%"
                     } - ${
                       ((1000 /
-                        individualFronts[activeFrontId]?.dimensions?.height) *
+                        individualFronts[activeFrontId]?.dimensions?.width) *
                         1.8) /
                         2 +
                       "%"
