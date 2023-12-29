@@ -19,8 +19,12 @@ const RenderHingesDetails = ({ frame }) => {
   }
 
   const calculatePositionInPercentage = (currentValue) => {
-    const posPerc = (currentValue / frame?.dimensions?.height) * 100;
-    return posPerc;
+    let verticalDoor = frame?.orientation === "Kip vrata";
+    let chooseWidthOrHeight = verticalDoor
+      ? frame?.dimensions?.width
+      : frame?.dimensions?.height;
+    const positionPercentage = (currentValue / chooseWidthOrHeight) * 100;
+    return positionPercentage;
   };
 
   return frame.hinges?.hasHinge ? (
