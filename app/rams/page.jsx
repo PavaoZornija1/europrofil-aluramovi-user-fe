@@ -4,15 +4,24 @@ import Navbar from "../navbar/page";
 import RamItem from "./components/ramItem/page";
 import axios from "axios";
 import { Config } from "../../config";
+import Loading from "../loading";
 
 function Rams() {
   const [rams, setRams] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const response = async () => {
-      const res = await axios.get(`${Config.baseURL}/api/alu-profiles`);
-      setRams(res.data);
-    };
-    response();
+    setIsLoading(true);
+    try {
+      const response = async () => {
+        const res = await axios.get(`${Config.baseURL}/api/alu-profiles`);
+        setRams(res.data);
+        setIsLoading(false);
+      };
+      response();
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+    }
   }, []);
 
   return (
@@ -34,13 +43,17 @@ function Rams() {
           </p>
         </div>
         <div className="mx-2 md:mx-16 min-h-screen text-black pb-32">
-          <div className="flex-wrap gap-16 mx-auto flex justify-center">
-            {rams.map((ram, i) => (
-              <React.Fragment key={i}>
-                <RamItem ram={ram} />
-              </React.Fragment>
-            ))}
-          </div>
+          {isLoading ? (
+            <Loading heightValue={80} />
+          ) : (
+            <div className="flex-wrap gap-16 mx-auto flex justify-center">
+              {rams.map((ram, i) => (
+                <React.Fragment key={i}>
+                  <RamItem ram={ram} />
+                </React.Fragment>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

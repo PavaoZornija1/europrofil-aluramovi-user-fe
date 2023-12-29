@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useAuth } from "../context/AuthContext";
+import Loading from "../loading";
 
 export default function Login({ locale }) {
   // const {
@@ -23,6 +24,7 @@ export default function Login({ locale }) {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const { login, token } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
@@ -47,21 +49,26 @@ export default function Login({ locale }) {
       setPasswordError(invalidPassword);
       return;
     }
+    setIsLoading(true);
     try {
       if (username && password) {
         await login(username, password);
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       throw new Error("Invalid credentials ", error);
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loading heightValue={"screen"} />
+  ) : (
     <div className="m-auto my-10 h-full w-5/6 rounded-lg bg-gradient-to-tr from-sky-500 to-sky-600 text-black shadow shadow-gray-500 sm:w-96">
       <form onSubmit={handleSubmit}>
         <div className="w-full p-6 text-center">
           <h2 className="cursor-default text-3xl font-semibold tracking-widest text-white underline sm:text-4xl">
-            EUROPROFIL
+            EUROPROFILs
           </h2>
         </div>
 
