@@ -13,7 +13,7 @@ const Specifications = () => {
   const subfill = useSelector((state) => state.data.subFill);
 
   return (
-    <div className="flex flex-col border-t py-4">
+    <div className="flex flex-col border-t py-4 border-b-2 pb-5">
       <h3 className="text-2xl font-semibold">Osnovna specifikacija</h3>
       <div className="flex flex-col gap-4 py-4 sm:flex-row sm:justify-evenly">
         <div className="flex gap-2">
@@ -35,7 +35,6 @@ const Specifications = () => {
           <span>{additionalTreatment?.name}</span>
         </div>
       </div>
-      <hr />
     </div>
   );
 };

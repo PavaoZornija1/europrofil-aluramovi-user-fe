@@ -30,9 +30,9 @@ const DoorDetails = ({ activeFrame }) => {
   };
 
   return (
-    <div className="grid md:grid-cols-2 gap-2 ">
+    <div className="grid md:grid-cols-2 gap-2 border-b-2 pb-5">
       {frames.map((frame, index) => (
-        <div key={index}>
+        <div key={index} className="shadow-md px-1 shadow-gray-200">
           <h2 className="text-xl font-semibold uppercase">
             Front {index + 1} - {frame.orientation}, komada{" "}
             {frame.dimensions.numberOfPieces}
@@ -48,9 +48,13 @@ const DoorDetails = ({ activeFrame }) => {
           ) : null}
           <div className="flex justify-between">
             {frame.hinges?.hinge?.id ? (
-              <span>Šarke: {frame.hinges?.hinge?.name}</span>
+              <>
+                <span>Šarke: {frame.hinges?.hinge?.name}</span>
+                <span className="px-2">
+                  {frame?.hinges?.numberOfHinges} kom
+                </span>
+              </>
             ) : null}
-            <span className="px-2">{frame?.hinges?.numberOfHinges} kom</span>
           </div>
           {frame.handles?.handleProfile?.id ? (
             <div className="flex justify-between">

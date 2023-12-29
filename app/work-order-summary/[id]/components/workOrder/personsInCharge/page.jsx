@@ -6,7 +6,7 @@ const PersonsInCharge = () => {
   const userInfo = useSelector((state) => state.data.user);
 
   return (
-    <div className="mb-10 flex w-full flex-col justify-between gap-4 py-2 sm:flex-row">
+    <div className="mb-10 flex w-full flex-col justify-between gap-4 py-2 sm:flex-row mt-10">
       <div className="flex gap-4 sm:flex-col">
         <span className="font-semibold">Nalog izdao:</span>
         <span>{userInfo?.username}</span>

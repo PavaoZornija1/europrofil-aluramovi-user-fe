@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 function CustomerData() {
   const userInfo = useSelector((state) => state.data.user);
   return (
-    <div className="flex w-full flex-col border-t py-2 text-black">
+    <div className="flex w-full flex-col border-t-2 py-2 text-black border-b-2 pb-5">
       {/* <div className="w-full ">
         <OrderNumber />
       </div> */}
