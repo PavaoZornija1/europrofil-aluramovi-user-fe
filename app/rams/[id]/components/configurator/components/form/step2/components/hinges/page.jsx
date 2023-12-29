@@ -13,6 +13,8 @@ function Hinges(props) {
 
   const dispatch = useDispatch();
 
+  let verticalDoor =
+    individualFronts[activeFrontId]?.orientation === "Kip vrata";
   useEffect(() => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
     const updatedFrontsData = individualFronts.map((obj, id) => {
@@ -25,11 +27,16 @@ function Hinges(props) {
               (hole, index) => {
                 let a =
                   100 +
-                  ((Number(individualFronts[activeFrontId].dimensions.height) -
+                  ((Number(
+                    verticalDoor
+                      ? individualFronts[activeFrontId].dimensions.width
+                      : individualFronts[activeFrontId].dimensions.height
+                  ) -
                     200) /
                     Number(obj.hinges.centerDistanceOfHoles.length - 1)) *
                     index;
-                return a;
+                return a.toFixed();
+                // handleHingeDistance(individualFronts, obj, index);
               }
             ),
           },
@@ -39,25 +46,15 @@ function Hinges(props) {
     });
 
     dispatch(setIndividualFronts(updatedFrontsData));
-  }, [individualFronts[activeFrontId]?.dimensions?.height]);
+  }, [
+    individualFronts[activeFrontId]?.dimensions?.height,
+    individualFronts[activeFrontId]?.dimensions?.width,
+    verticalDoor,
+  ]);
 
   const handleRadioClick = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
 
-    const updatedFrontsData = individualFronts.map((obj, id) => {
-      if (id === activeFront) {
-        return {
-          ...obj,
-          hinges: {
-            ...obj.hinges,
-            activeOption: value,
-            hasHinge: Boolean(value),
-            shouldMount: value === 2 ? true : false,
-          },
-        };
-      }
-      return obj;
-    });
     fronts[activeFront].hinges = {
       ...fronts[activeFront].hinges,
       activeOption: value,
@@ -103,6 +100,23 @@ function Hinges(props) {
 
     dispatch(setIndividualFronts(fronts));
   };
+  const createCenterDistanceOfHolesArr2 = (fronts, numOfItems) => {
+    const newDistancesArray = [];
+
+    for (let i = 0; i < Number(numOfItems); i++) {
+      let a =
+        100 +
+        (((verticalDoor
+          ? +fronts[activeFrontId]?.dimensions?.width
+          : +fronts[activeFrontId]?.dimensions?.height) -
+          200) /
+          Number(numOfItems - 1)) *
+          i;
+      newDistancesArray.push(Number(a).toFixed());
+      console.log(a);
+    }
+    return newDistancesArray;
+  };
 
   const updateNumberOfHinges = (activeFront, value) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));
@@ -114,9 +128,9 @@ function Hinges(props) {
           hinges: {
             ...obj.hinges,
             numberOfHinges: Number(value),
-            centerDistanceOfHoles: createCenterDistanceOfHolesArr(
-              individualFronts[activeFront].dimensions.height,
-              value
+            centerDistanceOfHoles: createCenterDistanceOfHolesArr2(
+              individualFronts,
+              +value
             ),
           },
         };
