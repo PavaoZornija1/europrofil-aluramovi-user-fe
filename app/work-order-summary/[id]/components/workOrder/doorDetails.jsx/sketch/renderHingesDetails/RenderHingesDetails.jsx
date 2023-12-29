@@ -17,27 +17,36 @@ const RenderHingesDetails = ({ frame }) => {
   } else if (frame.orientation === "Kip vrata") {
     setTextPosition = `top-4`;
   }
+
+  const calculatePositionInPercentage = (currentValue) => {
+    const posPerc = (currentValue / frame?.dimensions?.height) * 100;
+    return posPerc;
+  };
+
   return frame.hinges?.hasHinge ? (
     <div className={`absolute ${position}`}>
       {frame.hinges?.centerDistanceOfHoles?.map((hole, index) => (
         <React.Fragment key={`hole-${index - hole}`}>
           <div
             key={index}
-            className={`border-slate-500 border rounded-full w-4 h-4 bg-white absolute`}
+            className={`border-slate-500 border rounded-full w-4 h-4 bg-white`}
             style={{
+              position: "absolute",
               [frame.orientation === "Leva vrata" ||
               frame.orientation === "Desna vrata"
                 ? "bottom"
-                : "left"]: `${hole / 10 - 2.5}%`,
+                : "left"]: `${calculatePositionInPercentage(hole) - 2.5}%`,
             }}
-          ></div>
+          >
+            {console.log(hole)}
+          </div>
           <div
             className={`${setTextPosition} text-sm absolute`}
             style={{
               [frame.orientation === "Leva vrata" ||
               frame.orientation === "Desna vrata"
                 ? "bottom"
-                : "left"]: `${hole / 10 - 2.5}%`,
+                : "left"]: `${calculatePositionInPercentage(hole) - 2.5}%`,
             }}
           >
             {Number(hole).toFixed()}

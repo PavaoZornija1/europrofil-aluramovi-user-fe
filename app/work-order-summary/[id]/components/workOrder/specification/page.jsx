@@ -35,6 +35,7 @@ const Specifications = () => {
           <span>{additionalTreatment?.name}</span>
         </div>
       </div>
+      <hr />
     </div>
   );
 };

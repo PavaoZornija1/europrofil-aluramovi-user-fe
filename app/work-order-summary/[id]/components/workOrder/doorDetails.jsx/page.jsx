@@ -37,13 +37,15 @@ const DoorDetails = ({ activeFrame }) => {
             Front {index + 1} - {frame.orientation}, komada{" "}
             {frame.dimensions.numberOfPieces}
           </h2>
-          <div className="flex justify-between">
-            <span>{additionalFillTreatment?.name}</span>
-            <span className="px-2">
-              {calculateFillWidth(frame, activeFrame)} x{" "}
-              {calculateFillHeight(frame, activeFrame)} mm
-            </span>
-          </div>
+          {additionalFillTreatment?.id ? (
+            <div className="flex justify-between">
+              <span>{additionalFillTreatment?.name}</span>
+              <span className="px-2">
+                {calculateFillWidth(frame, activeFrame)} x{" "}
+                {calculateFillHeight(frame, activeFrame)} mm
+              </span>
+            </div>
+          ) : null}
           <div className="flex justify-between">
             {frame.hinges?.hinge?.id ? (
               <span>Šarke: {frame.hinges?.hinge?.name}</span>
