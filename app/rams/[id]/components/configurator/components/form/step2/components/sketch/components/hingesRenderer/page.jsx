@@ -37,12 +37,12 @@ function HingesRenderer(props) {
                   ? "auto"
                   : `calc(${
                       (100 /
-                        individualFronts[activeFrontId]?.dimensions?.width) *
+                        individualFronts[activeFrontId]?.dimensions?.height) *
                         holeDistance +
                       "%"
                     } - ${
                       ((1000 /
-                        individualFronts[activeFrontId]?.dimensions?.width) *
+                        individualFronts[activeFrontId]?.dimensions?.height) *
                         1.8) /
                         2 +
                       "%"
