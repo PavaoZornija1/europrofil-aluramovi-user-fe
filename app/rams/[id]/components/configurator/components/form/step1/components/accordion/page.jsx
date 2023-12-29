@@ -214,7 +214,7 @@ function Accordion(props) {
           </label>
         </div>
       )}
-      {accordionFor === "fills" && noFillChosen && (
+      {accordionFor === "fills" && fill?.id && (
         <div className="mt-4 pt-4 border-t-2">
           <p className="text-xl font-semibold uppercase tracking-wider text-black">
             Opcije za ispunu
@@ -225,7 +225,7 @@ function Accordion(props) {
               name="additionalWork"
               id=""
               className="sm:ml-8 border focus:outline-none border-r-sm text-center"
-              value={additionalTreatment}
+              value={additionalFillTreatment?.id}
               onChange={(e) => handleChooseSandblasting(e)}
             >
               <option value={null} key={`defaultOptionKey`}>
