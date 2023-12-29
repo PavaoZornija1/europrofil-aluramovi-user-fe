@@ -1,7 +1,10 @@
-export default function Loading({ heightValue }) {
+export default function Loading({
+  heightValue = "screen",
+  widthValue = "screen",
+}) {
   return (
     <div
-      className={`flex h-${heightValue} w-screen items-center justify-center text-black`}
+      className={`flex h-${heightValue} w-${widthValue} items-center justify-center text-black bg-red-500`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

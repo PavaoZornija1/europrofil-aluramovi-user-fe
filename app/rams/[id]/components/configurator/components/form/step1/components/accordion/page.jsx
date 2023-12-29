@@ -3,6 +3,7 @@ import {
   setAdditionalFillTreatment,
   setFill,
 } from "@/app/features/ram/ramData";
+import Loading from "@/app/loading";
 import { Config } from "@/config";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -18,17 +19,23 @@ function Accordion(props) {
   const [sandBlastingOptions, setSandBlastingOptions] = useState([]);
   const [add, setAdd] = useState({});
   const fill = useSelector((state) => state.data.fill);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const response = async () => {
-      const res = await axios.get(`${Config.baseURL}/api/bevel-options`);
-      setBevelOptions(res.data);
-      const res_2 = await axios.get(
-        `${Config.baseURL}/api/sand-blasting-options`
-      );
-      setSandBlastingOptions(res_2.data);
-    };
-    response();
+    setIsLoading(true);
+    try {
+      const response = async () => {
+        const res = await axios.get(
+          `${Config.baseURL}/api/sand-blasting-options`
+        );
+        setSandBlastingOptions(res.data);
+        setIsLoading(false);
+      };
+      response();
+    } catch (error) {
+      setIsLoading(true);
+      console.error(error);
+    }
   }, []);
 
   const dispatch = useDispatch();
@@ -214,33 +221,39 @@ function Accordion(props) {
           </label>
         </div>
       )}
-      {accordionFor === "fills" && fill?.id && (
-        <div className="mt-4 pt-4 border-t-2">
-          <p className="text-xl font-semibold uppercase tracking-wider text-black">
-            Opcije za ispunu
-          </p>
-          <div className="flex flex-col mt-4 sm:flex-row">
-            <p className="text-lg">Dodatna obrada</p>
-            <select
-              name="additionalWork"
-              id=""
-              className="sm:ml-8 border focus:outline-none border-r-sm text-center"
-              value={additionalFillTreatment?.id}
-              onChange={(e) => handleChooseSandblasting(e)}
-            >
-              <option value={null} key={`defaultOptionKey`}>
-                -Izaberite-
-              </option>
-              <optgroup label="Peskirenje">
-                {sandBlastingOptions?.map((options) => (
-                  <option key={options.id} value={options.id}>
-                    {options.name}
-                  </option>
-                ))}
-              </optgroup>
-            </select>
+      {/* *********************************** */}
+      {isLoading ? (
+        <Loading heightValue={12} widthValue={20} />
+      ) : (
+        accordionFor === "fills" &&
+        fill?.id && (
+          <div className="mt-4 pt-4 border-t-2">
+            <p className="text-xl font-semibold uppercase tracking-wider text-black">
+              Opcije za ispunu
+            </p>
+            <div className="flex flex-col mt-4 sm:flex-row">
+              <p className="text-lg">Dodatna obrada</p>
+              <select
+                name="additionalWork"
+                id=""
+                className="sm:ml-8 border focus:outline-none border-r-sm text-center"
+                value={additionalFillTreatment?.id}
+                onChange={(e) => handleChooseSandblasting(e)}
+              >
+                <option value={null} key={`defaultOptionKey`}>
+                  -Izaberite-
+                </option>
+                <optgroup label="Peskirenje">
+                  {sandBlastingOptions?.map((options) => (
+                    <option key={options.id} value={options.id}>
+                      {options.name}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+            </div>
           </div>
-        </div>
+        )
       )}
     </div>
   );
