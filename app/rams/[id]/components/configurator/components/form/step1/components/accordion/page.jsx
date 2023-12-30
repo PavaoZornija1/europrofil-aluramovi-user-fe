@@ -163,7 +163,6 @@ function Accordion(props) {
                               className="text-lg cursor-pointer"
                             >
                               {option.name}
-                              {console.log(fill?.subfill?.id, option?.id)}
                             </label>
                           </div>
 

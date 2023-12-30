@@ -203,21 +203,9 @@ function Handles(props) {
   const updateProfileLength = (activeFront, value) => {
     const front = JSON.parse(JSON.stringify(individualFronts));
 
-    console.log(+value);
     front[activeFront].handles.profileLength = Number(value);
     dispatch(setIndividualFronts(front));
   };
-
-  useEffect(() => {
-    console.log(
-      "pl:",
-      individualFronts[activeFrontId].handles.profileLength,
-      "w:",
-      individualFronts[activeFrontId].dimensions.width,
-      "h:",
-      individualFronts[activeFrontId].dimensions.height
-    );
-  }, [individualFronts[activeFrontId].handles.profileLength]);
 
   const handleChooseHandleProfile = (activeFront, e) => {
     const fronts = JSON.parse(JSON.stringify(individualFronts));

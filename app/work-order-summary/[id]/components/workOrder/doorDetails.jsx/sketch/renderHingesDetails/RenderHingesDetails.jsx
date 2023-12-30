@@ -41,9 +41,7 @@ const RenderHingesDetails = ({ frame }) => {
                 ? "bottom"
                 : "left"]: `${calculatePositionInPercentage(hole) - 2.5}%`,
             }}
-          >
-            {console.log(hole)}
-          </div>
+          ></div>
           <div
             className={`${setTextPosition} text-sm absolute`}
             style={{
