@@ -17,7 +17,7 @@ export default function Footer({ locale }) {
         &copy; {year}. Europrofil
       </span>
       <span className="w-full">
-        Manage IT
+        Dizajn i razvoj:
         <Link
           href={"https://manage-it.tech/"}
           target="_blank"
