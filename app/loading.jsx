@@ -4,7 +4,7 @@ export default function Loading({
 }) {
   return (
     <div
-      className={`flex h-${heightValue} w-${widthValue} items-center justify-center text-black bg-red-500`}
+      className={`flex h-${heightValue} w-${widthValue} items-center justify-center text-black`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
