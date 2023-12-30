@@ -7,19 +7,119 @@ import { useSelector } from "react-redux";
 import createWorkOrderPdf from "./components/pdf/pdf";
 import PurchaseOrder from "./components/purchaseOrder/page";
 import WorkOrder from "./components/workOrder/page";
+import { Config } from "@/config";
+import {
+  calculateAluFrameFillSurfaces,
+  calculateAluFrameSurfaces,
+  calculateMetalCornersQuantity,
+  calculateTotalNumberOfFronts,
+} from "@/app/utils/calculations";
+import { useAuth } from "@/app/context/AuthContext";
+import axios from "axios";
 
 function WorkOrderMain(props) {
+  const { token } = useAuth();
   const [workOrderActive, setWorkOrderActive] = useState(true);
   const [purchaseOrderActive, setPurchaseOrderActive] = useState(false);
   const pathname = usePathname();
 
   const frameType = useSelector((state) => state.data.frameType);
+  const totalCost = useSelector((state) => state.data.totalCost);
   const individualFronts = useSelector((state) => state.data.individualFronts);
-  const treatment = useSelector((state) => state.data.treatment.name);
-  const fill = useSelector((state) => state.data.fill.name);
+  const treatment = useSelector((state) => state.data.treatment);
+  const fill = useSelector((state) => state.data.fill);
+  const user = useSelector((state) => state.data.user);
+  const vat = useSelector((state) => state.data.vat);
   const additionalTreatment = useSelector(
     (state) => state.data.additionalFillTreatment.name
   );
+
+  const cornerCoverCount = calculateMetalCornersQuantity(individualFronts);
+  const totalFillArea = calculateAluFrameFillSurfaces(
+    frameType,
+    individualFronts,
+    fill
+  );
+  const totalFrameLength = calculateAluFrameSurfaces(
+    individualFronts,
+    treatment
+  );
+
+  const totalFrameCount = calculateTotalNumberOfFronts(individualFronts);
+  const costPerMeterTotal =
+    calculateAluFrameSurfaces(individualFronts, treatment) *
+      treatment?.pricePerMeter -
+    (calculateAluFrameSurfaces(individualFronts, treatment) *
+      treatment?.pricePerMeter *
+      user?.discountHardware) /
+      100;
+  const costPerMeterBase =
+    calculateAluFrameSurfaces(individualFronts, treatment) *
+    treatment?.pricePerMeter;
+
+  let costVat = totalCost * (vat / 100);
+  let costBase = totalCost - costVat;
+
+  const handlePostOrder = async (e) => {
+    // setIsMiniLoading(true);
+    // setIsSaved(true);
+    // setShowMoreActionButtons(true);
+    // setShowSavedButton(true);
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    const response = await axios.post(
+      `${Config.baseURL}/api/alu-orders`,
+      {
+        // customerDesiredDeliveryDate:
+        //   createAluOrderDto.customerDesiredDeliveryDate,
+        customerDeliveryAddress: user?.deliveryAddress,
+        customerAddress: user?.address,
+        customerPhone: user?.phone,
+        // codeMonth: createAluOrderDto.codeMonth,
+        frameTreatmentPrice: treatment?.pricePerMeter,
+        frameTreatmentName: treatment?.name,
+        frameTreatmentCode: treatment?.productCode,
+        frameTypeName: frameType?.name,
+        frameTypeCode: frameType?.productCode,
+        // customerInternalOrderNumber:
+        //   createAluOrderDto.customerInternalOrderNumber,
+        customerNotes: user?.note,
+        // customerDiscount: createAluOrderDto.customerDiscount, koji je ovo popust posto imaju 2
+        fillPriceIncrease: fill?.priceIncrease,
+        fillPrice: fill?.pricePerSquareMeter,
+        fillName: fill?.name,
+        fillCode: fill?.productCode,
+        frameTreatmentPriceIncrease: treatment?.priceIncrease,
+        // cornerCoverProductCode: createAluOrderDto.cornerCoverProductCode, ???
+        // confirmedOn: createAluOrderDto.confirmedOn,
+        // confirmed: createAluOrderDto.confirmed,
+        // jsonCost: createAluOrderDto.jsonCost,
+        // jsonFronts: createAluOrderDto.jsonFronts,
+        // jsonHeader: createAluOrderDto.jsonHeader,
+        // jsonOrder: createAluOrderDto.jsonOrder,
+        // jsonConfiguration: createAluOrderDto.jsonConfiguration,
+        orderDate: new Date(),
+        totalFillArea: totalFillArea,
+        totalFrameLength: totalFrameLength,
+        totalFrameCount: totalFrameCount,
+        costPerMeterTotal: costPerMeterTotal, //sa %
+        costPerMeterBase: costPerMeterBase, //bez %
+        costTotal: totalCost, //finalna cijena
+        costVat: costVat, // cijena pdv-a
+        costBase: costBase,
+        costVatRate: vat,
+        cornerCoverCount: cornerCoverCount,
+      },
+      config
+    );
+
+    // setIsMiniLoading(false);
+    // setPostType(e.target.innerText);
+    // await new Promise((resolve) => setTimeout(resolve, 3350));
+    // setIsSaved(false);
+    return response;
+  };
 
   return (
     <div>
@@ -81,20 +181,20 @@ function WorkOrderMain(props) {
               onClick={() =>
                 createWorkOrderPdf(
                   frameType?.name,
-                  treatment,
-                  fill,
+                  treatment?.name,
+                  fill?.name,
                   additionalTreatment
                 )
               }
             >
               Štampa
             </div>
-            <Link
+            <button
               className="w-full max-w-[320px] rounded-md border bg-gradient-to-tr from-green-500 to-green-600 px-3 py-1 text-center text-lg font-semibold uppercase text-white transition-all duration-200 hover:brightness-125"
-              href={""}
+              onClick={(e) => handlePostOrder(e)}
             >
               Sačuvaj
-            </Link>
+            </button>
           </div>
         </div>
         {workOrderActive && (

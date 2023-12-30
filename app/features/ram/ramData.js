@@ -54,6 +54,8 @@ const initialState = {
       },
     },
   ],
+  totalCost: 0,
+  vat: 0,
 };
 export const ramData = createSlice({
   name: "data",
@@ -71,6 +73,9 @@ export const ramData = createSlice({
     setTreatment: (state, action) => {
       state.treatment = action.payload;
     },
+    setVat: (state, action) => {
+      state.vat = action.payload;
+    },
     setFill: (state, action) => {
       state.fill = action.payload;
     },
@@ -79,6 +84,9 @@ export const ramData = createSlice({
     },
     setRalCode: (state, action) => {
       state.ralCode = action.payload;
+    },
+    setTotalCost: (state, action) => {
+      state.totalCost = action.payload;
     },
     setLockHole: (state, action) => {
       state.lockHole = action.payload;
@@ -108,8 +116,6 @@ export const ramData = createSlice({
     setQty: (state, action) => {
       state.qty = action.payload;
     },
-
-    // FIKSATI OVO
     setQtyTotal: (state, action) => {
       state.qtyTotal = action.payload;
     },
@@ -149,5 +155,7 @@ export const {
   setOrientation,
   setFrameType,
   setQtyTotal,
+  setTotalCost,
+  setVat,
 } = ramData.actions;
 export default ramData.reducer;

@@ -1,4 +1,5 @@
 "use client";
+import { setTotalCost, setVat } from "@/app/features/ram/ramData";
 import {
   calculateAdditionalFillTreatment,
   calculateAluFrameFillSurfaces,
@@ -11,9 +12,10 @@ import {
 import { Config } from "@/config";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function DetailedPrice() {
+  const dispatch = useDispatch();
   const aluProfile = useSelector((state) => state.data.frameType);
   const treatment = useSelector((state) => state.data.treatment);
   const fill = useSelector((state) => state.data.fill);
@@ -29,6 +31,7 @@ export default function DetailedPrice() {
       let response = await axios(`${Config.baseURL}/api/alu-settings`);
       if (response.data) {
         setPricesFromSettings(response.data);
+        dispatch(setVat(+response.data[0].vat));
       }
     } catch (error) {
       console.error(error);
@@ -158,6 +161,7 @@ export default function DetailedPrice() {
 
   let pdv = +priceTotalCost * Number(pricesFromSettings[0]?.vat / 100);
   let priceTotalCostWidthPDV = +priceTotalCost + +pdv;
+  dispatch(setTotalCost(priceTotalCostWidthPDV));
 
   function formatCurrency(value, currencyCode = "EUR") {
     return new Intl.NumberFormat("de-DE", {

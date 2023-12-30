@@ -131,3 +131,11 @@ export const calculateServiceCost = (fronts, costPerFrame, costPerMeter) => {
 
   return serviceCost;
 };
+
+export const calculateTotalNumberOfFronts = (fronts) => {
+  let totalNumberOfFronts = 0;
+  for (let i = 0; i < fronts.length; ++i) {
+    totalNumberOfFronts += Number(fronts[i].dimensions?.numberOfPieces);
+  }
+  return totalNumberOfFronts;
+};
