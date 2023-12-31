@@ -172,5 +172,5 @@ const ComponentToPrint = forwardRef((props, ref) => {
     </div>
   );
 });
-
+ComponentToPrint.displayName = "ComponentToPrint";
 export default ComponentToPrint;
