@@ -2,7 +2,7 @@
 import Navbar from "@/app/navbar/page";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import createWorkOrderPdf from "./components/pdf/pdf";
 import PurchaseOrder from "./components/purchaseOrder/page";
@@ -16,6 +16,8 @@ import {
 } from "@/app/utils/calculations";
 import { useAuth } from "@/app/context/AuthContext";
 import axios from "axios";
+import { useReactToPrint } from "react-to-print";
+import ComponentToPrint from "./components/pdf/ComponentToPrint";
 
 function WorkOrderMain(props) {
   const { token } = useAuth();
@@ -120,7 +122,10 @@ function WorkOrderMain(props) {
     // setIsSaved(false);
     return response;
   };
-
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   return (
     <div>
       <Navbar />
@@ -186,6 +191,7 @@ function WorkOrderMain(props) {
                   additionalTreatment
                 )
               }
+              // onClick={handlePrint}
             >
               Štampa
             </div>
@@ -204,6 +210,9 @@ function WorkOrderMain(props) {
           />
         )}
         {purchaseOrderActive && <PurchaseOrder />}
+      </div>
+      <div style={{ display: "none" }}>
+        <ComponentToPrint ref={componentRef} />
       </div>
     </div>
   );
