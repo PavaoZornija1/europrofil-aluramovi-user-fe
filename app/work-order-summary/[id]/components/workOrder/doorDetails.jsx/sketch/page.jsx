@@ -28,7 +28,7 @@ const SketchDetails = ({ frame }) => {
               Strana sa šarkama
             </div>
           )}
-          <div className="h-80 w-80 border-slate-400 border-2 bg-green-400 relative">
+          <div className="h-72 w-72 border-slate-400 border-2 bg-green-400 relative">
             <RenderHandleProfileDetails frame={frame} />
             <RenderHingesDetails frame={frame} />
           </div>

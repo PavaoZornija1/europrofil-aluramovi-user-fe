@@ -18,12 +18,14 @@ import { useAuth } from "@/app/context/AuthContext";
 import axios from "axios";
 import { useReactToPrint } from "react-to-print";
 import ComponentToPrint from "./components/pdf/ComponentToPrint";
+import store from "@/app/store/store";
 
 function WorkOrderMain(props) {
   const { token } = useAuth();
   const [workOrderActive, setWorkOrderActive] = useState(true);
   const [purchaseOrderActive, setPurchaseOrderActive] = useState(false);
   const pathname = usePathname();
+  const data = store.getState();
 
   const frameType = useSelector((state) => state.data.frameType);
   const totalCost = useSelector((state) => state.data.totalCost);
@@ -125,6 +127,7 @@ function WorkOrderMain(props) {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
+    documentTitle: "europrofil-aluRamovi",
   });
   return (
     <div>
@@ -183,15 +186,15 @@ function WorkOrderMain(props) {
             </Link>
             <div
               className="w-full max-w-[320px] cursor-pointer rounded-md border bg-gradient-to-tr from-green-500 to-green-600 px-3 py-1 text-center text-lg font-semibold uppercase text-white transition-all duration-200 hover:brightness-125"
-              onClick={() =>
-                createWorkOrderPdf(
-                  frameType?.name,
-                  treatment?.name,
-                  fill?.name,
-                  additionalTreatment
-                )
-              }
-              // onClick={handlePrint}
+              // onClick={() =>
+              //   createWorkOrderPdf(
+              //     frameType?.name,
+              //     treatment?.name,
+              //     fill?.name,
+              //     additionalTreatment
+              //   )
+              // }
+              onClick={handlePrint}
             >
               Štampa
             </div>
@@ -212,7 +215,7 @@ function WorkOrderMain(props) {
         {purchaseOrderActive && <PurchaseOrder />}
       </div>
       <div style={{ display: "none" }}>
-        <ComponentToPrint ref={componentRef} />
+        <ComponentToPrint ref={componentRef} data={data} />
       </div>
     </div>
   );
