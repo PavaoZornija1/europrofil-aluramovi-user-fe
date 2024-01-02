@@ -132,9 +132,9 @@ const ComponentToPrint = forwardRef((props, ref) => {
         </div>
       </section>
       {/* INDIVIDUAL FRONTS */}
-      <section className="grid grid-cols-2 gap-2 break-before-page">
+      <section className="grid grid-cols-2 gap-2">
         {completeData?.individualFronts?.map((frame, index) => (
-          <div key={index} className="border border-black block">
+          <div key={index} className="border border-black break-after-page">
             <h4 className="bg-slate-700 text-white px-1">
               Front {index + 1} - {frame.orientation}, komada{" "}
               {frame.dimensions.numberOfPieces}
