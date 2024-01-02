@@ -140,43 +140,50 @@ function Step2(props) {
     if (individualFronts.length >= 8) {
       alert("Maksimalan broj frontova u porudzbenici je 8");
     } else {
-      setFrontsData((prev) => [...prev, prev[activeFront]]);
+      // setFrontsData((prev) => [...prev, prev[activeFront]]);
+      dispatch(
+        setIndividualFronts([
+          ...individualFronts,
+          individualFronts[activeFront],
+        ])
+      );
     }
   };
 
-  const deleteFront = (activeFront) => {
+  const deleteFront = (index) => {
+    let fronts = JSON.parse(JSON.stringify(individualFronts));
     if (individualFronts.length === 1) {
       alert("Minimalan broj frontova u porudzbenici je 1");
     } else {
-      setFrontsData((prev) => {
-        const filteredArray = Array.from(prev);
-        filteredArray.splice(activeFront, 1);
-        dispatch(setIndividualFronts(filteredArray));
+      // setFrontsData((prev) => {
+      //   const filteredArray = Array.from(prev);
+      //   filteredArray.splice(activeFront, 1);
+      //   dispatch(setIndividualFronts(filteredArray));
 
-        if (activeFront === 0) {
-          setActiveOrientation(() =>
-            orientationData.indexOf(
-              orientationData.find(
-                (item) => item.name === filteredArray[0]?.orientation
-              )
-            )
-          );
-        } else {
-          setActiveOrientation(() =>
-            orientationData.indexOf(
-              orientationData.find(
-                (item) =>
-                  item.name === filteredArray[activeFront - 1]?.orientation
-              )
-            )
-          );
-          setActiveFrontId(
-            filteredArray.indexOf(filteredArray[activeFront - 1])
-          );
-        }
+      //   if (activeFront === 0) {
+      //     setActiveOrientation(() =>
+      //       orientationData.indexOf(
+      //         orientationData.find(
+      //           (item) => item.name === filteredArray[0]?.orientation
+      //         )
+      //       )
+      //     );
+      //   } else {
+      //     setActiveOrientation(() =>
+      //       orientationData.indexOf(
+      //         orientationData.find(
+      //           (item) =>
+      //             item.name === filteredArray[activeFront - 1]?.orientation
+      //         )
+      //       )
+      //     );
+      //   }
 
-        return filteredArray;
-      });
+      //   return filteredArray;
+      // });
+      fronts.splice(index, 1);
+      setActiveFrontId(fronts.indexOf(fronts[index - 1]));
+      dispatch(setIndividualFronts(fronts));
     }
   };
 
