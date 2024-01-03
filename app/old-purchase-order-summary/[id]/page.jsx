@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
-import PreviousWorkOrder from "./components/previousWorkOrder/page";
-import PreviousPurchaseOrder from "./components/previousPurchaseOrder/page";
+// import PreviousPurchaseOrder from "./components/previousPurchaseOrder/page";
 import Navbar from "@/app/navbar/page";
+import PreviousWorkOrderMain from "./components/previousWorkOrder/page";
 
 function PreviouseWorkOrderMain(props) {
   const [workOrderActive, setWorkOrderActive] = useState(true);
@@ -55,8 +55,8 @@ function PreviouseWorkOrderMain(props) {
             </Link>
           </div>
         </div>
-        {workOrderActive && <PreviousWorkOrder />}
-        {purchaseOrderActive && <PreviousPurchaseOrder />}
+        {workOrderActive && <PreviousWorkOrderMain />}
+        {/* {purchaseOrderActive && <PreviousPurchaseOrder />} */}
       </div>
     </div>
   );
