@@ -33,7 +33,8 @@ function WorkOrderMain({
   const [isLoading, setIsLoading] = useState(false);
   const [postType, setPostType] = useState("");
   const [isMiniLoading, setIsMiniLoading] = useState(false);
-  const [getOrder, setGetOrder] = useState([]);
+  const [getOrder, setGetOrder] = useState();
+  const lastOrder = getOrder?.at(-1);
 
   const pathname = usePathname();
   const data = store.getState();
@@ -154,8 +155,9 @@ function WorkOrderMain({
   const getOrders = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.get(`${Config.baseURL}/api/alu-orders/`);
+      const res = await axios.get(`${Config.baseURL}/api/alu-orders/`); //api/alu-orders
       setGetOrder(res?.data);
+      console.log("DATAAAAA: ", res?.data);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -167,7 +169,7 @@ function WorkOrderMain({
   }, []);
 
   const handleDeleteOrder = async (id) => {
-    await axios.delete(`${Config.baseURL}/api/alu-orders/${id}`);
+    await axios.delete(`${Config.baseURL}/api/alu-orders/${id}`); //api/alu-orders
   };
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -268,13 +270,12 @@ function WorkOrderMain({
                     >
                       Prosledi na izradu
                     </button>
-                    <Link
+                    <button
                       className="w-full max-w-[320px] rounded-md border bg-gradient-to-tr from-red-500 to-red-600 px-3 py-1 text-center text-sm font-semibold uppercase text-white transition-all duration-200 hover:brightness-125"
-                      href={`/previous-orders`}
                       onClick={() => handleDeleteOrder(lastOrder?.id)}
                     >
                       Obriši
-                    </Link>
+                    </button>
                     <button
                       className="w-full max-w-[320px] rounded-md border bg-gradient-to-tr from-green-500 to-green-600 px-3 py-1 text-center text-sm font-semibold uppercase text-white transition-all duration-200 hover:brightness-125"
                       onClick={(e) => handlePostOrder(e)}

@@ -86,8 +86,7 @@ export default function PreviousOrders() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="w-fit rounded-lg text-lg">
-                  {/* {order?.cmsMechanism?.name}, {order?.openingWidth}mm x{" "}
-                  {order?.openingHeight}mm, {order?.openingDoors} vrata */}
+                  {order?.frameTypeName}, {order?.fillName}
                 </span>
                 <span className="text-sm">{handleDate(order?.created)}</span>
               </div>
