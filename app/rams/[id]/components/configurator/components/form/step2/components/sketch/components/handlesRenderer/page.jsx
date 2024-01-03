@@ -14,6 +14,8 @@ function HandlesRenderer(props) {
     .holeDistanceManualValue
     ? Number(individualFronts[activeFrontId].handles.holeDistanceManualValue)
     : 0;
+
+  console.log("manualDistanceInput", manualDistanceInput);
   const wheelBasesArr = [
     32,
     64,
@@ -88,19 +90,46 @@ function HandlesRenderer(props) {
               ) +
             "%"
           }
-         
           )`
         );
 
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
           setTop(
             `calc(100% - ${
-              1000 / individualFronts[activeFrontId]?.dimensions?.height + "%"
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                0.5 +
+              "%"
             } - ${
               (100 / individualFronts[activeFrontId]?.dimensions?.height) *
                 Number(manualDistanceInput) +
               "%"
-            }) `
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                Number(
+                  individualFronts[activeFrontId].handles
+                    .centerDistanceOfHole[1]
+                ) +
+              "%"
+            }
+         
+          )`
+          );
+        }
+
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 15) {
+          setTop(
+            `calc(100% - ${
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                0.5 +
+              "%"
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                individualFronts[activeFrontId].handles
+                  .centerDistanceOfHole[1] +
+              "%"
+            } + 1px)`
           );
         }
       }
@@ -136,6 +165,33 @@ function HandlesRenderer(props) {
             "%"
           } + 1px)`
         );
+
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
+          setTop(
+            `calc(50% - ${
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                1 +
+              "%"
+            } - ${
+              ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                Number(manualDistanceInput)) /
+                2 +
+              "%"
+            } + 1px)`
+          );
+        }
+
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 15) {
+          setTop(
+            `calc(50% - ${
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                1 +
+              "%"
+            } + 1px)`
+          );
+        }
       }
     }
     if (individualFronts[activeFrontId].orientation === "Kip vrata") {
@@ -194,21 +250,26 @@ function HandlesRenderer(props) {
         individualFronts[activeFrontId].handles.positionOption === 1
       ) {
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 15) {
-          // setLeft(
-          //   `calc(100% - ${(1000 / individualFronts[activeFrontId]?.dimensions?.height) * 1.8 * 0.5 + "%"} - ${
-          //     (100 / individualFronts[activeFrontId]?.dimensions?.height) *
-          //       Number(
-          //         individualFronts[activeFrontId].handles
-          //           .centerDistanceOfHole[0]
-          //       ) +
-          //     "%"
-          //   } - ${
-          //     (100 / individualFronts[activeFrontId]?.dimensions?.height) *
-          //       individualFronts[activeFrontId].handles
-          //         .centerDistanceOfHole[0] +
-          //     "%"
-          //   } + 1px)`
-          // );
+          setLeft(
+            `calc(100% - ${
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                0.5 +
+              "%"
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                Number(
+                  individualFronts[activeFrontId].handles
+                    .centerDistanceOfHole[0]
+                ) +
+              "%"
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                individualFronts[activeFrontId].handles
+                  .centerDistanceOfHole[0] +
+              "%"
+            } + 1px)`
+          );
           setLeft(
             `calc(100% - ${
               1000 / individualFronts[activeFrontId]?.dimensions?.height + "%"
@@ -245,12 +306,20 @@ function HandlesRenderer(props) {
         if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
           setLeft(
             `calc(100% - ${
-              1000 / individualFronts[activeFrontId]?.dimensions?.height + "%"
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                0.5 +
+              "%"
             } - ${
               (100 / individualFronts[activeFrontId]?.dimensions?.height) *
                 Number(manualDistanceInput) +
               "%"
-            } - 3px)`
+            } - ${
+              (100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                individualFronts[activeFrontId].handles
+                  .centerDistanceOfHole[0] +
+              "%"
+            } + 1px)`
           );
         }
       } else {
@@ -284,6 +353,7 @@ function HandlesRenderer(props) {
           })`
         );
       }
+
       if (individualFronts[activeFrontId].handles.positionOption === 1) {
         setLeft(
           `calc(50% - ${
@@ -320,23 +390,8 @@ function HandlesRenderer(props) {
           );
         }
       }
+
       if (individualFronts[activeFrontId].handles.positionOption === 2) {
-        if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
-          setJustifyContentPosition("flex-end");
-          setLeft(
-            `calc(0% - ${
-              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
-                1.8 *
-                1 +
-              "%"
-            } - ${
-              ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
-                Number(manualDistanceInput)) /
-                2 +
-              "%"
-            } )`
-          );
-        }
         setLeft(
           `calc(100% - ${
             (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
@@ -355,6 +410,23 @@ function HandlesRenderer(props) {
             "%"
           } )`
         );
+
+        if (individualFronts[activeFrontId].handles.wheelbaseOption === 16) {
+          setJustifyContentPosition("flex-end");
+          setLeft(
+            `calc(0% - ${
+              (1000 / individualFronts[activeFrontId]?.dimensions?.height) *
+                1.8 *
+                1 +
+              "%"
+            } - ${
+              ((100 / individualFronts[activeFrontId]?.dimensions?.height) *
+                Number(manualDistanceInput)) /
+                2 +
+              "%"
+            } )`
+          );
+        }
       }
     }
   };
@@ -386,6 +458,7 @@ function HandlesRenderer(props) {
     individualFronts[activeFrontId].handles.positionOption,
     individualFronts[activeFrontId].handles.wheelbaseOption,
     individualFronts[activeFrontId].handles.centerDistanceOfHole,
+    manualDistanceInput,
   ]);
 
   return (

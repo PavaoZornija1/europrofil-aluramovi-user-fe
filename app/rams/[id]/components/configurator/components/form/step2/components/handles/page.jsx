@@ -325,8 +325,8 @@ function Handles(props) {
             break;
           }
           case 2: {
-            setHandlesHorizontalPositionOptionText("gornje");
-            setHandlesVerticalPositionOptionText("leve");
+            setHandlesHorizontalPositionOptionText("leve");
+            setHandlesVerticalPositionOptionText("gornje");
             break;
           }
           case 3: {
@@ -334,8 +334,8 @@ function Handles(props) {
             break;
           }
           case 4: {
-            setHandlesHorizontalPositionOptionText("donje");
-            setHandlesVerticalPositionOptionText("leve");
+            setHandlesHorizontalPositionOptionText("leve");
+            setHandlesVerticalPositionOptionText("donje");
             break;
           }
         }
@@ -546,7 +546,7 @@ function Handles(props) {
             {isManualInput ? (
               <div className="flex justify-between mb-2 mt-2 flex-col 2xl:flex-row lg:flex-col md:flex-row">
                 <label htmlFor={`firstHole`} className="text-lg mb-2 2xl:mb-0">
-                  Unesite osnovno rastojanje
+                  Unesite osno rastojanje
                 </label>
                 <input
                   type="text"
