@@ -55,8 +55,10 @@ function PreviouseWorkOrderMain(props) {
             </Link>
           </div>
         </div>
-        {workOrderActive && <PreviousWorkOrderMain />}
-        {/* {purchaseOrderActive && <PreviousPurchaseOrder />} */}
+        <div className="w-full">
+          {workOrderActive && <PreviousWorkOrderMain />}
+          {/* {purchaseOrderActive && <PreviousPurchaseOrder />} */}
+        </div>
       </div>
     </div>
   );
