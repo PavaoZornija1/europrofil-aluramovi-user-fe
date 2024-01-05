@@ -10,6 +10,8 @@ import PreviousWorkOrderMain from "./components/previousWorkOrder/page";
 function PreviousWorkOrderSummary(props) {
   const [workOrderActive, setWorkOrderActive] = useState(true);
   const [purchaseOrderActive, setPurchaseOrderActive] = useState(false);
+  const [showSavedButton, setShowSavedButton] = useState(false);
+  const [showMoreActionButtons, setShowMoreActionButtons] = useState(true);
   const pathname = usePathname();
   return (
     <div>
@@ -56,7 +58,13 @@ function PreviousWorkOrderSummary(props) {
           </div>
         </div>
         <div className="w-full">
-          {workOrderActive && <PreviousWorkOrderMain />}
+          {workOrderActive && (
+            <PreviousWorkOrderMain
+              showMoreActionButtons={showMoreActionButtons}
+              setShowMoreActionButtons={setShowMoreActionButtons}
+              setShowSavedButton={setShowSavedButton}
+            />
+          )}
           {/* {purchaseOrderActive && <PreviousPurchaseOrder />} */}
         </div>
       </div>
