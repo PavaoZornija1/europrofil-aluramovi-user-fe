@@ -263,14 +263,7 @@ function PreviousWorkOrderMain({
             </div>
           )}
         </div>
-        {workOrderActive && (
-          // <WorkOrder
-          //   activeFrame={frameType}
-          //   individualFronts={individualFronts}
-          //   isLoading={isLoading}
-          // />
-          <PreviousCustomerData />
-        )}
+        {workOrderActive && <PreviousCustomerData />}
         {/* {purchaseOrderActive && <PurchaseOrder />} */}
       </div>
       <div style={{ display: "none" }}>
