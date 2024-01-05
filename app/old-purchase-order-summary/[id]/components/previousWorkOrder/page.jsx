@@ -11,13 +11,14 @@ import {
 import { Config } from "@/config";
 import axios from "axios";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useReactToPrint } from "react-to-print";
 import PreviousComponentToPrint from "./pdf/PreviousComponentToPrint";
 import SnackMessage from "@/app/UI/snackMessage/SnackMessage";
 import PreviousCustomerData from "./previousCustomerData/page";
+import { useRouter } from "next/navigation";
 // import ComponentToPrint from "./components/pdf/ComponentToPrint";
 // import PurchaseOrder from "./components/purchaseOrder/page";
 // import WorkOrder from "./components/workOrder/page";
@@ -30,6 +31,8 @@ function PreviousWorkOrderMain({
   setShowMoreActionButtons,
 }) {
   const { token } = useAuth();
+  const params = useParams();
+  const router = useRouter();
   const [workOrderActive, setWorkOrderActive] = useState(true);
   const [purchaseOrderActive, setPurchaseOrderActive] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -173,6 +176,7 @@ function PreviousWorkOrderMain({
 
   const handleDeleteOrder = async (id) => {
     await axios.delete(`${Config.baseURL}/api/alu-orders/${id}`); //api/alu-orders
+    router.replace("/previous-orders");
   };
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -235,7 +239,7 @@ function PreviousWorkOrderMain({
                     </button>
                     <button
                       className="w-full max-w-[320px] rounded-md border bg-gradient-to-tr from-red-500 to-red-600 px-3 py-1 text-center text-sm font-semibold uppercase text-white transition-all duration-200 hover:brightness-125"
-                      onClick={() => handleDeleteOrder(lastOrder?.id)}
+                      onClick={() => handleDeleteOrder(params?.id)}
                     >
                       Obriši
                     </button>
