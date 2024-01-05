@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/app/navbar/page";
 import PreviousWorkOrderMain from "./components/previousWorkOrder/page";
 
-function PreviouseWorkOrderMain(props) {
+function PreviousWorkOrderSummary(props) {
   const [workOrderActive, setWorkOrderActive] = useState(true);
   const [purchaseOrderActive, setPurchaseOrderActive] = useState(false);
   const pathname = usePathname();
@@ -64,4 +64,4 @@ function PreviouseWorkOrderMain(props) {
   );
 }
 
-export default PreviouseWorkOrderMain;
+export default PreviousWorkOrderSummary;

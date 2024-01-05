@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { useReactToPrint } from "react-to-print";
 import PreviousComponentToPrint from "./pdf/PreviousComponentToPrint";
 import SnackMessage from "@/app/UI/snackMessage/SnackMessage";
+import PreviousCustomerData from "./previousCustomerData/page";
 // import ComponentToPrint from "./components/pdf/ComponentToPrint";
 // import PurchaseOrder from "./components/purchaseOrder/page";
 // import WorkOrder from "./components/workOrder/page";
@@ -262,14 +263,15 @@ function PreviousWorkOrderMain({
             </div>
           )}
         </div>
-        {/* {workOrderActive && (
-          <WorkOrder
-            activeFrame={frameType}
-            individualFronts={individualFronts}
-            isLoading={isLoading}
-          />
+        {workOrderActive && (
+          // <WorkOrder
+          //   activeFrame={frameType}
+          //   individualFronts={individualFronts}
+          //   isLoading={isLoading}
+          // />
+          <PreviousCustomerData />
         )}
-        {purchaseOrderActive && <PurchaseOrder />} */}
+        {/* {purchaseOrderActive && <PurchaseOrder />} */}
       </div>
       <div style={{ display: "none" }}>
         <PreviousComponentToPrint ref={componentRef} data={data} />
