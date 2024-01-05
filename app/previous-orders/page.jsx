@@ -12,7 +12,7 @@ export default function PreviousOrders() {
   const response = async () => {
     const res = await axios.get(`${Config.baseURL}/api/alu-orders/`);
     if (res.data) {
-      setOrders(res.data);
+      setOrders(res.data.reverse());
       console.log("DATA: ", res);
     }
   };
@@ -74,7 +74,7 @@ export default function PreviousOrders() {
             >
               <div className="mb-2 flex flex-col-reverse items-start gap-2 sm:flex-row sm:justify-between">
                 <h2 className="min-w-[30%] rounded py-0.5 text-xl font-semibold uppercase tracking-widest text-sky-600 group-hover:text-white">
-                  Porudžbina #{index + 1}
+                  Porudžbina #{orders.length - 1 - index + 1}
                 </h2>
                 <p
                   className={`rounded-lg ${handleChangeBGColor(
