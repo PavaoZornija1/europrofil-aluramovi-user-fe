@@ -46,8 +46,8 @@ function WorkOrderMain({
   const fill = useSelector((state) => state.data.fill);
   const user = useSelector((state) => state.data.user);
   const vat = useSelector((state) => state.data.vat);
-  const additionalTreatment = useSelector(
-    (state) => state.data.additionalFillTreatment.name
+  const additionalFillTreatment = useSelector(
+    (state) => state.data.additionalFillTreatment
   );
 
   const cornerCoverCount = calculateMetalCornersQuantity(individualFronts);
@@ -92,6 +92,11 @@ function WorkOrderMain({
         customerDeliveryAddress: user?.deliveryAddress,
         customerAddress: user?.address,
         customerPhone: user?.phone,
+        user: JSON.stringify(user),
+        treatment: JSON.stringify(treatment),
+        frameType: JSON.stringify(frameType),
+        additionallFillTreatment: JSON.stringify(additionalFillTreatment),
+        fill: JSON.stringify(fill),
         // codeMonth: createAluOrderDto.codeMonth,
         frameTreatmentPrice: treatment?.pricePerMeter,
         frameTreatmentName: treatment?.name,
